@@ -51,7 +51,7 @@ public class ResearchController {
         ObservableList<String> items = FXCollections.observableArrayList ();
         for(int i = 0 ; i < collection.getSize(); i++)
         {
-            if(collection.getName(i).startsWith(ref))
+            if(collection.getName(i).contains(ref))
             {
                 items.add(collection.getName(i)) ;
             }
