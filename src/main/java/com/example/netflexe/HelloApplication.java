@@ -28,9 +28,10 @@ public class HelloApplication extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
 
-    private MovieCollection collection[] = {new MovieCollection(),new MovieCollection()};
+    private MovieCollection collection[] = {new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection()};
 
     public int selectedMenu ;
+    private String[] genre = {"Action","Science-Fiction","Aventure","Animation","Comédie"};
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -40,39 +41,25 @@ public class HelloApplication extends Application {
         {
             Connection myConn = DriverManager.getConnection("jdbc:mysql://fournierfamily.ovh:3306/Netflece", "jps", "poojava");
             Statement myStat = myConn.createStatement();
-            ResultSet myRes = myStat.executeQuery("SELECT poster, nom_film FROM film");
-            while(myRes.next())
+
+            for(int i = 0; i<5;i++)
             {
-                
-                collection[0].addMovie(new Movie(myRes.getString("nom_film"),"MOI",myRes.getString("poster")));
+                ResultSet myRes = myStat.executeQuery("SELECT nom_film, poster FROM film JOIN film_genre ON (film.id_film = film_genre.id_film) JOIN genre ON (genre.id_genre = film_genre.id_genre) WHERE genre.nom = '" + genre[i] + "';");
+                while(myRes.next())
+                {
+                    String poster = myRes.getString("poster");
+                    System.out.println(poster);
+                    collection[i].addMovie(new Movie(myRes.getString("nom_film"),"MOI",poster) );
+                }
             }
+
         }
         catch(Exception exception)
         {
             exception.printStackTrace();
         }
 
-        //collection[0].addMovie(new Movie("Batman","MOI","https://d1fmx1rbmqrxrr.cloudfront.net/cnet/i/edit/2022/01/the%20batman%20poster%20new%201.jpg"));
-        /*collection[0].addMovie(new Movie("Inception","MOI","https://images.affiches-et-posters.com//albums/3/4535/poster-film-inception-2350.jpg"));
-        collection[0].addMovie(new Movie("Premier Contact","MOI","https://fr.web.img2.acsta.net/pictures/16/09/02/17/00/387734.jpg"));
-        collection[0].addMovie(new Movie("Blade Runner 2049","MOI","https://antreducinema.fr/wp-content/uploads/2020/04/BLADE-RUNNER-2049-scaled.jpg"));
-        collection[0].addMovie(new Movie("Batman","MOI","https://d1fmx1rbmqrxrr.cloudfront.net/cnet/i/edit/2022/01/the%20batman%20poster%20new%201.jpg"));
-        collection[0].addMovie(new Movie("Inception","MOI","https://images.affiches-et-posters.com//albums/3/4535/poster-film-inception-2350.jpg"));
-        collection[0].addMovie(new Movie("Premier Contact","MOI","https://fr.web.img2.acsta.net/pictures/16/09/02/17/00/387734.jpg"));
-        collection[0].addMovie(new Movie("Blade Runner 2049","MOI","https://antreducinema.fr/wp-content/uploads/2020/04/BLADE-RUNNER-2049-scaled.jpg"));
-        collection[0].addMovie(new Movie("Batman","MOI","https://d1fmx1rbmqrxrr.cloudfront.net/cnet/i/edit/2022/01/the%20batman%20poster%20new%201.jpg"));
-        collection[0].addMovie(new Movie("Inception","MOI","https://images.affiches-et-posters.com//albums/3/4535/poster-film-inception-2350.jpg"));
-        collection[0].addMovie(new Movie("Premier Contact","MOI","https://fr.web.img2.acsta.net/pictures/16/09/02/17/00/387734.jpg"));
-        collection[0].addMovie(new Movie("Blade Runner 2049","MOI","https://antreducinema.fr/wp-content/uploads/2020/04/BLADE-RUNNER-2049-scaled.jpg"));
-        collection[0].addMovie(new Movie("Batman","MOI","https://d1fmx1rbmqrxrr.cloudfront.net/cnet/i/edit/2022/01/the%20batman%20poster%20new%201.jpg"));
-        collection[0].addMovie(new Movie("Inception","MOI","https://images.affiches-et-posters.com//albums/3/4535/poster-film-inception-2350.jpg"));
-        collection[0].addMovie(new Movie("Premier Contact","MOI","https://fr.web.img2.acsta.net/pictures/16/09/02/17/00/387734.jpg"));
-        collection[0].addMovie(new Movie("Blade Runner 2049","MOI","https://antreducinema.fr/wp-content/uploads/2020/04/BLADE-RUNNER-2049-scaled.jpg"));*/
 
-        collection[1].addMovie(new Movie("Batman","MOI","https://d1fmx1rbmqrxrr.cloudfront.net/cnet/i/edit/2022/01/the%20batman%20poster%20new%201.jpg"));
-        collection[1].addMovie(new Movie("Inception","MOI","https://images.affiches-et-posters.com//albums/3/4535/poster-film-inception-2350.jpg"));
-        collection[1].addMovie(new Movie("Premier Contact","MOI","https://fr.web.img2.acsta.net/pictures/16/09/02/17/00/387734.jpg"));
-        collection[1].addMovie(new Movie("Blade Runner 2049","MOI","https://antreducinema.fr/wp-content/uploads/2020/04/BLADE-RUNNER-2049-scaled.jpg"));
 
 
         initRootLayout();
@@ -199,9 +186,9 @@ public class HelloApplication extends Application {
         }
     }
 
-    public MovieCollection getMovieCollection(int i)
+    public MovieCollection[] getMovieCollection(int i)
     {
-        return collection[i];
+        return collection;
     }
 
     public static void main(String[] args) {

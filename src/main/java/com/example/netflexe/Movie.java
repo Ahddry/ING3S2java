@@ -20,7 +20,7 @@ public class Movie {
     private final StringProperty genre;
 
     private final ObjectProperty<LocalDate> releaseDate;
-    private final ObjectProperty<Image> image;
+    private  Image image;
 
     public Movie() {
         this(null, null, null);
@@ -31,7 +31,7 @@ public class Movie {
         this.director = new SimpleStringProperty(director);
         this.produceur = new SimpleStringProperty("No produceur specified");
         this.genre = new SimpleStringProperty("No genre specified");
-        this.image = new SimpleObjectProperty<Image>(new Image(adresseImage));
+        this.image = new Image(adresseImage);
         this.releaseDate = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
     }
 
@@ -77,10 +77,10 @@ public class Movie {
     }
 
     public Image getImage() {
-        return image.get();
+        return image;
     }
     public void setImage(Image image) {
-        this.image.set(image);
+        this.image = image;
     }
     //public StringProperty imageProperty() {
        // return image;

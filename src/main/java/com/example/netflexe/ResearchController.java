@@ -16,6 +16,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.geometry.Insets;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
 
 public class ResearchController {
 
@@ -30,7 +34,7 @@ public class ResearchController {
 
     private HelloApplication mainApp;
 
-    private MovieCollection collection = new MovieCollection();
+    private MovieCollection[] collection = { new MovieCollection()};
     private String ref = "";
 
     @FXML
@@ -43,17 +47,27 @@ public class ResearchController {
     {
         collection = mainApp.getMovieCollection(0);
         initialiseListView(listview);
+
+        barreRecherche.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent k) {
+                if (k.getCode().equals(KeyCode.ENTER)) {
+                    ref =barreRecherche.getText();
+                    initialiseListView(listview);
+                }
+            }
+        });
     }
 
     private void initialiseListView(ListView<String> listView1)
     {
 
         ObservableList<String> items = FXCollections.observableArrayList ();
-        for(int i = 0 ; i < collection.getSize(); i++)
+        for(int i = 0 ; i < collection[0].getSize(); i++)
         {
-            if(collection.getName(i).contains(ref))
+            if(collection[0].getName(i).contains(ref))
             {
-                items.add(collection.getName(i)) ;
+                items.add(collection[0].getName(i)) ;
             }
 
         }
@@ -72,9 +86,9 @@ public class ResearchController {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    imageView.setFitHeight(346);
-                    imageView.setFitWidth(236);
-                    imageView.setImage(collection.getImage(name));
+                    imageView.setFitHeight(432);
+                    imageView.setFitWidth(295);
+                    imageView.setImage(collection[0].getImage(name));
                     setText(null);
                     VBox myBox = new VBox(imageView,new Label(name));
                     myBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -88,7 +102,7 @@ public class ResearchController {
             if (event.getClickCount() == 2  ) {
                 String selectedName = listView1.getSelectionModel().getSelectedItem();
 
-                Movie movie = collection.getMovie(selectedName);
+                Movie movie = collection[0].getMovie(selectedName);
 
                 mainApp.showInfo(movie);
             }
@@ -103,6 +117,9 @@ public class ResearchController {
         ref =barreRecherche.getText();
         this.initialiseListView(listview);
     }
+
+
+
 
     public void setMainApp(HelloApplication mainApp) {
         this.mainApp = mainApp;

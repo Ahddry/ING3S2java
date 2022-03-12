@@ -35,10 +35,21 @@ public class MainMenuController {
     @FXML
     private Button ResearchButton;
 
+    @FXML
+    private Label Label1;
+    @FXML
+    private Label Label2;
+    @FXML
+    private Label Label3;
+    @FXML
+    private Label Label4;
+    @FXML
+    private Label Label5;
+
     private HelloApplication mainApp;
 
 
-    private MovieCollection collection = new MovieCollection();
+    private MovieCollection[] collection = {new MovieCollection()};
 
 
     @FXML
@@ -46,26 +57,33 @@ public class MainMenuController {
 
         mainTitle.setText("Acceuil");
         ResearchButton.setText("Rechercher");
+        Label1.setText("Action");
+        Label2.setText("Science-Fiction");
+        Label3.setText("Aventure");
+        Label4.setText("Animation");
+        Label5.setText("Comédie");
     }
 
     public void initializeBis()
     {
-        collection = mainApp.getMovieCollection(0);
-        initialiseListView(listView1);
-        initialiseListView(listView2);
-        initialiseListView(listView3);
-        initialiseListView(listView4);
-        initialiseListView(listView5);
+
+        initialiseListView(listView1,0);
+        initialiseListView(listView2,1);
+        initialiseListView(listView3,2);
+        initialiseListView(listView4,3);
+        initialiseListView(listView5,4);
 
 
     }
 
-    private void initialiseListView(ListView<String> listView1)
+    private void initialiseListView(ListView<String> listView1, int j)
     {
+        collection = mainApp.getMovieCollection(j);
+
         ObservableList<String> items = FXCollections.observableArrayList ();
-        for(int i = 0 ; i < collection.getSize(); i++)
+        for(int i = 0 ; i < collection[j].getSize(); i++)
         {
-            items.add(collection.getName(i)) ;
+            items.add(collection[j].getName(i)) ;
         }
         listView1.setItems(items);
         listView1.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -83,9 +101,9 @@ public class MainMenuController {
                     setGraphic(null);
                 } else {
 
-                    imageView.setImage(collection.getImage(name));
-                    imageView.setFitHeight(173);
-                    imageView.setFitWidth(118);
+                    imageView.setImage(collection[j].getImage(name));
+                    imageView.setFitHeight(160);
+                    imageView.setFitWidth(110);
                     setText(null);
                     VBox myBox = new VBox(imageView,new Label(name));
                     myBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -99,7 +117,7 @@ public class MainMenuController {
             if (event.getClickCount() == 2  ) {
                 String selectedName = listView1.getSelectionModel().getSelectedItem();
 
-                Movie movie = collection.getMovie(selectedName);
+                Movie movie = collection[j].getMovie(selectedName);
 
                 mainApp.showInfo(movie);
             }

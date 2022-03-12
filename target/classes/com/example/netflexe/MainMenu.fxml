@@ -41,6 +41,11 @@
             <ListView fx:id="listView3" prefHeight="200.0" prefWidth="200.0" styleClass="table-view" stylesheets="@dark-theme.css" GridPane.columnIndex="1" GridPane.rowIndex="11" />
             <ListView fx:id="listView4" prefHeight="200.0" prefWidth="200.0" styleClass="table-view" stylesheets="@dark-theme.css" GridPane.columnIndex="1" GridPane.rowIndex="14" />
             <ListView fx:id="listView5" prefHeight="200.0" prefWidth="200.0" styleClass="table-view" stylesheets="@dark-theme.css" GridPane.columnIndex="1" GridPane.rowIndex="17" />
+            <Label fx:id="Label1" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="Label2" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label fx:id="Label3" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Label fx:id="Label4" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+            <Label fx:id="Label5" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="16" />
          </children>
       </GridPane>
       <Label fx:id="mainTitle" styleClass="label-header" stylesheets="@dark-theme.css" text="Label" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="25.0" />

@@ -36,7 +36,7 @@ public class BiblioController {
     private HelloApplication mainApp;
 
 
-    private MovieCollection collection = new MovieCollection();
+    private MovieCollection[] collection = {new MovieCollection()};
 
     @FXML
     private void initialize() {
@@ -59,9 +59,9 @@ public class BiblioController {
     private void initialiseListView(ListView<String> listView1)
     {
         ObservableList<String> items = FXCollections.observableArrayList ();
-        for(int i = 0 ; i < collection.getSize(); i++)
+        for(int i = 0 ; i < collection[0].getSize(); i++)
         {
-            items.add(collection.getName(i)) ;
+            items.add(collection[0].getName(i)) ;
         }
         listView1.setItems(items);
         listView1.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -79,7 +79,7 @@ public class BiblioController {
                     setGraphic(null);
                 } else {
 
-                    imageView.setImage(collection.getImage(name));
+                    imageView.setImage(collection[0].getImage(name));
                     imageView.setFitHeight(173);
                     imageView.setFitWidth(118);
                     setText(null);
@@ -95,7 +95,7 @@ public class BiblioController {
             if (event.getClickCount() == 2  ) {
                 String selectedName = listView1.getSelectionModel().getSelectedItem();
 
-                Movie movie = collection.getMovie(selectedName);
+                Movie movie = collection[0].getMovie(selectedName);
 
                 mainApp.showInfo(movie);
             }
