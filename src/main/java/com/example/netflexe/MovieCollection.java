@@ -52,6 +52,17 @@ public class MovieCollection {
         return collection.get(resultat).getImage();
     }
 
+    public void setImage()
+    {
+        for(int i = 0 ; i < collection.size(); i++)
+        {
+            collection.get(i).setImage(new Image(collection.get(i).getImageString()));
+
+
+
+        }
+    }
+
 
 
 }

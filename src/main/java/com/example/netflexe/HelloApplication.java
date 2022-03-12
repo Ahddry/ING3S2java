@@ -59,7 +59,9 @@ public class HelloApplication extends Application {
             exception.printStackTrace();
         }
 
-
+        RunnableDemo thread = new RunnableDemo("Mon thread");
+        thread.setMainApp(this);
+        thread.start();
 
 
         initRootLayout();
@@ -77,12 +79,10 @@ public class HelloApplication extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
+
+
             MySceneController controller = loader.getController();
             controller.setMainApp(this);
-
-
-
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -127,7 +127,6 @@ public class HelloApplication extends Application {
 
             ScrollPane scroll = new ScrollPane();
             scroll.setContent(biblio);
-
 
 
 
