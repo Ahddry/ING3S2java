@@ -1,0 +1,122 @@
+package com.example.netflexe;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.geometry.Insets;
+
+
+public class MainMenuController {
+
+    @FXML
+    private ListView listView1;
+    @FXML
+    private ListView listView2;
+    @FXML
+    private ListView listView3;
+    @FXML
+    private ListView listView4;
+    @FXML
+    private ListView listView5;
+    @FXML
+    private Label mainTitle;
+    @FXML
+    private Button ResearchButton;
+
+    private HelloApplication mainApp;
+
+
+    private MovieCollection collection = new MovieCollection();
+
+
+    @FXML
+    private void initialize() {
+
+        mainTitle.setText("Acceuil");
+        ResearchButton.setText("Rechercher");
+    }
+
+    public void initializeBis()
+    {
+        collection = mainApp.getMovieCollection(0);
+        initialiseListView(listView1);
+        initialiseListView(listView2);
+        initialiseListView(listView3);
+        initialiseListView(listView4);
+        initialiseListView(listView5);
+
+
+    }
+
+    private void initialiseListView(ListView<String> listView1)
+    {
+        ObservableList<String> items = FXCollections.observableArrayList ();
+        for(int i = 0 ; i < collection.getSize(); i++)
+        {
+            items.add(collection.getName(i)) ;
+        }
+        listView1.setItems(items);
+        listView1.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        listView1.setCellFactory(param -> new ListCell<String>() {
+            private ImageView imageView = new ImageView();
+
+            @Override
+            public void updateItem(String name, boolean empty) {
+
+                super.updateItem(name, empty);
+
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+
+                    imageView.setImage(collection.getImage(name));
+                    imageView.setFitHeight(173);
+                    imageView.setFitWidth(118);
+                    setText(null);
+                    VBox myBox = new VBox(imageView,new Label(name));
+                    myBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+                    myBox.setAlignment(Pos.BASELINE_CENTER);
+                    setGraphic(myBox);
+                }
+            }
+        });
+
+        listView1.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2  ) {
+                String selectedName = listView1.getSelectionModel().getSelectedItem();
+
+                Movie movie = collection.getMovie(selectedName);
+
+                mainApp.showInfo(movie);
+            }
+        });
+
+        listView1.setOrientation(Orientation.HORIZONTAL);
+    }
+
+    public void setMainApp(HelloApplication mainApp) {
+        this.mainApp = mainApp;
+    }
+
+    @FXML
+    private void lancerRecherche() {
+        mainApp.showResearch();
+    }
+
+
+}
+
