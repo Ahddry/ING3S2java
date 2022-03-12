@@ -78,6 +78,7 @@ public class MainMenuController {
 
     private void initialiseListView(ListView<String> listView1, int j)
     {
+
         collection = mainApp.getMovieCollection(j);
 
         ObservableList<String> items = FXCollections.observableArrayList ();
@@ -100,12 +101,19 @@ public class MainMenuController {
                     setText(null);
                     setGraphic(null);
                 } else {
-
+                    String tempName = "";
                     imageView.setImage(collection[j].getImage(name));
                     imageView.setFitHeight(160);
                     imageView.setFitWidth(110);
                     setText(null);
-                    VBox myBox = new VBox(imageView,new Label(name));
+                    if(name.length() > 15)
+                    {
+                        tempName = (name.substring(0,12) + "...");
+                    }
+                    else{
+                        tempName = name;
+                    }
+                    VBox myBox = new VBox(imageView,new Label(tempName));
                     myBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
                     myBox.setAlignment(Pos.BASELINE_CENTER);
                     setGraphic(myBox);
