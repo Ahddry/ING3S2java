@@ -73,7 +73,7 @@ public class SceneController
     public void showMainMenu() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(HelloApplication.class.getResource("MainMenu.fxml"));
+            loader.setLocation(getClass().getResource("MainMenu.fxml"));
             AnchorPane mainMenu = (AnchorPane) loader.load();
             MainMenuController icontroller = loader.getController();
             icontroller.setMainApp(this);
@@ -90,7 +90,7 @@ public class SceneController
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(HelloApplication.class.getResource("Biblio.fxml"));
+            loader.setLocation(getClass().getResource("Biblio.fxml"));
             AnchorPane biblio = (AnchorPane) loader.load();
             BiblioController bcontroller = loader.getController();
             bcontroller.setMainApp(this);
@@ -108,7 +108,7 @@ public class SceneController
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(HelloApplication.class.getResource("FilmInfo.fxml"));
+            loader.setLocation(getClass().getResource("FilmInfo.fxml"));
             AnchorPane info = (AnchorPane) loader.load();
             ScrollPane scroll = new ScrollPane();
             scroll.setContent(info);
@@ -129,7 +129,7 @@ public class SceneController
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(HelloApplication.class.getResource("Research.fxml"));
+            loader.setLocation(getClass().getResource("Research.fxml"));
             AnchorPane research = (AnchorPane) loader.load();
 
             ResearchController controller = loader.getController();
