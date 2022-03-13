@@ -196,6 +196,13 @@ public class SceneController
             scroll.setContent(accueilAdmin);
 
             rootLayout.setCenter(scroll);
+            Cinema cinema = new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg");
+            cinema.ajoutFilm(collections[0].getMovie(0));
+            cinema.ajoutFilm(collections[0].getMovie(5));
+            cinema.ajoutFilm(collections[0].getMovie(12));
+            cinema.ajoutFilm(collections[0].getMovie(8));
+            cinema.ajoutFilm(collections[0].getMovie(22));
+            controller.init(cinema);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -209,5 +216,10 @@ public class SceneController
     public MovieCollection[] getMovieCollection(int truc)
     {
         return collections;
+    }
+
+    public Scene getScene()
+    {
+        return scene;
     }
 }

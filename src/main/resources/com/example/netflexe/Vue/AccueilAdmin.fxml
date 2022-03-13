@@ -2,13 +2,32 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.netflexe.Vue.AccueilAdminController">
-   <children>
-      <VBox >
-         <children>
-            <Button mnemonicParsing="false" text="Oui bonjour admin" />
-         </children>
-      </VBox>
-   </children>
+<AnchorPane style="-fx-background-color: #1d1d1d;" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.netflexe.Vue.AccueilAdminController">
+    <GridPane minHeight="900" minWidth="1152" prefWidth="-Infinity">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" percentWidth="80" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <Label fx:id="nomCinema" styleClass="label-header" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label alignment="BOTTOM_LEFT" styleClass="label-bright" text="Films à l'affiche" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <ListView fx:id="listView1" prefHeight="200.0" prefWidth="200.0" styleClass="table-view" stylesheets="@dark-theme.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Button alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #9a9a9a; -fx-border-radius: 100; -fx-background-radius: 100;" text="+" GridPane.columnIndex="2"
+                GridPane.rowIndex="2" prefHeight="60" fx:id="ajoutFilmBoutton">
+            <font>
+                <Font size="35.0" />
+            </font>
+        </Button>
+        <Label styleClass="label-bright" text="Mon cinéma" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+    </GridPane>
 </AnchorPane>

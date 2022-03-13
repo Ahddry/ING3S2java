@@ -80,4 +80,18 @@ public class MovieCollection {
 
         return resultat;
     }
+
+    public boolean deleteMovie(String name)
+    {
+        try
+        {
+            collection.remove(getMovie(name));
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+
+    }
 }

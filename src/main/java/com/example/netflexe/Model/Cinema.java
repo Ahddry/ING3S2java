@@ -53,5 +53,8 @@ public class Cinema {
         return this.nom;
     }
 
-
+    public MovieCollection getFilmP()
+    {
+        return filmP;
+    }
 }
