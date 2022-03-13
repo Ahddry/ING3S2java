@@ -28,7 +28,7 @@ public class ReservationController {
     @FXML
     private ListView listView;
 
-    private HelloApplication mainApp;
+    private SceneController mainApp;
     private CinemaCollection collection = new CinemaCollection();
     private Movie movie = new Movie();
 
@@ -95,7 +95,7 @@ public class ReservationController {
 
 
 
-    public void setMainApp(HelloApplication mainApp) {
+    public void setMainApp(SceneController mainApp) {
         this.mainApp = mainApp;
     }
 }

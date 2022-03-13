@@ -2,6 +2,7 @@ package com.example.netflexe;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -27,20 +28,21 @@ public class MySceneController {
     private Button Button3;
     @FXML
     private Button Button4;
+    @FXML
+    private ToggleButton ToggleButton1;
 
-    private HelloApplication mainApp;
-
-
+    private SceneController mainApp;
 
     @FXML
     private void initialize() {
-        Button1.setText("Acceuil");
+        Button1.setText("Accueil");
         Button2.setText("Réservation");
         Button3.setText("Biblio");
         Button4.setText("Profil");
+        ToggleButton1.setText("User");
     }
 
-    public void setMainApp(HelloApplication mainApp) {
+    public void setMainApp(SceneController mainApp) {
         this.mainApp = mainApp;
     }
 
@@ -59,6 +61,12 @@ public class MySceneController {
     @FXML
     private void setMenu4() {
 
+    }
+
+    @FXML
+    private void switchAdmin()
+    {
+        mainApp.showAdmin();
     }
 
 }

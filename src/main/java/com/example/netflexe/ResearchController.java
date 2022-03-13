@@ -32,7 +32,7 @@ public class ResearchController {
     @FXML
     private ListView listview;
 
-    private HelloApplication mainApp;
+    private SceneController mainApp;
 
     private MovieCollection[] collection = { new MovieCollection()};
     private String ref = "";
@@ -121,7 +121,7 @@ public class ResearchController {
 
 
 
-    public void setMainApp(HelloApplication mainApp) {
+    public void setMainApp(SceneController mainApp) {
         this.mainApp = mainApp;
     }
 

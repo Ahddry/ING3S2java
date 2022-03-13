@@ -46,7 +46,7 @@ public class MainMenuController {
     @FXML
     private Label Label5;
 
-    private HelloApplication mainApp;
+    private SceneController mainApp;
 
 
     private MovieCollection[] collection = {new MovieCollection()};
@@ -133,7 +133,7 @@ public class MainMenuController {
         listView1.setOrientation(Orientation.HORIZONTAL);
     }
 
-    public void setMainApp(HelloApplication mainApp) {
+    public void setMainApp(SceneController mainApp) {
         this.mainApp = mainApp;
     }
 

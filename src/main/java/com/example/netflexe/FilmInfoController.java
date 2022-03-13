@@ -35,7 +35,7 @@ public class FilmInfoController {
     private Button ReserverButton;
 
 
-    private HelloApplication mainApp;
+    private SceneController mainApp;
     private Movie movieS;
     private Profil monProfil;
 
@@ -43,7 +43,7 @@ public class FilmInfoController {
     private void initialize() {
     }
 
-    public void setMainApp(HelloApplication mainApp) {
+    public void setMainApp(SceneController mainApp) {
         this.mainApp = mainApp;
     }
 

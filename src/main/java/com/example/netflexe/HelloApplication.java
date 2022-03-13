@@ -28,9 +28,13 @@ public class HelloApplication extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private Profil monProfil = new Profil();
+<<<<<<< Updated upstream
     private CinemaCollection cinemaCollection = new CinemaCollection();
+=======
+    private SceneController sceneController;
+>>>>>>> Stashed changes
 
-    private MovieCollection collection[] = {new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection()};
+    private MovieCollection[] collection = {new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection()};
 
     public int selectedMenu ;
     private String[] genre = {"Action","Science-Fiction","Aventure","Animation","Comédie"};
@@ -50,7 +54,7 @@ public class HelloApplication extends Application {
                 while(myRes.next())
                 {
                     String poster = myRes.getString("poster");
-                    System.out.println(poster);
+                    //System.out.println(poster);
                     collection[i].addMovie(new Movie(myRes.getString("nom_film"),"MOI",poster) );
                 }
             }
@@ -86,12 +90,13 @@ public class HelloApplication extends Application {
         thread.setMainApp(this);
         thread.start();
 
+        sceneController = new SceneController(primaryStage, monProfil, collection);
 
-        initRootLayout();
-        showMainMenu();
+        //initRootLayout();
+        //showMainMenu();
 
     }
-
+/*
     public void initRootLayout() {
         try {
 
@@ -211,6 +216,8 @@ public class HelloApplication extends Application {
             e.printStackTrace();
         }
     }
+
+ */
 
 
 
