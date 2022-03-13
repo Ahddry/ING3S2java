@@ -105,25 +105,15 @@ public class HelloApplication extends Application {
 
     public void showMainMenu() {
         try {
-
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(HelloApplication.class.getResource("MainMenu.fxml"));
-
             AnchorPane mainMenu = (AnchorPane) loader.load();
-
             MainMenuController icontroller = loader.getController();
             icontroller.setMainApp(this);
-
             ScrollPane scroll = new ScrollPane();
             scroll.setContent(mainMenu);
-
             icontroller.initializeBis();
-
-
-
             rootLayout.setCenter(scroll);
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -135,18 +125,11 @@ public class HelloApplication extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(HelloApplication.class.getResource("Biblio.fxml"));
             AnchorPane biblio = (AnchorPane) loader.load();
-
             BiblioController bcontroller = loader.getController();
             bcontroller.setMainApp(this);
-
             ScrollPane scroll = new ScrollPane();
             scroll.setContent(biblio);
-
-
-
-
             bcontroller.initializeBis(monProfil);
-
             rootLayout.setCenter(scroll);
 
         } catch (IOException e) {
@@ -162,13 +145,10 @@ public class HelloApplication extends Application {
             AnchorPane info = (AnchorPane) loader.load();
             ScrollPane scroll = new ScrollPane();
             scroll.setContent(info);
-
             FilmInfoController controller = loader.getController();
             controller.setMainApp(this);
-
             controller.setMovie(movie);
             controller.setProfil(monProfil);
-
             rootLayout.setCenter(scroll);
 
 
