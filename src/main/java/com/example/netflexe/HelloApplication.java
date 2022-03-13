@@ -28,7 +28,7 @@ public class HelloApplication extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
 
-    private MovieCollection collection[] = {new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection()};
+    private MovieCollection collection[] = {new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection()};
 
     public int selectedMenu ;
     private String[] genre = {"Action","Science-Fiction","Aventure","Animation","Comédie"};
@@ -52,6 +52,18 @@ public class HelloApplication extends Application {
                     collection[i].addMovie(new Movie(myRes.getString("nom_film"),"MOI",poster) );
                 }
             }
+            for(int i = 0; i<5;i++)
+            {
+                for(int j = 0; j<collection[i].getSize();j++)
+                {
+                    if(!collection[5].checkBoolean(collection[i].getMovie(j).getTitle()))
+                    {
+                        collection[5].addMovie(collection[i].getMovie(j));
+                    }
+
+                }
+            }
+
 
         }
         catch(Exception exception)

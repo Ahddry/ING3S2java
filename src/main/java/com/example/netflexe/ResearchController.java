@@ -63,11 +63,11 @@ public class ResearchController {
     {
 
         ObservableList<String> items = FXCollections.observableArrayList ();
-        for(int i = 0 ; i < collection[0].getSize(); i++)
+        for(int i = 0 ; i < collection[5].getSize(); i++)
         {
-            if(collection[0].getName(i).contains(ref))
+            if(collection[5].getName(i).contains(ref))
             {
-                items.add(collection[0].getName(i)) ;
+                items.add(collection[5].getName(i)) ;
             }
 
         }
@@ -88,7 +88,7 @@ public class ResearchController {
                 } else {
                     imageView.setFitHeight(432);
                     imageView.setFitWidth(295);
-                    imageView.setImage(collection[0].getImage(name));
+                    imageView.setImage(collection[5].getImage(name));
                     setText(null);
                     VBox myBox = new VBox(imageView,new Label(name));
                     myBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -102,7 +102,7 @@ public class ResearchController {
             if (event.getClickCount() == 2  ) {
                 String selectedName = listView1.getSelectionModel().getSelectedItem();
 
-                Movie movie = collection[0].getMovie(selectedName);
+                Movie movie = collection[5].getMovie(selectedName);
 
                 mainApp.showInfo(movie);
             }

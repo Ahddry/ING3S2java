@@ -3,6 +3,7 @@ package com.example.netflexe;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MovieCollection {
     private ArrayList<Movie> collection = new ArrayList<Movie>();
@@ -21,6 +22,11 @@ public class MovieCollection {
 
         }
         return collection.get(resultat);
+    }
+
+    public Movie getMovie(int i)
+    {
+        return collection.get(i);
     }
 
     public void addMovie(Movie movie)
@@ -57,10 +63,22 @@ public class MovieCollection {
         for(int i = 0 ; i < collection.size(); i++)
         {
             collection.get(i).setImage(new Image(collection.get(i).getImageString()));
-
-
-
         }
+    }
+
+    public boolean checkBoolean(String name)
+    {
+        boolean resultat = false;
+        for(int i = 0 ; i < collection.size(); i++)
+        {
+
+            if(Objects.equals(collection.get(i).getTitle(), name))
+            {
+                resultat = true;
+            }
+        }
+
+        return resultat;
     }
 
 
