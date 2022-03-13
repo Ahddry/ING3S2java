@@ -55,6 +55,7 @@ public class SceneController
             primaryStage.show();
             AdminController controller = loader.getController();
             controller.setMainApp(this);
+            showAccueilAdmin();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -138,8 +139,18 @@ public class SceneController
         }
     }
 
-    public void showReservation()
+    public void showReservation(Movie movie)
     {
+        CinemaCollection cinemaCollection = new CinemaCollection();
+        cinemaCollection.addCinema(new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg"));
+        cinemaCollection.addCinema(new Cinema("Cinema UGC","https://www.pagesjaunes.fr/media/resto/ugc_cine_cite_la_defense_OSD52406032-78652.jpeg"));
+        cinemaCollection.addCinema(new Cinema("Cinema Le Village","https://salles-cinema.com/wp-content/uploads/2009/07/cinema-neuilly-sur-seine.jpg"));
+        cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema Gaumont");
+        cinemaCollection.addMovie(collections[0].getMovie(1),"Cinema Gaumont");
+        cinemaCollection.addMovie(collections[0].getMovie(2),"Cinema Gaumont");
+        cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema UGC");
+        cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema Le Village");
+        cinemaCollection.setImage();
         try
         {
 
@@ -153,7 +164,7 @@ public class SceneController
             ScrollPane scroll = new ScrollPane();
             scroll.setContent(research);
 
-            controller.initializeBis();
+            controller.initializeBis(cinemaCollection, movie);
 
             rootLayout.setCenter(scroll);
 
