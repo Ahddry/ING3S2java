@@ -48,10 +48,7 @@ public class BiblioController {
     {
         collection = monProfil.getFilmLike();
         initialiseListView(listView1);
-        initialiseListView(listView2);
-        initialiseListView(listView3);
-        initialiseListView(listView4);
-        initialiseListView(listView5);
+
 
 
     }
@@ -78,13 +75,20 @@ public class BiblioController {
                     setText(null);
                     setGraphic(null);
                 } else {
-
+                    String tempName = "";
                     imageView.setImage(collection.getImage(name));
                     imageView.setFitHeight(173);
                     imageView.setFitWidth(118);
                     setText(null);
-                    VBox myBox = new VBox(imageView,new Label(name));
-                    myBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+                    if(name.length() > 15)
+                    {
+                        tempName = (name.substring(0,12) + "...");
+                    }
+                    else{
+                        tempName = name;
+                    }
+                    VBox myBox = new VBox(imageView,new Label(tempName));
+
                     myBox.setAlignment(Pos.BASELINE_CENTER);
                     setGraphic(myBox);
                 }

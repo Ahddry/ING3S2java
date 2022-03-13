@@ -91,7 +91,7 @@ public class ResearchController {
                     imageView.setImage(collection[5].getImage(name));
                     setText(null);
                     VBox myBox = new VBox(imageView,new Label(name));
-                    myBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+
                     myBox.setAlignment(Pos.BASELINE_CENTER);
                     setGraphic(myBox);
                 }

@@ -114,7 +114,6 @@ public class MainMenuController {
                         tempName = name;
                     }
                     VBox myBox = new VBox(imageView,new Label(tempName));
-                    myBox.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
                     myBox.setAlignment(Pos.BASELINE_CENTER);
                     setGraphic(myBox);
                 }

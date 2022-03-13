@@ -11,7 +11,11 @@ public class Profil {
 
     public void ajouterLike(Movie movie)
     {
-        filmLike.addMovie(movie);
+        if(!filmLike.checkBoolean(movie.getTitle()))
+        {
+            filmLike.addMovie(movie);
+        }
+
     }
 
     public MovieCollection getFilmLike()
