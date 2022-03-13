@@ -10,5 +10,6 @@
       <Label fx:id="Title" layoutX="511.0" layoutY="31.0" styleClass="label-header" text="Label" />
       <ImageView fx:id="Poster" fitHeight="376.0" fitWidth="258.0" layoutX="76.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="Retour" layoutX="36.0" layoutY="31.0" mnemonicParsing="false" onAction="#retourMenu" text="Retour" />
+      <Button fx:id="LikeButton" layoutX="178.0" layoutY="553.0" mnemonicParsing="false" onAction="#addLike" text="Like" />
    </children>
 </AnchorPane>

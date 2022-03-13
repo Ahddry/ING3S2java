@@ -27,6 +27,7 @@ public class HelloApplication extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+    private Profil monProfil = new Profil();
 
     private MovieCollection collection[] = {new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection()};
 
@@ -63,6 +64,7 @@ public class HelloApplication extends Application {
 
                 }
             }
+
 
 
         }
@@ -127,7 +129,7 @@ public class HelloApplication extends Application {
         }
     }
 
-    public void showBiblio() {
+    public void showBiblio(Profil monProfil) {
         try {
 
             FXMLLoader loader = new FXMLLoader();
@@ -143,7 +145,7 @@ public class HelloApplication extends Application {
 
 
 
-            bcontroller.initializeBis();
+            bcontroller.initializeBis(monProfil);
 
             rootLayout.setCenter(scroll);
 
@@ -165,6 +167,7 @@ public class HelloApplication extends Application {
             controller.setMainApp(this);
 
             controller.setMovie(movie);
+            controller.setProfil(monProfil);
 
             rootLayout.setCenter(scroll);
 
@@ -200,6 +203,11 @@ public class HelloApplication extends Application {
     public MovieCollection[] getMovieCollection(int i)
     {
         return collection;
+    }
+
+    public Profil getProfil()
+    {
+        return monProfil;
     }
 
     public static void main(String[] args) {

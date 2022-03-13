@@ -22,6 +22,8 @@ public class FilmInfoController {
 
     @FXML
     private Button Retour;
+    @FXML
+    private Button LikeButton;
 
     @FXML
     private Label Title;
@@ -31,6 +33,8 @@ public class FilmInfoController {
 
 
     private HelloApplication mainApp;
+    private Movie movieS;
+    private Profil monProfil;
 
     @FXML
     private void initialize() {
@@ -50,5 +54,17 @@ public class FilmInfoController {
         //System.out.print(movie.getTitle());
         Title.setText(movie.getTitle());
         Poster.setImage(movie.getImage());
+        movieS = movie;
+    }
+
+    public void setProfil(Profil profil)
+    {
+        monProfil = profil;
+    }
+
+    @FXML
+    public void addLike()
+    {
+        monProfil.ajouterLike(movieS);
     }
 }

@@ -30,6 +30,8 @@ public class MySceneController {
 
     private HelloApplication mainApp;
 
+
+
     @FXML
     private void initialize() {
         Button1.setText("Acceuil");
@@ -52,7 +54,7 @@ public class MySceneController {
     }
     @FXML
     private void setMenu3() {
-        mainApp.showBiblio();
+        mainApp.showBiblio(mainApp.getProfil());
     }
     @FXML
     private void setMenu4() {
