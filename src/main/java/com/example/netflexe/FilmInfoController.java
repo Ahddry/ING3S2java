@@ -31,6 +31,9 @@ public class FilmInfoController {
     @FXML
     private ImageView Poster;
 
+    @FXML
+    private Button ReserverButton;
+
 
     private HelloApplication mainApp;
     private Movie movieS;
@@ -66,5 +69,11 @@ public class FilmInfoController {
     public void addLike()
     {
         monProfil.ajouterLike(movieS);
+    }
+
+    @FXML
+    public void startReservation()
+    {
+        mainApp.showReservation();
     }
 }

@@ -180,6 +180,31 @@ public class HelloApplication extends Application {
         }
     }
 
+    public void showReservation()
+    {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(HelloApplication.class.getResource("Reservation.fxml"));
+            AnchorPane research = (AnchorPane) loader.load();
+
+            ReservationController controller = loader.getController();
+            controller.setMainApp(this);
+
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(research);
+
+            controller.initializeBis();
+
+            rootLayout.setCenter(scroll);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
     public MovieCollection[] getMovieCollection(int i)
     {
         return collection;

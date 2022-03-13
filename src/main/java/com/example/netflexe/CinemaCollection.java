@@ -21,6 +21,11 @@ public class CinemaCollection {
         return collection.get(resultat).getImage();
     }
 
+    public void addCinema(Cinema cinema)
+    {
+        collection.add(cinema);
+    }
+
     public String getName(int i)
     {
         return collection.get(i).getName();

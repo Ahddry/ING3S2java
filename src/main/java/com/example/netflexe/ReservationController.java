@@ -24,6 +24,9 @@ public class ReservationController {
     @FXML
     private Label Title;
 
+    @FXML
+    private ListView listView;
+
     private HelloApplication mainApp;
     private CinemaCollection collection = new CinemaCollection();
 
@@ -35,6 +38,11 @@ public class ReservationController {
     private void initialize() {
         Title.setText("Disponible dans les cinémas suivant");
 
+    }
+
+    public void initializeBis()
+    {
+        initialiseListView(listView);
     }
 
     private void initialiseListView(ListView<String> listView1) {
