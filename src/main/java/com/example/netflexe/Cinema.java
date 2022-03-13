@@ -20,6 +20,13 @@ public class Cinema {
         this.imageString = image;
     }
 
+    public boolean checkMovie(String name)
+    {
+        return filmP.checkBoolean(name);
+    }
+
+
+
     public void ajoutFilm(Movie movie)
     {
         filmP.addMovie(movie);
@@ -34,6 +41,11 @@ public class Cinema {
     public Image getImage()
     {
         return image;
+    }
+
+    public String getImageString()
+    {
+        return imageString;
     }
 
     public String getName()

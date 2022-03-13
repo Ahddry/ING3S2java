@@ -21,6 +21,31 @@ public class CinemaCollection {
         return collection.get(resultat).getImage();
     }
 
+    public Cinema getCinema(int i)
+    {
+        return collection.get(i);
+    }
+
+    public void setImage()
+    {
+        for(int i = 0 ; i < collection.size(); i++)
+        {
+            collection.get(i).setImage();
+        }
+    }
+
+    public void addMovie(Movie movie,String cinemaName)
+    {
+        for(int i = 0 ; i < collection.size(); i++)
+        {
+            if (collection.get(i).getName() == cinemaName)
+            {
+                collection.get(i).ajoutFilm(movie); ;
+            }
+
+        }
+    }
+
     public void addCinema(Cinema cinema)
     {
         collection.add(cinema);

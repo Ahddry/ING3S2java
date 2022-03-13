@@ -74,6 +74,6 @@ public class FilmInfoController {
     @FXML
     public void startReservation()
     {
-        mainApp.showReservation();
+        mainApp.showReservation(movieS);
     }
 }

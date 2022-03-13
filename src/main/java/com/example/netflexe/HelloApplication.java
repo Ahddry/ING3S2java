@@ -28,6 +28,7 @@ public class HelloApplication extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private Profil monProfil = new Profil();
+    private CinemaCollection cinemaCollection = new CinemaCollection();
 
     private MovieCollection collection[] = {new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection()};
 
@@ -64,7 +65,15 @@ public class HelloApplication extends Application {
 
                 }
             }
-
+            cinemaCollection.addCinema(new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg"));
+            cinemaCollection.addCinema(new Cinema("Cinema UGC","https://www.pagesjaunes.fr/media/resto/ugc_cine_cite_la_defense_OSD52406032-78652.jpeg"));
+            cinemaCollection.addCinema(new Cinema("Cinema Le Village","https://salles-cinema.com/wp-content/uploads/2009/07/cinema-neuilly-sur-seine.jpg"));
+            cinemaCollection.addMovie(collection[0].getMovie(0),"Cinema Gaumont");
+            cinemaCollection.addMovie(collection[0].getMovie(1),"Cinema Gaumont");
+            cinemaCollection.addMovie(collection[0].getMovie(2),"Cinema Gaumont");
+            cinemaCollection.addMovie(collection[0].getMovie(0),"Cinema UGC");
+            cinemaCollection.addMovie(collection[0].getMovie(0),"Cinema Le Village");
+            cinemaCollection.setImage();
 
 
         }
@@ -180,7 +189,7 @@ public class HelloApplication extends Application {
         }
     }
 
-    public void showReservation()
+    public void showReservation(Movie movie)
     {
         try {
 
@@ -194,7 +203,7 @@ public class HelloApplication extends Application {
             ScrollPane scroll = new ScrollPane();
             scroll.setContent(research);
 
-            controller.initializeBis();
+            controller.initializeBis(cinemaCollection,movie);
 
             rootLayout.setCenter(scroll);
 
