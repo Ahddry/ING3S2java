@@ -7,6 +7,10 @@ module com.example.netflexe {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
 
-    opens com.example.netflexe to javafx.fxml;
-    exports com.example.netflexe;
+    opens com.example.netflexe.Vue to javafx.fxml;
+    opens com.example.netflexe.Model to javafx.fxml;
+    opens com.example.netflexe.Controller to javafx.fxml;
+    exports com.example.netflexe.Vue;
+    exports com.example.netflexe.Model;
+    exports com.example.netflexe.Controller;
 }
