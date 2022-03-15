@@ -60,4 +60,17 @@ public class CinemaCollection {
     {
         return collection.size();
     }
+
+    public Cinema getCinema(String cinemaName)
+    {
+        Cinema result = new Cinema();
+        for(int i = 0 ; i < collection.size(); i++)
+        {
+            if (collection.get(i).getName() == cinemaName)
+            {
+                result = collection.get(i) ;
+            }
+        }
+        return result;
+    }
 }

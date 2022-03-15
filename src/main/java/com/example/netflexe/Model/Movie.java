@@ -31,7 +31,7 @@ public class Movie {
     private String imageName;
 
     public Movie() {
-        this(null, null, null, null, null, null, null, null );
+        this(null, null, null, "1212-12-12", "0000-00-00", null, null, null );
     }
 
     public Movie(String title, String director, String adresseImage, String date_de_sortie_LD, String date_de_sortie_S, String duree, String synopsis, String slogan) {
