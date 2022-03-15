@@ -92,6 +92,15 @@ public class ReservationController {
             }
         });
 
+        listView1.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2  ) {
+                String selectedName = listView1.getSelectionModel().getSelectedItem();
+
+                mainApp.showValiderReseravtion(this.movie, collection.getCinema(selectedName));
+            }
+        });
+
+
         listView1.setOrientation(Orientation.HORIZONTAL);
 
     }

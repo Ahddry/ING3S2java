@@ -188,8 +188,8 @@ public class SceneController
         cinemaCollection.addCinema(new Cinema("Cinema UGC","https://www.pagesjaunes.fr/media/resto/ugc_cine_cite_la_defense_OSD52406032-78652.jpeg"));
         cinemaCollection.addCinema(new Cinema("Cinema Le Village","https://salles-cinema.com/wp-content/uploads/2009/07/cinema-neuilly-sur-seine.jpg"));
         cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema Gaumont");
-        cinemaCollection.addMovie(collections[0].getMovie(1),"Cinema Gaumont");
-        cinemaCollection.addMovie(collections[0].getMovie(2),"Cinema Gaumont");
+        /*cinemaCollection.addMovie(collections[0].getMovie(1),"Cinema Gaumont");
+        cinemaCollection.addMovie(collections[0].getMovie(2),"Cinema Gaumont");*/
         cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema UGC");
         cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema Le Village");
         cinemaCollection.setImage();
@@ -230,6 +230,39 @@ public class SceneController
             scroll.setContent(accueilAdmin);
 
             rootLayout.setCenter(scroll);
+            Cinema cinema = new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg");
+            cinema.ajoutFilm(collections[0].getMovie(0));
+            cinema.ajoutFilm(collections[0].getMovie(5));
+            cinema.ajoutFilm(collections[0].getMovie(12));
+            cinema.ajoutFilm(collections[0].getMovie(8));
+            cinema.ajoutFilm(collections[0].getMovie(22));
+            controller.init(cinema);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void showValiderReseravtion(Movie movie, Cinema cinema)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("ValiderReservation.fxml"));
+            AnchorPane accueilAdmin = loader.load();
+
+            cinema.ajouterSeance(movie.getTitle(),"2020-12-12","12H30",1,45);
+            cinema.ajouterSeance(movie.getTitle(),"2020-12-12","14H30",1,45);
+            cinema.ajouterSeance(movie.getTitle(),"2020-12-12","16H30",1,45);
+
+            ValiderReservation controller = loader.getController();
+            controller.setMainApp(this);
+            controller.initializeBis(movie, cinema);
+
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(accueilAdmin);
+
+
+
+            rootLayout.setCenter(scroll);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -243,5 +276,10 @@ public class SceneController
     public MovieCollection[] getMovieCollection(int truc)
     {
         return collections;
+    }
+
+    public Scene getScene()
+    {
+        return scene;
     }
 }

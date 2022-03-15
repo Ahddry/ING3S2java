@@ -2,12 +2,16 @@ package com.example.netflexe.Model;
 
 import javafx.scene.image.Image;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 public class Cinema {
 
     private String nom;
     private MovieCollection filmP = new MovieCollection();
     private Image image = null;
     private String imageString = "";
+    private ArrayList<Seance> seances = new ArrayList<Seance>();
 
     public Cinema()
     {
@@ -53,5 +57,15 @@ public class Cinema {
         return this.nom;
     }
 
+    public MovieCollection getFilmP()
+    {
+        return filmP;
+    }
 
+    public void ajouterSeance(String movieTitle, String date,String heure,int salle, int prix)
+    {
+        seances.add(new Seance(movieTitle,LocalDate.parse(date),heure,salle,prix));
+    }
+
+    public ArrayList<Seance> getAllSeances(){return seances;}
 }

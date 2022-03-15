@@ -37,6 +37,17 @@ public class FilmInfoController {
     @FXML
     private Button ReserverButton;
 
+    @FXML
+    private Label DateDeSortie;
+
+    @FXML
+    private Label Duree;
+
+    @FXML
+    private Label Synopsis;
+
+    @FXML
+    private Label Slogan;
 
     private SceneController mainApp;
     private Movie movieS;
@@ -60,6 +71,10 @@ public class FilmInfoController {
         //System.out.print(movie.getTitle());
         Title.setText(movie.getTitle());
         Poster.setImage(movie.getImage());
+        DateDeSortie.setText(movie.getDate_de_sortie_S());
+        Duree.setText(movie.getDuree());
+        Synopsis.setText(movie.getSynopsis());
+        Slogan.setText(movie.getSlogan());
         movieS = movie;
     }
 

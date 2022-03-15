@@ -1,6 +1,8 @@
 package com.example.netflexe.Model;
 
 import javafx.scene.image.Image;
+import java.time.LocalDate;
+
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -43,6 +45,11 @@ public class MovieCollection {
     {
         return collection.get(i).getTitle();
     }
+    public LocalDate getDateDeSortie_LD(int i) { return collection.get(i).getDate_de_sortie_LD(); }
+    public String getDateDeSortie_S(int i) { return collection.get(i).getDate_de_sortie_S();}
+    public String getDuree(int i) { return collection.get(i).getDuree(); }
+    public String getSynopsis(int i) { return collection.get(i).getSynopsis(); }
+    public String getSlogan(int i) { return collection.get(i).getSlogan(); }
 
     public Image getImage(String name)
     {
@@ -79,5 +86,19 @@ public class MovieCollection {
         }
 
         return resultat;
+    }
+
+    public boolean deleteMovie(String name)
+    {
+        try
+        {
+            collection.remove(getMovie(name));
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+
     }
 }

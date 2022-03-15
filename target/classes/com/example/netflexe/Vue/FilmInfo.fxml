@@ -4,13 +4,44 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1138.0" styleClass="background" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.netflexe.Vue.FilmInfoController">
    <children>
-      <Label fx:id="Title" layoutX="511.0" layoutY="31.0" styleClass="label-header" text="Label" />
+      <Label fx:id="Title" alignment="CENTER" layoutX="511.0" layoutY="31.0" styleClass="label-header" text="Label" />
       <ImageView fx:id="Poster" fitHeight="376.0" fitWidth="258.0" layoutX="76.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="Retour" layoutX="36.0" layoutY="31.0" mnemonicParsing="false" onAction="#retourMenu" text="Retour" />
       <Button fx:id="LikeButton" layoutX="178.0" layoutY="553.0" mnemonicParsing="false" onAction="#addLike" text="Like" />
       <Button fx:id="ReserverButton" layoutX="163.0" layoutY="601.0" mnemonicParsing="false" onAction="#startReservation" text="Réserver" />
+      <Label fx:id="DateDeSortie" layoutX="386.0" layoutY="150.0" text="DateDeSortie" />
+      <Label fx:id="Synopsis" alignment="TOP_LEFT" layoutX="500.0" layoutY="172.0" prefHeight="257.0" prefWidth="628.0" text="Synopsis" wrapText="true" AnchorPane.bottomAnchor="291.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="172.0">
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+      <Label fx:id="Slogan" alignment="CENTER" layoutX="326.0" layoutY="72.0" prefHeight="42.0" prefWidth="487.0" text="Slogan" AnchorPane.bottomAnchor="606.0" AnchorPane.leftAnchor="326.0" AnchorPane.rightAnchor="325.0" AnchorPane.topAnchor="72.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="Duree" layoutX="384.0" layoutY="193.0" prefHeight="21.0" prefWidth="74.0" text="Duree" />
+      <Label layoutX="386.0" layoutY="130.0" text="Date de sortie :" />
+      <Label layoutX="386.0" layoutY="172.0" text="Durée :" />
    </children>
 </AnchorPane>

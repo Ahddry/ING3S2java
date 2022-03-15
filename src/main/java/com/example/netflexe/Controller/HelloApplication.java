@@ -65,14 +65,19 @@ public class HelloApplication extends Application {
 
             for(int i = 0; i<5;i++)
             {
-                ResultSet myRes = myStat.executeQuery("SELECT nom_film, poster FROM film JOIN film_genre ON (film.id_film = film_genre.id_film) JOIN genre ON (genre.id_genre = film_genre.id_genre) WHERE genre.nom = '" + genre[i] + "';");
+                ResultSet myRes = myStat.executeQuery("SELECT nom_film, poster, date_de_sortie, duree, synopsis, slogan FROM film JOIN film_genre ON (film.id_film = film_genre.id_film) JOIN genre ON (genre.id_genre = film_genre.id_genre) WHERE genre.nom = '" + genre[i] + "';");
                 while(myRes.next())
                 {
                     String poster = myRes.getString("poster");
+                    String dateDeSortie = myRes.getString("date_de_sortie");
+                    String duree = myRes.getString("duree");
+                    String synopsis = myRes.getString("synopsis");
+                    String slogan = myRes.getString("slogan");
                     //System.out.println(poster);
-                    collection[i].addMovie(new Movie(myRes.getString("nom_film"),"MOI",poster) );
+                    collection[i].addMovie(new Movie(myRes.getString("nom_film"),"MOI",poster, dateDeSortie, dateDeSortie, duree, synopsis, slogan) );
                 }
             }
+
             for(int i = 0; i<5;i++)
             {
                 for(int j = 0; j<collection[i].getSize();j++)
@@ -84,7 +89,7 @@ public class HelloApplication extends Application {
 
                 }
             }
-            /*
+
             cinemaCollection.addCinema(new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg"));
             cinemaCollection.addCinema(new Cinema("Cinema UGC","https://www.pagesjaunes.fr/media/resto/ugc_cine_cite_la_defense_OSD52406032-78652.jpeg"));
             cinemaCollection.addCinema(new Cinema("Cinema Le Village","https://salles-cinema.com/wp-content/uploads/2009/07/cinema-neuilly-sur-seine.jpg"));
@@ -95,7 +100,7 @@ public class HelloApplication extends Application {
             cinemaCollection.addMovie(collection[0].getMovie(0),"Cinema Le Village");
             cinemaCollection.setImage();
 
-             */
+
 
 
         }
