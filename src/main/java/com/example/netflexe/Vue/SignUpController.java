@@ -4,18 +4,26 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import java.io.File;
+import java.io.FileInputStream;
+
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 import java.time.LocalDate;
 
 import com.example.netflexe.Controller.HelloApplication;
 
-public class SignUpController {
+public class SignUpController{
     private SceneController mainApp;
     private HelloApplication controller;
+    private String linkFile;
     @FXML
     private AnchorPane root;
     @FXML
@@ -42,10 +50,15 @@ public class SignUpController {
     private Button signup_btn;
     @FXML
     private ImageView return_arrow;
+    @FXML
+    private Button pp;
+    @FXML
+    private ImageView pp_file;
 
     @FXML
     private void initialize() {
-        
+
+
         root.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1  ) {
                 root.requestFocus();
@@ -59,11 +72,34 @@ public class SignUpController {
             }
         });
 
+        pp.setOnMouseClicked(event -> {
+            if(event.getClickCount() == 1)
+            {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Open Resource File");
+                fileChooser.getExtensionFilters().addAll(
+                        new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+                File selectedFile = fileChooser.showOpenDialog(this.controller.get_stage().getOwner());
+                if (selectedFile != null) {
+                    this.linkFile = selectedFile.getAbsolutePath();
+                    pp.setOpacity(0.0);
+                    try{
+                        FileInputStream file = new FileInputStream(selectedFile.getAbsolutePath());
+                        pp_file.setImage(new Image(file));
+                    }
+                    catch(Exception exception)
+                    {
+                        exception.printStackTrace();
+                    }
+                }
+            }
+        });
+
         signup_btn.setOnMouseClicked(event -> {
             if(event.getClickCount() == 1) {
                 String genrefinal = "";
                 LocalDate value = naissance.getValue();
-                if(value != null && prenom.getText() != "" && nom.getText() != "" && ((String)genre.getValue() != "" || autres.getText() != "") && login.getText() != "" && mdp.getText() != "")
+                if(value != null && prenom.getText() != "" && nom.getText() != "" && ((String)genre.getValue() != "" || autres.getText() != "") && login.getText() != "" && mdp.getText() != "" && linkFile != "")
                 {
                     if((String)genre.getValue() != "" && autres.getText() == "")
                     {
@@ -76,7 +112,7 @@ public class SignUpController {
                     if(!((String)genre.getValue() != "" && autres.getText() != ""))
                     {
                         
-                        int used = this.controller.create_acct(prenom.getText(), nom.getText(), genrefinal, value.getYear(), value.getMonthValue(), value.getDayOfMonth(), login.getText(), mdp.getText(), admin.isSelected());
+                        int used = this.controller.create_acct(prenom.getText(), nom.getText(), genrefinal, value.getYear(), value.getMonthValue(), value.getDayOfMonth(), login.getText(), mdp.getText(), admin.isSelected(), linkFile);
                         if(used == 1)
                         {
                             warning.setVisible(false);

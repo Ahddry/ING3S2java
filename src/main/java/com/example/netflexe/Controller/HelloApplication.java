@@ -19,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.collections.ObservableList;
 import javafx.collections.ListChangeListener;
 import javafx.collections.FXCollections;
+import java.io.FileInputStream;
 import java.sql.*;
 import com.example.netflexe.Model.*;
 import com.example.netflexe.Model.Profil;
@@ -129,12 +130,21 @@ public class HelloApplication extends Application {
     {
         return monProfil;
     }
-    public int create_acct(String prenom, String nom, String genre, int year, int month, int day, String login, String mdp, boolean admin)
+
+    public Stage get_stage()
+    {
+        return primaryStage;
+    }
+    public int create_acct(String prenom, String nom, String genre, int year, int month, int day, String login, String mdp, boolean admin, String filePath)
     {
         String naissance = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day);
         try
         {
-            if(myStat.executeUpdate("INSERT INTO utilisateur (prenom, nom, date_de_naissance, genre, email, pwd, admin) SELECT * FROM (SELECT '" + prenom +"' AS prenom, '" + nom + "' AS nom, '" + naissance + "' AS date_de_naissance, '" + genre + "' AS genre, '" + login + "' AS email, '" + DigestUtils.sha256Hex(mdp) + "' AS mdp, FALSE) AS tmp WHERE NOT EXISTS (SELECT id_user FROM utilisateur WHERE email='" + login +"') LIMIT 1;") != 0)
+            String query = "INSERT INTO utilisateur (prenom, nom, date_de_naissance, genre, email, pwd, admin, pp) SELECT * FROM (SELECT '" + prenom +"' AS prenom, '" + nom + "' AS nom, '" + naissance + "' AS date_de_naissance, '" + genre + "' AS genre, '" + login + "' AS email, '" + DigestUtils.sha256Hex(mdp) + "' AS mdp, FALSE, ? AS pp) AS tmp WHERE NOT EXISTS (SELECT id_user FROM utilisateur WHERE email='" + login +"') LIMIT 1;";
+            PreparedStatement pstmt = myConn.prepareStatement(query);
+            FileInputStream ppfile = new FileInputStream(filePath);
+            pstmt.setBinaryStream(1, ppfile);
+            if(pstmt.executeUpdate() != 0)
             {
                 ResultSet myRes = myStat.executeQuery("SELECT id_user FROM utilisateur WHERE email = '" + login + "';");
                 while(myRes.next())

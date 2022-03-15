@@ -33,8 +33,8 @@ public class SceneController
         this.controller = controller;
         profil = p;
         collections = c;
-        showMain();
-        //Login();
+        //showMain();
+        Login();
     }
 
 
