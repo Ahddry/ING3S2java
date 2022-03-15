@@ -5,7 +5,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import com.example.netflexe.Model.Movie;
@@ -20,18 +19,22 @@ import com.example.netflexe.Model.Profil;
 
 public class SceneController
 {
+    private HelloApplication controller;
     private Stage primaryStage;
     private Scene scene;
     private BorderPane rootLayout;
+    private AnchorPane loginLayout;
     private final Profil profil;
     private final MovieCollection[] collections;
 
-    public SceneController(Stage stage, Profil p, MovieCollection[] c)
+    public SceneController(Stage stage, Profil p, MovieCollection[] c, HelloApplication controller)
     {
         primaryStage = stage;
+        this.controller = controller;
         profil = p;
         collections = c;
         showMain();
+        //Login();
     }
 
 
@@ -47,6 +50,37 @@ public class SceneController
             MySceneController controller = loader.getController();
             controller.setMainApp(this);
             showMainMenu();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void Login() {
+        try {
+            // Load root layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("login.fxml"));
+            loginLayout = (AnchorPane) loader.load();
+            Scene scene = new Scene(loginLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+            LoginController controller = loader.getController();
+            controller.setMainApp(this, this.controller);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void SignUp() {
+        try {
+            // Load root layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("sign_up.fxml"));
+            loginLayout = (AnchorPane) loader.load();
+            Scene scene = new Scene(loginLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+            SignUpController controller = loader.getController();
+            controller.setMainApp(this, this.controller);
         } catch (IOException e) {
             e.printStackTrace();
         }

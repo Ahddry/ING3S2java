@@ -6,6 +6,8 @@ module com.example.netflexe {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires javafx.web;
+    requires org.apache.commons.codec;
 
     opens com.example.netflexe.Vue to javafx.fxml;
     opens com.example.netflexe.Model to javafx.fxml;

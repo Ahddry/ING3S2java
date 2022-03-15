@@ -23,6 +23,7 @@ import java.sql.*;
 import com.example.netflexe.Model.*;
 import com.example.netflexe.Model.Profil;
 import com.example.netflexe.Vue.SceneController;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.IOException;
 
@@ -33,6 +34,22 @@ public class HelloApplication extends Application {
     private Profil monProfil = new Profil();
     private CinemaCollection cinemaCollection = new CinemaCollection();
     private SceneController sceneController;
+    private Connection myConn;
+    private Statement myStat;
+
+
+    public HelloApplication()
+    {
+        try
+        {
+            this.myConn = DriverManager.getConnection("jdbc:mysql://fournierfamily.ovh:3306/Netflece", "jps", "poojava");
+            this.myStat = myConn.createStatement();
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
 
     private MovieCollection[] collection = {new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection()};
 
@@ -45,8 +62,6 @@ public class HelloApplication extends Application {
         this.primaryStage.setTitle("AddressApp");
         try
         {
-            Connection myConn = DriverManager.getConnection("jdbc:mysql://fournierfamily.ovh:3306/Netflece", "jps", "poojava");
-            Statement myStat = myConn.createStatement();
 
             for(int i = 0; i<5;i++)
             {
@@ -93,136 +108,12 @@ public class HelloApplication extends Application {
         thread.setMainApp(this);
         thread.start();
 
-        sceneController = new SceneController(primaryStage, monProfil, collection);
+        sceneController = new SceneController(primaryStage, monProfil, collection, this);
 
         //initRootLayout();
         //showMainMenu();
 
     }
-/*
-    public void initRootLayout() {
-        try {
-
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(HelloApplication.class.getResource("MyScene.fxml"));
-            rootLayout = (BorderPane) loader.load();
-            Scene scene = new Scene(rootLayout);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-
-
-
-            MySceneController controller = loader.getController();
-            controller.setMainApp(this);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void showMainMenu() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(HelloApplication.class.getResource("MainMenu.fxml"));
-            AnchorPane mainMenu = (AnchorPane) loader.load();
-            MainMenuController icontroller = loader.getController();
-            icontroller.setMainApp(this);
-            ScrollPane scroll = new ScrollPane();
-            scroll.setContent(mainMenu);
-            icontroller.initializeBis();
-            rootLayout.setCenter(scroll);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void showBiblio(Profil monProfil) {
-        try {
-
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(HelloApplication.class.getResource("Biblio.fxml"));
-            AnchorPane biblio = (AnchorPane) loader.load();
-            BiblioController bcontroller = loader.getController();
-            bcontroller.setMainApp(this);
-            ScrollPane scroll = new ScrollPane();
-            scroll.setContent(biblio);
-            bcontroller.initializeBis(monProfil);
-            rootLayout.setCenter(scroll);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void showInfo(Movie movie) {
-        try {
-
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(HelloApplication.class.getResource("FilmInfo.fxml"));
-            AnchorPane info = (AnchorPane) loader.load();
-            ScrollPane scroll = new ScrollPane();
-            scroll.setContent(info);
-            FilmInfoController controller = loader.getController();
-            controller.setMainApp(this);
-            controller.setMovie(movie);
-            controller.setProfil(monProfil);
-            rootLayout.setCenter(scroll);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void showResearch()
-    {
-        try {
-
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(HelloApplication.class.getResource("Research.fxml"));
-            AnchorPane research = (AnchorPane) loader.load();
-
-            ResearchController controller = loader.getController();
-            controller.setMainApp(this);
-
-            ScrollPane scroll = new ScrollPane();
-            scroll.setContent(research);
-
-            controller.initializeBis();
-
-            rootLayout.setCenter(scroll);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void showReservation(Movie movie)
-    {
-        try {
-
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(HelloApplication.class.getResource("Reservation.fxml"));
-            AnchorPane research = (AnchorPane) loader.load();
-
-            ReservationController controller = loader.getController();
-            controller.setMainApp(this);
-
-            ScrollPane scroll = new ScrollPane();
-            scroll.setContent(research);
-
-            controller.initializeBis(cinemaCollection,movie);
-
-            rootLayout.setCenter(scroll);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
- */
-
-
 
     public MovieCollection[] getMovieCollection(int i)
     {
@@ -233,7 +124,60 @@ public class HelloApplication extends Application {
     {
         return monProfil;
     }
-
+    public int create_acct(String prenom, String nom, String genre, int year, int month, int day, String login, String mdp, boolean admin)
+    {
+        String naissance = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day);
+        try
+        {
+            if(myStat.executeUpdate("INSERT INTO utilisateur (prenom, nom, date_de_naissance, genre, email, pwd, admin) SELECT * FROM (SELECT '" + prenom +"' AS prenom, '" + nom + "' AS nom, '" + naissance + "' AS date_de_naissance, '" + genre + "' AS genre, '" + login + "' AS email, '" + DigestUtils.sha256Hex(mdp) + "' AS mdp, FALSE) AS tmp WHERE NOT EXISTS (SELECT id_user FROM utilisateur WHERE email='" + login +"') LIMIT 1;") != 0)
+            {
+                ResultSet myRes = myStat.executeQuery("SELECT id_user FROM utilisateur WHERE email = '" + login + "';");
+                while(myRes.next())
+                {
+                    if(myRes.getString("id_user") != "")
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return -1;
+                    }
+                }
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+        return 0;
+    }
+    public int login_acct(String login, String mdp)
+    {
+        try
+        {
+            ResultSet myRes = myStat.executeQuery("SELECT id_user FROM utilisateur where email='" + login +"'" + " AND pwd='" + DigestUtils.sha256Hex(mdp) +"'");
+            while(myRes.next())
+            {
+                if(myRes.getString("id_user") != "")
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+        return 0;
+    }
     public static void main(String[] args) {
         launch();
     }
