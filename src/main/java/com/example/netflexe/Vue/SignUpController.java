@@ -95,6 +95,7 @@ public class SignUpController{
             }
         });
 
+
         signup_btn.setOnMouseClicked(event -> {
             if(event.getClickCount() == 1) {
                 String genrefinal = "";

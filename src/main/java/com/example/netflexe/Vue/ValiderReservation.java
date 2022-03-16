@@ -21,6 +21,7 @@ import javafx.geometry.Insets;
 import com.example.netflexe.Model.*;
 
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 
 public class ValiderReservation {
@@ -34,8 +35,15 @@ public class ValiderReservation {
     @FXML
     private ChoiceBox horaireBox;
 
+    @FXML
+    private Label prixLabel;
+
+    @FXML
+    private Label prixFLabel;
+
     private SceneController mainApp;
     private ArrayList<Seance> seances = new ArrayList<Seance>();
+    private Seance seanceS = null;
 
 
 
@@ -53,18 +61,61 @@ public class ValiderReservation {
         seances = cinema.getAllSeances();
         ArrayList<String> horaires = new ArrayList<>();
 
-        for(int i = 0; i< seances.size();i++)
-        {
-            if(seances.get(i).getName() == movie.getTitle())
-            {
-                horaires.add(seances.get(i).getHeure());
-            }
-        }
 
-        horaireBox.setItems(FXCollections.observableArrayList(horaires));
+
+        horaireBox.setBackground(new Background(new BackgroundFill(Color.rgb(29,29,31), CornerRadii.EMPTY, Insets.EMPTY)));
+        horaireBox.setStyle("-fx-background-color: #1d1d1d; -fx-border-color: #3f3f3f; -fx-border-width: 5px;");
+
+
+        //datePicker.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        datePicker.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+
+
+                setDisable(true);
+                for(int i = 0; i< seances.size(); i ++)
+                {
+
+                    if(seances.get(i).getDate().toString().equals(date.toString()) ) {
+                        setDisable(false);
+                    }
+
+                }
+            }
+        });
+
+        datePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
+            horaires.clear();
+            for(int i = 0; i< seances.size();i++)
+            {
+                if((seances.get(i).getName().equals(movie.getTitle())) && (seances.get(i).getDate().toString().equals(newValue.toString()) ))
+                {
+                    horaires.add(seances.get(i).getHeure());
+                }
+            }
+
+            horaireBox.setItems(FXCollections.observableArrayList(horaires));
+        });
+
+        horaireBox.valueProperty().addListener((ov, oldValue, newValue) -> {
+
+            for(int i = 0; i< seances.size();i++)
+            {
+                if((seances.get(i).getDate().toString().equals(datePicker.valueProperty().getValue().toString())) && (seances.get(i).getHeure().equals(newValue.toString())))
+                {
+                    seanceS = seances.get(i);
+                    prixLabel.setText((String.valueOf(seanceS.getPrix())));
+                }
+            }
+        });
 
 
     }
+
+
+
 
 
     public void setMainApp(SceneController mainApp) {

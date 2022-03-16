@@ -248,9 +248,11 @@ public class SceneController
             loader.setLocation(getClass().getResource("ValiderReservation.fxml"));
             AnchorPane accueilAdmin = loader.load();
 
-            cinema.ajouterSeance(movie.getTitle(),"2020-12-12","12H30",1,45);
-            cinema.ajouterSeance(movie.getTitle(),"2020-12-12","14H30",1,45);
-            cinema.ajouterSeance(movie.getTitle(),"2020-12-12","16H30",1,45);
+            cinema.ajouterSeance(movie.getTitle(),"2022-03-18","12H30",1,45);
+            cinema.ajouterSeance(movie.getTitle(),"2022-03-18","14H30",1,45);
+            cinema.ajouterSeance(movie.getTitle(),"2022-03-18","16H30",1,45);
+            cinema.ajouterSeance(movie.getTitle(),"2022-03-19","14H30",1,45);
+            cinema.ajouterSeance(movie.getTitle(),"2022-03-19","16H30",1,45);
 
             ValiderReservation controller = loader.getController();
             controller.setMainApp(this);
