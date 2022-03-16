@@ -68,7 +68,7 @@ public class LoginController {
         invite.setOnMouseClicked(event -> {
             if(event.getClickCount() == 1)
             {
-                this.mainApp.SignUp();
+                this.mainApp.showMain();
             }
         });
     }
