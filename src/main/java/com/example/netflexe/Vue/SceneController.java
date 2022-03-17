@@ -27,6 +27,7 @@ public class SceneController
     private AnchorPane loginLayout;
     private final Profil profil;
     private Cinema cinemaAdmin;
+    private ProfileController controller_profil;
     private final MovieCollection[] collections;
     private Profil user;
 
@@ -65,14 +66,16 @@ public class SceneController
     public void showProfile()
     {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("Profile.fxml"));
-            loginLayout = (AnchorPane) loader.load();
-            ProfileController controller_profil = loader.getController();
-            controller_profil.setMainApp(this, this.controller);
-            controller_profil.setLabels(user);
+            if(controller_profil == null)
+            {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("Profile.fxml"));
+                loginLayout = (AnchorPane) loader.load();
+                controller_profil = loader.getController();
+                controller_profil.setMainApp(this, this.controller);
+                controller_profil.setLabels(user);
+            }
             rootLayout.setCenter(loginLayout);
-            //showMainMenu();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,6 +84,10 @@ public class SceneController
     public void setProfil(Profil user)
     {
         this.user = user;
+    }
+    public void updateProfil()
+    {
+        this.controller_profil.setLabels(this.user);
     }
 
     public void Login() {

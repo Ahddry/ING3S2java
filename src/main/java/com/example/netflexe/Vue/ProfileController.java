@@ -104,7 +104,7 @@ public class ProfileController{
                 {
                     try {
                         this.controller.modify_user("pp", new FileInputStream(linkFile));
-                        this.mainApp.showProfile();
+                        //this.mainApp.showProfile();
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -118,7 +118,7 @@ public class ProfileController{
                 if(prenom_field.getText() != "")
                 {
                     this.controller.modify_user("prenom",prenom_field.getText());
-                    this.mainApp.showProfile();
+                    //this.mainApp.showProfile();
                 }
             }
         });

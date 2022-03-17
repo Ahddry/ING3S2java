@@ -2,6 +2,7 @@ package com.example.netflexe.Controller;
 
 import com.example.netflexe.Vue.SceneController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import java.io.FileInputStream;
@@ -139,7 +140,8 @@ public class HelloApplication extends Application {
                 this.user.set_age(myRes.getString("date_de_naissance"));
                 this.user.set_pp(myRes.getBinaryStream("pp"));
             }
-            sceneController.setProfil(this.user);
+                sceneController.setProfil(this.user);
+                sceneController.updateProfil();
         }
         catch(Exception exception)
         {
@@ -167,6 +169,7 @@ public class HelloApplication extends Application {
                 this.user.set_pp(myRes.getBinaryStream("pp"));
             }
             sceneController.setProfil(this.user);
+            sceneController.updateProfil();
         }
         catch(Exception exception)
         {
