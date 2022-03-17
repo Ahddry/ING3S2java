@@ -98,11 +98,13 @@ public class ValiderReservation {
 
 
                 setDisable(true);
+                setStyle("-fx-background-color: #ffc0cb;");
                 for(int i = 0; i< seances.size(); i ++)
                 {
 
                     if(seances.get(i).getDate().toString().equals(date.toString()) ) {
                         setDisable(false);
+                        setStyle("-fx-background-color: #cbc0ff;");
                     }
 
                 }
