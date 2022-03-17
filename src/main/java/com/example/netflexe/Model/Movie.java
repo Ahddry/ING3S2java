@@ -25,16 +25,18 @@ public class Movie {
     private final StringProperty duree;
     private final StringProperty synopsis;
     private final StringProperty slogan;
-
+    //private final ActorCollection liste_actor;
     private final ObjectProperty<LocalDate> releaseDate;
     private  Image image = null;
     private String imageName;
 
     public Movie() {
-        this(null, null, null, "1212-12-12", "0000-00-00", null, null, null );
+        this(null, null, null, "1212-12-12",
+                "0000-00-00", null, null, null/*, null */);
     }
 
-    public Movie(String title, String director, String adresseImage, String date_de_sortie_LD, String date_de_sortie_S, String duree, String synopsis, String slogan) {
+    public Movie(String title, String director, String adresseImage, String date_de_sortie_LD,
+                 String date_de_sortie_S, String duree, String synopsis, String slogan/*, ActorCollection liste_acteur*/) {
         this.title = new SimpleStringProperty(title);
         this.director = new SimpleStringProperty(director);
         this.produceur = new SimpleStringProperty("No produceur specified");
@@ -47,6 +49,7 @@ public class Movie {
         this.duree = new SimpleStringProperty(duree);
         this.synopsis = new SimpleStringProperty(synopsis);
         this.slogan = new SimpleStringProperty(slogan);
+        //this.liste_actor = liste_acteur;
     }
 
 
