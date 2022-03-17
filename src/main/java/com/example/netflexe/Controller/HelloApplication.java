@@ -1,24 +1,8 @@
 package com.example.netflexe.Controller;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.Modality;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.collections.ObservableList;
-import javafx.collections.ListChangeListener;
-import javafx.collections.FXCollections;
 import java.io.FileInputStream;
 import java.sql.*;
 import com.example.netflexe.Model.*;
@@ -37,6 +21,7 @@ public class HelloApplication extends Application {
     private SceneController sceneController;
     private Connection myConn;
     private Statement myStat;
+    private Profil user;
 
 
     public HelloApplication()
@@ -135,6 +120,61 @@ public class HelloApplication extends Application {
     {
         return primaryStage;
     }
+
+    public void modify_user(String field, String value)
+    {
+        try
+        {
+            String query = "UPDATE utilisateur SET " + field + " = '"+ value + "' WHERE id_user = ' " + String.valueOf(user.get_id())+ "';";
+            PreparedStatement pstmt = myConn.prepareStatement(query);
+            pstmt.executeUpdate();
+            ResultSet myRes = myStat.executeQuery("SELECT id_user, prenom, nom, date_de_naissance, genre, email, pp, admin FROM utilisateur where id_user = '" + user.get_id() + "'");
+            while(myRes.next())
+            {
+                this.user.set_id(myRes.getInt("id_user"));
+                this.user.set_prenom(myRes.getString("prenom"));
+                this.user.set_nom(myRes.getString("nom"));
+                this.user.set_mail(myRes.getString("email"));
+                this.user.set_genre(myRes.getString("genre"));
+                this.user.set_age(myRes.getString("date_de_naissance"));
+                this.user.set_pp(myRes.getBinaryStream("pp"));
+            }
+            sceneController.setProfil(this.user);
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+
+    public void modify_user(String field, FileInputStream value)
+    {
+        try
+        {
+            String query = "UPDATE utilisateur SET " + field + " = ? WHERE id_user = '" + String.valueOf(user.get_id()) + "';";
+            PreparedStatement pstmt = myConn.prepareStatement(query);
+            pstmt.setBinaryStream(1, value);
+            pstmt.executeUpdate();
+            ResultSet myRes = myStat.executeQuery("SELECT id_user, prenom, nom, date_de_naissance, genre, email, pp, admin FROM utilisateur where id_user = '" + user.get_id() + "'");
+            while(myRes.next())
+            {
+                this.user.set_id(myRes.getInt("id_user"));
+                this.user.set_prenom(myRes.getString("prenom"));
+                this.user.set_nom(myRes.getString("nom"));
+                this.user.set_mail(myRes.getString("email"));
+                this.user.set_genre(myRes.getString("genre"));
+                this.user.set_age(myRes.getString("date_de_naissance"));
+                this.user.set_pp(myRes.getBinaryStream("pp"));
+            }
+            sceneController.setProfil(this.user);
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+
+
     public int create_acct(String prenom, String nom, String genre, int year, int month, int day, String login, String mdp, boolean admin, String filePath)
     {
         String naissance = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day);
@@ -174,11 +214,14 @@ public class HelloApplication extends Application {
     {
         try
         {
-            ResultSet myRes = myStat.executeQuery("SELECT id_user FROM utilisateur where email='" + login +"'" + " AND pwd='" + DigestUtils.sha256Hex(mdp) +"'");
+            ResultSet myRes = myStat.executeQuery("SELECT id_user, prenom, nom, date_de_naissance, genre, email, pp, admin FROM utilisateur where email='" + login +"'" + " AND pwd='" + DigestUtils.sha256Hex(mdp) +"'");
             while(myRes.next())
             {
                 if(myRes.getString("id_user") != "")
                 {
+                    this.user = new Profil(myRes.getInt("id_user"), myRes.getString("prenom"), myRes.getString("nom"), myRes.getString("email"), myRes.getString("genre"), myRes.getString("date_de_naissance"), myRes.getBinaryStream("pp"));
+                    //System.out.println(this.user.get_prenom());
+                    sceneController.setProfil(this.user);
                     return 1;
                 }
                 else

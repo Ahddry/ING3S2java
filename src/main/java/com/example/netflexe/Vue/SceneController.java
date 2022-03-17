@@ -26,6 +26,7 @@ public class SceneController
     private AnchorPane loginLayout;
     private final Profil profil;
     private final MovieCollection[] collections;
+    private Profil user;
 
     public SceneController(Stage stage, Profil p, MovieCollection[] c, HelloApplication controller)
     {
@@ -36,7 +37,6 @@ public class SceneController
         //showMain();
         Login();
     }
-
 
     public void showMain()
     {
@@ -53,6 +53,26 @@ public class SceneController
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void showProfile()
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("Profile.fxml"));
+            loginLayout = (AnchorPane) loader.load();
+            ProfileController controller_profil = loader.getController();
+            controller_profil.setMainApp(this, this.controller);
+            controller_profil.setLabels(user);
+            rootLayout.setCenter(loginLayout);
+            //showMainMenu();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setProfil(Profil user)
+    {
+        this.user = user;
     }
 
     public void Login() {

@@ -60,7 +60,7 @@ public class MySceneController {
     }
     @FXML
     private void setMenu4() {
-
+        mainApp.showProfile();
     }
 
     @FXML
