@@ -81,13 +81,19 @@ public class BiblioReserv {
                     setGraphic(null);
                 } else {
                     String tempName = "";
+                    String tempHoraire = "";
+                    String tempDate = "";
+                    String tempNom = "";
 
                     for(int i = 0; i< collection.size();i++)
                     {
                         if(collection.get(i).getMovie().getTitle() == name)
                         {
                             imageView.setImage(collection.get(i).getMovie().getImage());
-                            tempName = name + "\n" +  collection.get(i).getDate()  + "\n" +  collection.get(i).getHoraire() + "\n" +  collection.get(i).getNomCinema();
+                            tempName = name;
+                            tempDate = collection.get(i).getDate();
+                            tempHoraire =    collection.get(i).getHoraire() ;
+                            tempNom =  collection.get(i).getNomCinema();
                             System.out.print(tempName);
                         }
                     }
@@ -95,8 +101,7 @@ public class BiblioReserv {
                     imageView.setFitWidth(250);
                     setText(null);
 
-                    VBox myBox = new VBox(imageView,new Label(tempName));
-
+                    VBox myBox = new VBox(imageView,new Label(tempName), new Label(tempDate), new Label(tempHoraire), new Label(tempNom));
                     myBox.setAlignment(Pos.BASELINE_CENTER);
                     setGraphic(myBox);
                 }
