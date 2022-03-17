@@ -77,7 +77,7 @@ public class SignUpController{
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Open Resource File");
                 fileChooser.getExtensionFilters().addAll(
-                        new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+                        new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
                 File selectedFile = fileChooser.showOpenDialog(this.controller.get_stage().getOwner());
                 if (selectedFile != null) {
                     this.linkFile = selectedFile.getAbsolutePath();
