@@ -4,6 +4,7 @@ import com.example.netflexe.Model.Cinema;
 import com.example.netflexe.Model.Movie;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.text.TextAlignment;
 import com.google.common.base.Strings;
 
@@ -102,6 +103,7 @@ public class AjoutFilmFormController
                 urlImage = affiche.getText();
 
             Movie movie = new Movie(titre, realisateur, urlImage, dateDeSortie.toString(), dateDeSortie.toString(), dureeDuFilm, leSynopsis, leSlogan);
+            movie.setImage(new Image(movie.getImageString()));
             monCinema.ajoutFilm(movie);
             mainApp.setCinemaAdmin(monCinema);
             mainApp.showAccueilAdmin();
