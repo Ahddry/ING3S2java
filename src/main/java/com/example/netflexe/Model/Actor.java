@@ -10,11 +10,54 @@ import javafx.scene.image.Image;
 import javafx.scene.image.Image;
 
 import java.time.LocalDate;
+import java.time.Period;
 
-/*public class Actor {
+public class Actor {
 
     private final StringProperty first_name;
     private final StringProperty last_name;
-    private final LocalDate birth_day;
+    private final StringProperty age;
     private final StringProperty description;
-}*/
+    private final StringProperty role;
+    private  Image imageActeur = null;
+    private String imageNameActeur;
+
+    public Actor() {
+        this(null, null, null, null, null, null);
+    }
+
+    public Actor(String prenom, String nom, String adresseImage, LocalDate date_de_naissance, String description, String role) {
+        this.first_name = new SimpleStringProperty(prenom);
+        this.last_name = new SimpleStringProperty(nom);
+        String birthday = Integer.toString(Period.between(date_de_naissance, LocalDate.now()).getYears());
+        this.age = new SimpleStringProperty(birthday);
+        this.description = new SimpleStringProperty("No genre specified");
+        this.imageNameActeur = adresseImage;
+        this.role = new SimpleStringProperty(role);
+    }
+
+    public String getFirstName() {
+        return first_name.get();
+    }
+
+    public String getLastName() {
+        return last_name.get();
+    }
+
+    public String getAge() {
+        return age.get();
+    }
+
+    public String getDescription() {return description.get();}
+
+    public String getRole() { return role.get();}
+    public String getImageNameActeur() { return imageNameActeur;}
+
+    public Image getImageActeur() {
+        return imageActeur;
+    }
+    public void setImageActeur(Image image) {
+        this.imageActeur = image;
+    }
+
+}

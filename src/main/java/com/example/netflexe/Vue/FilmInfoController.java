@@ -1,24 +1,13 @@
 package com.example.netflexe.Vue;
 
+import com.example.netflexe.Model.Cinema;
 import com.example.netflexe.Model.Movie;
 import com.example.netflexe.Model.Profil;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.geometry.Insets;
 
 
 public class FilmInfoController {
@@ -52,6 +41,8 @@ public class FilmInfoController {
     private SceneController mainApp;
     private Movie movieS;
     private Profil monProfil;
+    private boolean adminAccess;
+    private Cinema monCinema;
 
     @FXML
     private void initialize() {
@@ -63,7 +54,10 @@ public class FilmInfoController {
 
     @FXML
     private void retourMenu() {
-        mainApp.showMainMenu();
+        if (adminAccess)
+            mainApp.showAccueilAdmin();
+        else
+            mainApp.showMainMenu();
     }
 
     public void setMovie(Movie movie)
@@ -86,12 +80,43 @@ public class FilmInfoController {
     @FXML
     public void addLike()
     {
-        monProfil.ajouterLike(movieS);
+        if (!adminAccess)
+            monProfil.ajouterLike(movieS);
     }
 
     @FXML
     public void startReservation()
     {
-        mainApp.showReservation(movieS);
+        if (!adminAccess)
+            mainApp.showReservation(movieS);
+        else
+        {
+            if (!monCinema.checkMovie(movieS.getTitle()))
+            {
+                monCinema.ajoutFilm(movieS);
+                mainApp.setCinemaAdmin(monCinema);
+            }
+            else
+            {
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Ce film est déjà à l'affiche dans votre cinéma.", ButtonType.OK);
+                alert.show();
+            }
+
+        }
+    }
+
+    public void setCinema(Cinema cinema)
+    {
+        monCinema = cinema;
+    }
+
+    public void setAdminAccess(boolean admin)
+    {
+        adminAccess = admin;
+        if (adminAccess)
+        {
+            ReserverButton.setText("Ajouter le fim au cinéma");
+            LikeButton.setVisible(false);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.netflexe.Controller;
 
+import com.example.netflexe.Vue.SceneController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
@@ -7,7 +8,6 @@ import java.io.FileInputStream;
 import java.sql.*;
 import com.example.netflexe.Model.*;
 import com.example.netflexe.Model.Profil;
-import com.example.netflexe.Vue.SceneController;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.IOException;

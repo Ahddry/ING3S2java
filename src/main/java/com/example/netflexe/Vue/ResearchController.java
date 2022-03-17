@@ -8,17 +8,12 @@ import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.geometry.Insets;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
@@ -35,6 +30,8 @@ public class ResearchController {
     private ListView listview;
 
     private SceneController mainApp;
+
+    private boolean adminSelect = false;
 
     private MovieCollection[] collection = { new MovieCollection()};
     private String ref = "";
@@ -106,7 +103,8 @@ public class ResearchController {
 
                 Movie movie = collection[5].getMovie(selectedName);
 
-                mainApp.showInfo(movie);
+                mainApp.showInfo(movie, adminSelect);
+
             }
         });
 
@@ -121,7 +119,10 @@ public class ResearchController {
     }
 
 
-
+    public void setAdminSelect(boolean adminSelect)
+    {
+        this.adminSelect = adminSelect;
+    }
 
     public void setMainApp(SceneController mainApp) {
         this.mainApp = mainApp;

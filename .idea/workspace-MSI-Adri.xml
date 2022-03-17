@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4597d465-7682-415e-9cc2-6fc7e7d216d7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/AjoutFilmController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/netflexe/Vue/AjoutFilm.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/AjoutFilm.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/AjoutFilmController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Controller/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Controller/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Model/Cinema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Model/Cinema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/AccueilAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/AccueilAdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/BiblioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/BiblioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/FilmInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/FilmInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/MainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/MySceneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/MySceneController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/ResearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/ResearchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/SceneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/SceneController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/SignUpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/SignUpController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/ValiderReservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/netflexe/Vue/ValiderReservation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/netflexe/Vue/AccueilAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/netflexe/Vue/AccueilAdmin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Controller/HelloApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Controller/HelloApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Model/Cinema.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Model/Cinema.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Model/Profil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Model/Profil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Model/RunnableDemo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Model/RunnableDemo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Model/Seance.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Model/Seance.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/AccueilAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/AccueilAdmin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/AccueilAdminController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/AccueilAdminController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/AccueilAdminController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/AccueilAdminController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/AccueilAdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/AccueilAdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/BiblioController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/BiblioController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/BiblioController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/BiblioController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/FilmInfoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/FilmInfoController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/MainMenuController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/MainMenuController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/MainMenuController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/MainMenuController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/MySceneController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/MySceneController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/ResearchController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/ResearchController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/ResearchController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/ResearchController$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/ResearchController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/ResearchController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/ReservationController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/ReservationController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/ReservationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/ReservationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/SceneController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/SceneController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/SignUpController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/SignUpController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/ValiderReservation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/netflexe/Vue/ValiderReservation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="26HXl2B6T7YnCFAIOOxXHJeFmAz" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.netflexe.Vue" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.HelloApplication (1)">
+    <configuration name="HelloApplication (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.netflexe.Controller.HelloApplication" />
+      <module name="Netflexe" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.netflexe.Controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.netflexe.HelloApplication" />
+      <module name="Netflexe" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.netflexe.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.netflexe.Controller.HelloApplication" />
+      <module name="Netflexe" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.netflexe.Vue.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.HelloApplication (1)" />
+        <item itemvalue="Application.HelloApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4597d465-7682-415e-9cc2-6fc7e7d216d7" name="Changes" comment="" />
+      <created>1647081633173</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1647081633173</updated>
+      <workItem from="1647081635336" duration="60000" />
+      <workItem from="1647081718421" duration="6484000" />
+      <workItem from="1647094803079" duration="54000" />
+      <workItem from="1647169886389" duration="3048000" />
+      <workItem from="1647176167899" duration="3238000" />
+      <workItem from="1647179430261" duration="7705000" />
+      <workItem from="1647191320904" duration="10341000" />
+      <workItem from="1647203689440" duration="28000" />
+      <workItem from="1647251981755" duration="3932000" />
+      <workItem from="1647276756602" duration="457000" />
+      <workItem from="1647357714360" duration="49000" />
+      <workItem from="1647416297235" duration="6406000" />
+      <workItem from="1647424663911" duration="130000" />
+      <workItem from="1647424847750" duration="7852000" />
+      <workItem from="1647452450761" duration="1144000" />
+      <workItem from="1647510277357" duration="16000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

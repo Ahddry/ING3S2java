@@ -5,20 +5,14 @@ import com.example.netflexe.Model.Movie;
 import com.example.netflexe.Model.MovieCollection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 public class AccueilAdminController
@@ -30,16 +24,16 @@ public class AccueilAdminController
     @FXML
     private ListView<String> listView2;
     @FXML
-    private Button ajoutFilmBoutton;
+    private Button ajoutFilmBouton;
 
     private Cinema cinema;
     private SceneController mainApp;
     private MovieCollection collection;
-    private ContextMenu contextMenu = new ContextMenu();
+    private final ContextMenu contextMenu = new ContextMenu();
 
     public void init(Cinema c)
     {
-        ajoutFilmBoutton.setTooltip(new Tooltip("Cliquez ici pour ajouter un film."));
+        ajoutFilmBouton.setTooltip(new Tooltip("Cliquez ici pour ajouter un film."));
         cinema = c;
         nomCinema.setText(cinema.getName());
         collection = c.getFilmP();
@@ -84,45 +78,56 @@ public class AccueilAdminController
         });
 
         MenuItem suppr = new MenuItem("Supprimer le film");
-        suppr.setOnAction(new EventHandler<ActionEvent>()
+        suppr.setOnAction(event ->
         {
-            @Override
-            public void handle(ActionEvent event)
+            /* https://stackoverflow.com/questions/11662857/javafx-2-1-messagebox */
+            String selectedName = listView1.getSelectionModel().getSelectedItem();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Voulez-vous vraiment supprimer ce film ?", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait().ifPresent(rs ->
             {
-                String selectedName = listView1.getSelectionModel().getSelectedItem();
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Voulez-vous vraiment supprimer ce film ?", ButtonType.YES, ButtonType.NO);
-                alert.showAndWait().ifPresent(rs -> {
-                    if(rs == ButtonType.YES)
+                if (rs == ButtonType.YES)
+                {
+                    if (collection.deleteMovie(selectedName))
                     {
-                        if (collection.deleteMovie(selectedName))
-                            //mainApp.showAccueilAdmin();
-                            System.out.println("Supprimé : " + selectedName);
-                        else
-                        {
-                            Alert alert2 = new Alert(Alert.AlertType.ERROR, "Le film n'a pas pu être supprimé.");
-                            alert2.show();
-                        }
+                        //System.out.println("Supprimé : " + selectedName);
+                        cinema.setFilmP(collection);
+                        mainApp.showAccueilAdmin();
+                    } else
+                    {
+                        Alert alert2 = new Alert(Alert.AlertType.ERROR, "Le film n'a pas pu être supprimé.");
+                        alert2.show();
                     }
-                });
-            }
+                }
+            });
         });
         contextMenu.getItems().add(suppr);
 
-        listView1.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2  ) {
+        listView1.setOnMouseClicked(event ->
+        {
+            if (event.getClickCount() == 2)
+            {
                 String selectedName = listView1.getSelectionModel().getSelectedItem();
 
                 Movie movie = collection.getMovie(selectedName);
 
-                mainApp.showInfo(movie);
-            }
-            else if (event.getButton() == MouseButton.SECONDARY)
+                mainApp.showInfo(movie, false);
+            } else if (event.getButton() == MouseButton.SECONDARY)
             {
                 contextMenu.show(mainApp.getScene().getWindow(), event.getScreenX(), event.getScreenY());
             }
         });
-        
+
         listView1.setOrientation(Orientation.HORIZONTAL);
+    }
+
+    public void ajoutFilmBoutonClick()
+    {
+        mainApp.showAjouterFilm(cinema);
+    }
+
+    public Cinema getCinema()
+    {
+        return cinema;
     }
 
     public void setMainApp(SceneController mainApp)
