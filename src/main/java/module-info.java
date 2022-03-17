@@ -8,6 +8,7 @@ module com.example.netflexe {
     requires java.sql;
     requires javafx.web;
     requires org.apache.commons.codec;
+    requires com.google.common;
 
     opens com.example.netflexe.Vue to javafx.fxml;
     opens com.example.netflexe.Model to javafx.fxml;

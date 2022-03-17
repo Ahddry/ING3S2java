@@ -1,24 +1,15 @@
 package com.example.netflexe.Vue;
 
-import com.example.netflexe.Controller.HelloApplication;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import com.example.netflexe.Model.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.time.LocalDate;

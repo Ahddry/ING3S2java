@@ -1,5 +1,6 @@
 package com.example.netflexe.Vue;
 
+import com.example.netflexe.Vue.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -25,6 +26,7 @@ public class SceneController
     private BorderPane rootLayout;
     private AnchorPane loginLayout;
     private final Profil profil;
+    private Cinema cinemaAdmin;
     private final MovieCollection[] collections;
 
     public SceneController(Stage stage, Profil p, MovieCollection[] c, HelloApplication controller)
@@ -35,6 +37,12 @@ public class SceneController
         collections = c;
         //showMain();
         Login();
+        cinemaAdmin = new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg");
+        cinemaAdmin.ajoutFilm(collections[0].getMovie(0));
+        cinemaAdmin.ajoutFilm(collections[0].getMovie(5));
+        cinemaAdmin.ajoutFilm(collections[0].getMovie(12));
+        cinemaAdmin.ajoutFilm(collections[0].getMovie(8));
+        cinemaAdmin.ajoutFilm(collections[0].getMovie(22));
     }
 
 
@@ -138,18 +146,21 @@ public class SceneController
         }
     }
 
-    public void showInfo(Movie movie) {
+    public void showInfo(Movie movie, boolean admin) {
         try {
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("FilmInfo.fxml"));
             AnchorPane info = (AnchorPane) loader.load();
-            ScrollPane scroll = new ScrollPane();
-            scroll.setContent(info);
             FilmInfoController controller = loader.getController();
             controller.setMainApp(this);
             controller.setMovie(movie);
             controller.setProfil(profil);
+            controller.setAdminAccess(admin);
+            controller.setCinema(cinemaAdmin);
+
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(info);
             rootLayout.setCenter(scroll);
 
 
@@ -158,7 +169,7 @@ public class SceneController
         }
     }
 
-    public void showResearch()
+    public void showResearch(boolean admin)
     {
         try {
 
@@ -168,6 +179,7 @@ public class SceneController
 
             ResearchController controller = loader.getController();
             controller.setMainApp(this);
+            controller.setAdminSelect(admin);
 
             ScrollPane scroll = new ScrollPane();
             scroll.setContent(research);
@@ -230,17 +242,15 @@ public class SceneController
             scroll.setContent(accueilAdmin);
 
             rootLayout.setCenter(scroll);
-            Cinema cinema = new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg");
-            cinema.ajoutFilm(collections[0].getMovie(0));
-            cinema.ajoutFilm(collections[0].getMovie(5));
-            cinema.ajoutFilm(collections[0].getMovie(12));
-            cinema.ajoutFilm(collections[0].getMovie(8));
-            cinema.ajoutFilm(collections[0].getMovie(22));
-            controller.init(cinema);
+
+            controller.init(cinemaAdmin);
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public void showValiderReseravtion(Movie movie, Cinema cinema)
     {
         try {
@@ -270,6 +280,47 @@ public class SceneController
         }
     }
 
+    public void showAjouterFilm(Cinema c)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("AjoutFilm.fxml"));
+            AnchorPane ajoutFilm = loader.load();
+
+            AjoutFilmController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setCinema(c);
+
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(ajoutFilm);
+
+            rootLayout.setCenter(scroll);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showAjoutFilmForm(Cinema c)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("AjoutFilmForm.fxml"));
+            AnchorPane ajoutFilm = loader.load();
+
+            AjoutFilmFormController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setCinema(c);
+            controller.init();
+
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(ajoutFilm);
+
+            rootLayout.setCenter(scroll);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Profil getProfil()
     {
         return profil;
@@ -283,5 +334,10 @@ public class SceneController
     public Scene getScene()
     {
         return scene;
+    }
+
+    public void setCinemaAdmin(Cinema cinemaAdmin)
+    {
+        this.cinemaAdmin = cinemaAdmin;
     }
 }
