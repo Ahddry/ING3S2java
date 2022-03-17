@@ -36,7 +36,7 @@ public class MySceneController {
         mainApp.showMainMenu();
     }
     @FXML
-    private void setMenu2() {
+    private void setMenu2() { mainApp.showBiblioRes(mainApp.getProfil());
 
     }
     @FXML

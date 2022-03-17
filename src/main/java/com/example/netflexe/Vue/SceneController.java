@@ -193,6 +193,24 @@ public class SceneController
         }
     }
 
+    public void showBiblioRes(Profil monProfil) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("BiblioReserv.fxml"));
+            AnchorPane biblio = (AnchorPane) loader.load();
+            BiblioReserv controller = loader.getController();
+            controller.setMainApp(this);
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(biblio);
+            controller.initializeBis(monProfil);
+            rootLayout.setCenter(scroll);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void showInfo(Movie movie, boolean admin) {
         try {
 
@@ -298,7 +316,7 @@ public class SceneController
         }
     }
 
-    public void showValiderReseravtion(Movie movie, Cinema cinema)
+    public void showValiderReseravtion(Movie movie, Cinema cinema, Profil profil)
     {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -313,6 +331,7 @@ public class SceneController
 
             ValiderReservation controller = loader.getController();
             controller.setMainApp(this);
+            controller.setProfil(profil);
             controller.initializeBis(movie, cinema);
 
             ScrollPane scroll = new ScrollPane();
@@ -370,7 +389,7 @@ public class SceneController
 
     public Profil getProfil()
     {
-        return profil;
+        return user;
     }
 
     public MovieCollection[] getMovieCollection(int truc)

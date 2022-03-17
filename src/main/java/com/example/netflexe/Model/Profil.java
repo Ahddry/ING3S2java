@@ -1,7 +1,7 @@
 package com.example.netflexe.Model;
 
 import java.io.InputStream;
-
+import java.util.ArrayList;
 
 
 public class Profil {
@@ -14,6 +14,7 @@ public class Profil {
     private String genre;
     private String age;
     private int id_user;
+    private ArrayList<Reservation> mesReservations = new ArrayList<Reservation>();
 
     public Profil()
     {
@@ -113,8 +114,17 @@ public class Profil {
 
     }
 
+    public void ajouterReservation(Reservation reservation)
+    {
+        mesReservations.add(reservation);
+    }
+
     public MovieCollection getFilmLike()
     {
         return filmLike;
+    }
+    public ArrayList<Reservation> getFilmRes()
+    {
+        return mesReservations;
     }
 }
