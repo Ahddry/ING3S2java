@@ -23,11 +23,20 @@ public class SceneController
     private HelloApplication controller;
     private Stage primaryStage;
     private Scene scene;
+    
     private BorderPane rootLayout;
     private AnchorPane loginLayout;
+    private AnchorPane mainMenu;
+    
     private final Profil profil;
     private Cinema cinemaAdmin;
+    
+    
     private ProfileController controller_profil;
+    private MainMenuController icontroller;
+
+    private ScrollPane scrollmainMenu;
+
     private final MovieCollection[] collections;
     private Profil user;
 
@@ -141,19 +150,30 @@ public class SceneController
 
     public void showMainMenu() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("MainMenu.fxml"));
-            AnchorPane mainMenu = (AnchorPane) loader.load();
-            MainMenuController icontroller = loader.getController();
-            icontroller.setMainApp(this);
-            ScrollPane scroll = new ScrollPane();
-            scroll.setContent(mainMenu);
-            icontroller.initializeBis();
-            rootLayout.setCenter(scroll);
+            if(icontroller == null)
+            {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("MainMenu.fxml"));
+                mainMenu = (AnchorPane) loader.load();
+                icontroller = loader.getController();
+                icontroller.setMainApp(this);
+                scrollmainMenu = new ScrollPane();
+                scrollmainMenu.setContent(mainMenu);
+                icontroller.initializeBis();
+                controller.threadStarter();
+            }
+            rootLayout.setCenter(scrollmainMenu);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public void refreshMovie(int i)
+    {
+        icontroller.refresher(i);
+    }
+
 
     public void showBiblio(Profil monProfil) {
         try {

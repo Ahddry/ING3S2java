@@ -74,9 +74,32 @@ public class MainMenuController {
 
     }
 
+    public void refresher(int i)
+    {
+        if(i == 0)
+        {
+            listView1.refresh();
+        }
+        else if(i == 1)
+        {
+            listView2.refresh();
+        }
+        else if(i == 2)
+        {
+            listView3.refresh();
+        }
+        else if(i == 3)
+        {
+            listView4.refresh();
+        }
+        else if(i == 4)
+        {
+            listView5.refresh();
+        }
+    }
+
     private void initialiseListView(ListView<String> listView1, int j)
     {
-
         collection = mainApp.getMovieCollection(j);
 
         ObservableList<String> items = FXCollections.observableArrayList ();

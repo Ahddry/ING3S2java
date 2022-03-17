@@ -23,6 +23,12 @@ public class HelloApplication extends Application {
     private Connection myConn;
     private Statement myStat;
     private Profil user;
+    private RunnableDemo thread;
+
+    public SceneController get_sceneController()
+    {
+        return this.sceneController;
+    }
 
 
     public HelloApplication()
@@ -96,15 +102,19 @@ public class HelloApplication extends Application {
             exception.printStackTrace();
         }
 
-        RunnableDemo thread = new RunnableDemo("Mon thread");
+        thread = new RunnableDemo("Mon thread");
         thread.setMainApp(this);
-        thread.start();
 
         sceneController = new SceneController(primaryStage, monProfil, collection, this);
 
         //initRootLayout();
         //showMainMenu();
 
+    }
+
+    public void threadStarter()
+    {
+        thread.start();
     }
 
     public MovieCollection[] getMovieCollection(int i)

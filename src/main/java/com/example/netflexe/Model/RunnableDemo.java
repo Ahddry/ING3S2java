@@ -19,6 +19,7 @@ public class RunnableDemo implements Runnable {
         for(int i = 0; i<5; i ++)
         {
             collection[i].setImage();
+            this.mainApp.get_sceneController().refreshMovie(i);
         }
         collection[0].setImage();
 
