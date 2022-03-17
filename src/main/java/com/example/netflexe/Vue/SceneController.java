@@ -220,7 +220,7 @@ public class SceneController
             FilmInfoController controller = loader.getController();
             controller.setMainApp(this);
             controller.setMovie(movie);
-            controller.setProfil(profil);
+            controller.setProfil(user);
             controller.setAdminAccess(admin);
             controller.setCinema(cinemaAdmin);
 

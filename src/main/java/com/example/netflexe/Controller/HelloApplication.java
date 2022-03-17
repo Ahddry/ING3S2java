@@ -17,7 +17,6 @@ public class HelloApplication extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private Profil monProfil = new Profil();
     private CinemaCollection cinemaCollection = new CinemaCollection();
     private SceneController sceneController;
     private Connection myConn;
@@ -105,7 +104,7 @@ public class HelloApplication extends Application {
         thread = new RunnableDemo("Mon thread");
         thread.setMainApp(this);
 
-        sceneController = new SceneController(primaryStage, monProfil, collection, this);
+        sceneController = new SceneController(primaryStage, user, collection, this);
 
         //initRootLayout();
         //showMainMenu();
@@ -124,7 +123,7 @@ public class HelloApplication extends Application {
 
     public Profil getProfil()
     {
-        return monProfil;
+        return user;
     }
 
     public Stage get_stage()
