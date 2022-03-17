@@ -96,7 +96,7 @@ public class ReservationController {
             if (event.getClickCount() == 2  ) {
                 String selectedName = listView1.getSelectionModel().getSelectedItem();
 
-                mainApp.showValiderReseravtion(this.movie, collection.getCinema(selectedName));
+                mainApp.showValiderReseravtion(this.movie, collection.getCinema(selectedName),mainApp.getProfil());
             }
         });
 

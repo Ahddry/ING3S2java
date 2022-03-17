@@ -32,7 +32,7 @@
                   <Label layoutX="88.0" layoutY="238.0" text="Prix final" />
                   <TextField fx:id="mailInput" layoutX="91.0" layoutY="543.0" prefHeight="37.0" prefWidth="522.0" />
                   <Label layoutX="98.0" layoutY="502.0" text="Adresse mail:" />
-                  <Button fx:id="acheterButton" layoutX="519.0" layoutY="640.0" mnemonicParsing="false" text="Acheter" />
+                  <Button fx:id="acheterButton" layoutX="519.0" layoutY="640.0" mnemonicParsing="false" onAction="#reserver" text="Acheter" />
                </children>
             </AnchorPane>
          </items>
