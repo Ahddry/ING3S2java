@@ -37,6 +37,10 @@ public class Seance {
         return heure;
     }
 
+    public  LocalDate getDate(){ return date;}
+
+    public int getPrix(){ return prix;}
+
 
 }
 

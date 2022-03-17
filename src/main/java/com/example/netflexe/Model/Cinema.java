@@ -67,5 +67,10 @@ public class Cinema {
         seances.add(new Seance(movieTitle,LocalDate.parse(date),heure,salle,prix));
     }
 
+    public void setFilmP(MovieCollection filmP)
+    {
+        this.filmP = filmP;
+    }
+
     public ArrayList<Seance> getAllSeances(){return seances;}
 }

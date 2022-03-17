@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane style="-fx-background-color: #1d1d1d;" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.netflexe.Vue.AccueilAdminController">
+<AnchorPane style="-fx-background-color: #242425;" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.netflexe.Vue.AccueilAdminController">
     <GridPane minHeight="900" minWidth="1152" prefWidth="-Infinity">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5" />
@@ -23,7 +23,7 @@
         <Label alignment="BOTTOM_LEFT" styleClass="label-bright" text="Films à l'affiche" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <ListView fx:id="listView1" prefHeight="200.0" prefWidth="200.0" styleClass="table-view" stylesheets="@dark-theme.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <Button alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #9a9a9a; -fx-border-radius: 100; -fx-background-radius: 100;" text="+" GridPane.columnIndex="2"
-                GridPane.rowIndex="2" prefHeight="60" fx:id="ajoutFilmBoutton">
+                GridPane.rowIndex="2" prefHeight="60" fx:id="ajoutFilmBouton" onAction="#ajoutFilmBoutonClick">
             <font>
                 <Font size="35.0" />
             </font>

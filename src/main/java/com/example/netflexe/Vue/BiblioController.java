@@ -12,7 +12,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -105,7 +104,7 @@ public class BiblioController {
 
                 Movie movie = collection.getMovie(selectedName);
 
-                mainApp.showInfo(movie);
+                mainApp.showInfo(movie, false);
             }
         });
 

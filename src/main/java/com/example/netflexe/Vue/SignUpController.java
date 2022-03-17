@@ -4,7 +4,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -94,6 +93,7 @@ public class SignUpController{
                 }
             }
         });
+
 
         signup_btn.setOnMouseClicked(event -> {
             if(event.getClickCount() == 1) {
