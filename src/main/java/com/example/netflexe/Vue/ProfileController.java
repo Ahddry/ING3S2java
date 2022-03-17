@@ -1,12 +1,6 @@
 package com.example.netflexe.Vue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -71,7 +65,7 @@ public class ProfileController{
     private Button submit_pwd;
 
     @FXML
-    private DatePicker naissance;
+    private DatePicker naissance_field;
     @FXML
     private Label age;
     @FXML
@@ -93,6 +87,20 @@ public class ProfileController{
         root.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1  ) {
                 root.requestFocus();
+            }
+        });
+
+        naissance_field.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+
+
+                setDisable(true);
+
+                if(date.isBefore(LocalDate.now()) ) {
+                        setDisable(false);
+                }
+
             }
         });
 
@@ -153,7 +161,7 @@ public class ProfileController{
         submit_naissance.setOnMouseClicked(event ->{
             if(event.getClickCount() == 1)
             {
-                LocalDate value = naissance.getValue();
+                LocalDate value = naissance_field.getValue();
                 if(value != null)
                 {
                     this.controller.modify_user("date_de_naissance", String.valueOf(value.getYear()) + "-" + String.valueOf(value.getMonthValue()) + "-" + String.valueOf(value.getDayOfMonth()));
