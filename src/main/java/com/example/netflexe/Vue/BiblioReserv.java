@@ -97,7 +97,7 @@ public class BiblioReserv {
                             System.out.print(tempName);
                         }
                     }
-                    imageView.setFitHeight(400);
+                    imageView.setFitHeight(380);
                     imageView.setFitWidth(250);
                     setText(null);
 

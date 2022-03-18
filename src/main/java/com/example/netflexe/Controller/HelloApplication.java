@@ -105,6 +105,7 @@ public class HelloApplication extends Application {
         thread.setMainApp(this);
 
         sceneController = new SceneController(primaryStage, user, collection, this);
+        sceneController.setProfil(user);
 
         //initRootLayout();
         //showMainMenu();

@@ -62,6 +62,7 @@ public class SceneController
             primaryStage.show();
             MySceneController controller = loader.getController();
             controller.setMainApp(this);
+            controller.setProfil(user);
             showMainMenu();
         } catch (IOException e) {
             e.printStackTrace();
