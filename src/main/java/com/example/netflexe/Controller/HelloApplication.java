@@ -2,7 +2,6 @@ package com.example.netflexe.Controller;
 
 import com.example.netflexe.Vue.SceneController;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import java.io.FileInputStream;
@@ -44,7 +43,7 @@ public class HelloApplication extends Application {
     }
 
     private MovieCollection[] collection = {new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection()};
-
+    private ActorCollection collectionActor = new ActorCollection();
     public int selectedMenu ;
     private String[] genre = {"Action","Science-Fiction","Aventure","Animation","Comédie"};
 
@@ -57,7 +56,7 @@ public class HelloApplication extends Application {
 
             for(int i = 0; i<5;i++)
             {
-                ResultSet myRes = myStat.executeQuery("SELECT nom_film, poster, date_de_sortie, duree, synopsis, slogan FROM film JOIN film_genre ON (film.id_film = film_genre.id_film) JOIN genre ON (genre.id_genre = film_genre.id_genre) WHERE genre.nom = '" + genre[i] + "';");
+                ResultSet myRes = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan FROM film as f JOIN film_genre ON (f.id_film = film_genre.id_film) JOIN genre ON (genre.id_genre = film_genre.id_genre) WHERE genre.nom = '" + genre[i] + "';");
                 while(myRes.next())
                 {
                     String poster = myRes.getString("poster");
@@ -65,8 +64,9 @@ public class HelloApplication extends Application {
                     String duree = myRes.getString("duree");
                     String synopsis = myRes.getString("synopsis");
                     String slogan = myRes.getString("slogan");
+                    String id_film = myRes.getString("id_film");
                     //System.out.println(poster);
-                    collection[i].addMovie(new Movie(myRes.getString("nom_film"),"MOI",poster, dateDeSortie, dateDeSortie, duree, synopsis, slogan) );
+                    collection[i].addMovie(new Movie(myRes.getString("nom_film"),"MOI",poster, dateDeSortie, dateDeSortie, duree, synopsis, slogan, id_film) );
                 }
             }
 
@@ -119,6 +119,11 @@ public class HelloApplication extends Application {
     public MovieCollection[] getMovieCollection(int i)
     {
         return collection;
+    }
+
+    public ActorCollection getActorCollection()
+    {
+        return collectionActor;
     }
 
     public Profil getProfil()

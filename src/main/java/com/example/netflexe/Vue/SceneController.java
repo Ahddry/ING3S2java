@@ -1,5 +1,6 @@
 package com.example.netflexe.Vue;
 
+import com.example.netflexe.Model.*;
 import com.example.netflexe.Vue.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,15 +9,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import com.example.netflexe.Model.Movie;
-import com.example.netflexe.Model.CinemaCollection;
 import com.example.netflexe.Controller.HelloApplication;
-import com.example.netflexe.Model.Cinema;
 
 import java.io.IOException;
-
-import com.example.netflexe.Model.MovieCollection;
-import com.example.netflexe.Model.Profil;
 
 public class SceneController
 {
@@ -406,4 +401,5 @@ public class SceneController
     {
         this.cinemaAdmin = cinemaAdmin;
     }
+
 }

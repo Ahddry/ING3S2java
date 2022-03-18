@@ -26,10 +26,11 @@ public class Actor {
         this(null, null, null, null, null, null);
     }
 
-    public Actor(String prenom, String nom, String adresseImage, LocalDate date_de_naissance, String description, String role) {
+    public Actor(String prenom, String nom, String adresseImage, String date_de_naissance, String description, String role) {
         this.first_name = new SimpleStringProperty(prenom);
         this.last_name = new SimpleStringProperty(nom);
-        String birthday = Integer.toString(Period.between(date_de_naissance, LocalDate.now()).getYears());
+        LocalDate date = LocalDate.parse(date_de_naissance);
+        String birthday = Integer.toString(Period.between(date, LocalDate.now()).getYears());
         this.age = new SimpleStringProperty(birthday);
         this.description = new SimpleStringProperty("No genre specified");
         this.imageNameActeur = adresseImage;
@@ -43,7 +44,7 @@ public class Actor {
     public String getLastName() {
         return last_name.get();
     }
-
+    public String getName(){ return first_name.get() + " " + last_name.get();}
     public String getAge() {
         return age.get();
     }
