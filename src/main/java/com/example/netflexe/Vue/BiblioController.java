@@ -19,6 +19,9 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import com.example.netflexe.Model.Movie;
+import java.time.LocalDate;
+import java.util.Locale;
+
 
 public class BiblioController {
 
@@ -39,7 +42,10 @@ public class BiblioController {
     private SceneController mainApp;
 
 
-    private MovieCollection collection = new MovieCollection();
+    private MovieCollection collection[] = {new MovieCollection(), new MovieCollection()};
+    //private MovieCollection collectionAvenir = new MovieCollection();
+    private LocalDate dateAJD = LocalDate.now();
+
 
     @FXML
     private void initialize() {
@@ -49,19 +55,34 @@ public class BiblioController {
 
     public void initializeBis(Profil monProfil)
     {
-        collection = monProfil.getFilmLike();
-        initialiseListView(listView1);
+        LocalDate dateTemp;
+        collection[0] = monProfil.getFilmLike();
 
+
+        for(int i = 0; i<collection[0].getSize();i++)
+        {
+            dateTemp = collection[0].getMovie(i).getDate_de_sortie_LD();
+            if(dateTemp.isAfter(dateAJD))
+            {
+                collection[1].addMovie(collection[0].getMovie(i));
+            }
+        }
+
+        initialiseListView(listView1, 0);
+        if(collection[1].getSize() != 0)
+        {
+            initialiseListView(listView2, 1);
+        }
 
 
     }
 
-    private void initialiseListView(ListView<String> listView1)
+    private void initialiseListView(ListView<String> listView1, int k)
     {
         ObservableList<String> items = FXCollections.observableArrayList ();
-        for(int i = 0 ; i < collection.getSize(); i++)
+        for(int i = 0 ; i < collection[k].getSize(); i++)
         {
-            items.add(collection.getName(i)) ;
+            items.add(collection[k].getName(i)) ;
         }
         listView1.setItems(items);
         listView1.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -79,7 +100,7 @@ public class BiblioController {
                     setGraphic(null);
                 } else {
                     String tempName = "";
-                    imageView.setImage(collection.getImage(name));
+                    imageView.setImage(collection[k].getImage(name));
                     imageView.setFitHeight(173);
                     imageView.setFitWidth(118);
                     setText(null);
@@ -102,7 +123,7 @@ public class BiblioController {
             if (event.getClickCount() == 2  ) {
                 String selectedName = listView1.getSelectionModel().getSelectedItem();
 
-                Movie movie = collection.getMovie(selectedName);
+                Movie movie = collection[k].getMovie(selectedName);
 
                 mainApp.showInfo(movie, false);
             }

@@ -23,7 +23,7 @@ public class SceneController
     private AnchorPane loginLayout;
     private AnchorPane mainMenu;
     
-    private final Profil profil;
+    private Profil profil = null;
     private Cinema cinemaAdmin;
     
     
@@ -54,6 +54,7 @@ public class SceneController
     public void showMain()
     {
         try {
+
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("MyScene.fxml"));
             rootLayout = (BorderPane) loader.load();
@@ -63,6 +64,7 @@ public class SceneController
             MySceneController controller = loader.getController();
             controller.setMainApp(this);
             controller.setProfil(user);
+            controller.initialiseBis();
             showMainMenu();
         } catch (IOException e) {
             e.printStackTrace();

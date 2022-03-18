@@ -71,6 +71,7 @@ public class FilmInfoController {
 
     public void setMovie(Movie movie)
     {
+
         //System.out.print(movie.getTitle());
         Title.setText(movie.getTitle());
         Poster.setImage(movie.getImage());
@@ -84,6 +85,10 @@ public class FilmInfoController {
     public void setProfil(Profil profil)
     {
         monProfil = profil;
+        if(monProfil == null)
+        {
+            LikeButton.setVisible(false);
+        }
     }
 
     @FXML
