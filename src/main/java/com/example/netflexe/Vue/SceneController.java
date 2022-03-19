@@ -159,15 +159,7 @@ public class SceneController
         try {
             if(icontroller == null)
             {
-                cinemaCollection.addCinema(new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg"));
-                cinemaCollection.addCinema(new Cinema("Cinema UGC","https://www.pagesjaunes.fr/media/resto/ugc_cine_cite_la_defense_OSD52406032-78652.jpeg"));
-                cinemaCollection.addCinema(new Cinema("Cinema Le Village","https://salles-cinema.com/wp-content/uploads/2009/07/cinema-neuilly-sur-seine.jpg"));
-                cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema Gaumont");
-        /*cinemaCollection.addMovie(collections[0].getMovie(1),"Cinema Gaumont");
-        cinemaCollection.addMovie(collections[0].getMovie(2),"Cinema Gaumont");*/
-                cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema UGC");
-                cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema Le Village");
-                cinemaCollection.setImage();
+
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("MainMenu.fxml"));
                 mainMenu = (AnchorPane) loader.load();
@@ -178,6 +170,16 @@ public class SceneController
                 this.controller.load_bdd_movie();
                 icontroller.initializeBis();
                 controller.threadStarter();
+
+                cinemaCollection.addCinema(new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg"));
+                cinemaCollection.addCinema(new Cinema("Cinema UGC","https://www.pagesjaunes.fr/media/resto/ugc_cine_cite_la_defense_OSD52406032-78652.jpeg"));
+                cinemaCollection.addCinema(new Cinema("Cinema Le Village","https://salles-cinema.com/wp-content/uploads/2009/07/cinema-neuilly-sur-seine.jpg"));
+                cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema Gaumont");
+        /*cinemaCollection.addMovie(collections[0].getMovie(1),"Cinema Gaumont");
+        cinemaCollection.addMovie(collections[0].getMovie(2),"Cinema Gaumont");*/
+                cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema UGC");
+                cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema Le Village");
+                cinemaCollection.setImage();
             }
             rootLayout.setCenter(scrollmainMenu);
             
