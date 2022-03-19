@@ -76,8 +76,14 @@ public class MainMenuController {
         initialiseListView(listView3,2);
         initialiseListView(listView4,3);
         initialiseListView(listView5,4);
-
-
+        if(this.mainApp.getProfil() != null)
+        {
+            Label1.setText(this.mainApp.getProfil().get_genre(0));
+            Label2.setText(this.mainApp.getProfil().get_genre(1));
+            Label3.setText(this.mainApp.getProfil().get_genre(2));
+            Label4.setText(this.mainApp.getProfil().get_genre(3));
+            Label5.setText(this.mainApp.getProfil().get_genre(4));
+        }
     }
 
     public void refresher(int i)

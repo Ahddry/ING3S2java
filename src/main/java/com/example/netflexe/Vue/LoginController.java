@@ -6,6 +6,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
 
 
 
@@ -38,6 +41,23 @@ public class LoginController {
         root.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1  ) {
                 root.requestFocus();
+            }
+        });
+
+        mdp.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent k) {
+                if (k.getCode().equals(KeyCode.ENTER)) {
+                    if(controller.login_acct(login.getText(), mdp.getText()) == 1)
+                    {
+                        error.setVisible(false);
+                        mainApp.showMain();
+                    }
+                    else
+                    {
+                        error.setVisible(true);
+                    }
+                }
             }
         });
 

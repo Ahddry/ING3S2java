@@ -112,11 +112,12 @@ public class SignUpController{
                     if(!((String)genre.getValue() != "" && autres.getText() != ""))
                     {
                         
-                        int used = this.controller.create_acct(prenom.getText(), nom.getText(), genrefinal, value.getYear(), value.getMonthValue(), value.getDayOfMonth(), login.getText(), mdp.getText(), admin.isSelected(), linkFile);
+                        int used = this.controller.create_acct(prenom.getText().replace("'","''"), nom.getText().replace("'","''"), genrefinal.replace("'","''"), value.getYear(), value.getMonthValue(), value.getDayOfMonth(), login.getText().replace("'","''"), mdp.getText(), admin.isSelected(), linkFile);
                         if(used == 1)
                         {
                             warning.setVisible(false);
-                            this.mainApp.Login();
+                            this.mainApp.showGenre();
+                            //this.mainApp.Login();
                         }
                         else if(used == -1)
                         {

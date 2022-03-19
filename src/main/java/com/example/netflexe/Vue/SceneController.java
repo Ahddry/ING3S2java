@@ -23,7 +23,7 @@ public class SceneController
     private AnchorPane loginLayout;
     private AnchorPane mainMenu;
     
-    private final Profil profil;
+    private Profil profil = null;
     private Cinema cinemaAdmin;
     
     
@@ -32,7 +32,8 @@ public class SceneController
 
     private ScrollPane scrollmainMenu;
 
-    private final MovieCollection[] collections;
+    private MovieCollection[] collections;
+    private CinemaCollection cinemaCollection = new CinemaCollection();
     private Profil user;
 
     public SceneController(Stage stage, Profil p, MovieCollection[] c, HelloApplication controller)
@@ -43,6 +44,14 @@ public class SceneController
         collections = c;
         //showMain();
         Login();
+        //showGenre();
+    }
+    public void set_collection(MovieCollection[] c)
+    {
+        this.collections = c;
+    }
+    public void create_cine()
+    {
         cinemaAdmin = new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg");
         cinemaAdmin.ajoutFilm(collections[0].getMovie(0));
         cinemaAdmin.ajoutFilm(collections[0].getMovie(5));
@@ -54,6 +63,7 @@ public class SceneController
     public void showMain()
     {
         try {
+
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("MyScene.fxml"));
             rootLayout = (BorderPane) loader.load();
@@ -63,6 +73,7 @@ public class SceneController
             MySceneController controller = loader.getController();
             controller.setMainApp(this);
             controller.setProfil(user);
+            controller.initialiseBis();
             showMainMenu();
         } catch (IOException e) {
             e.printStackTrace();
@@ -88,7 +99,7 @@ public class SceneController
 
     public void setProfil(Profil user)
     {
-        this.user = user;
+        this.user = this.controller.getProfil();
     }
     public void updateProfil()
     {
@@ -148,6 +159,15 @@ public class SceneController
         try {
             if(icontroller == null)
             {
+                cinemaCollection.addCinema(new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg"));
+                cinemaCollection.addCinema(new Cinema("Cinema UGC","https://www.pagesjaunes.fr/media/resto/ugc_cine_cite_la_defense_OSD52406032-78652.jpeg"));
+                cinemaCollection.addCinema(new Cinema("Cinema Le Village","https://salles-cinema.com/wp-content/uploads/2009/07/cinema-neuilly-sur-seine.jpg"));
+                cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema Gaumont");
+        /*cinemaCollection.addMovie(collections[0].getMovie(1),"Cinema Gaumont");
+        cinemaCollection.addMovie(collections[0].getMovie(2),"Cinema Gaumont");*/
+                cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema UGC");
+                cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema Le Village");
+                cinemaCollection.setImage();
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("MainMenu.fxml"));
                 mainMenu = (AnchorPane) loader.load();
@@ -155,6 +175,7 @@ public class SceneController
                 icontroller.setMainApp(this, this.controller);
                 scrollmainMenu = new ScrollPane();
                 scrollmainMenu.setContent(mainMenu);
+                this.controller.load_bdd_movie();
                 icontroller.initializeBis();
                 controller.threadStarter();
             }
@@ -170,6 +191,26 @@ public class SceneController
         icontroller.refresher(i);
     }
 
+    public void showGenre()
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("genreliker.fxml"));
+            loginLayout = (AnchorPane) loader.load();
+            Scene scene = new Scene(loginLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+            GenreLikeController controller = loader.getController();
+            controller.setMainApp(this, this.controller);
+            controller.initializeBis();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 
     public void showBiblio(Profil monProfil) {
         try {
@@ -181,6 +222,7 @@ public class SceneController
             bcontroller.setMainApp(this);
             ScrollPane scroll = new ScrollPane();
             scroll.setContent(biblio);
+            bcontroller.setCinemaC(cinemaCollection);
             bcontroller.initializeBis(monProfil);
             rootLayout.setCenter(scroll);
 
@@ -256,16 +298,7 @@ public class SceneController
 
     public void showReservation(Movie movie)
     {
-        CinemaCollection cinemaCollection = new CinemaCollection();
-        cinemaCollection.addCinema(new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg"));
-        cinemaCollection.addCinema(new Cinema("Cinema UGC","https://www.pagesjaunes.fr/media/resto/ugc_cine_cite_la_defense_OSD52406032-78652.jpeg"));
-        cinemaCollection.addCinema(new Cinema("Cinema Le Village","https://salles-cinema.com/wp-content/uploads/2009/07/cinema-neuilly-sur-seine.jpg"));
-        cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema Gaumont");
-        /*cinemaCollection.addMovie(collections[0].getMovie(1),"Cinema Gaumont");
-        cinemaCollection.addMovie(collections[0].getMovie(2),"Cinema Gaumont");*/
-        cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema UGC");
-        cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema Le Village");
-        cinemaCollection.setImage();
+
         try
         {
 
@@ -298,12 +331,10 @@ public class SceneController
 
             AccueilAdminController controller = loader.getController();
             controller.setMainApp(this);
-
             ScrollPane scroll = new ScrollPane();
             scroll.setContent(accueilAdmin);
 
             rootLayout.setCenter(scroll);
-
             controller.init(cinemaAdmin);
 
 
@@ -385,7 +416,7 @@ public class SceneController
 
     public Profil getProfil()
     {
-        return user;
+        return this.controller.getProfil();
     }
 
     public MovieCollection[] getMovieCollection(int truc)

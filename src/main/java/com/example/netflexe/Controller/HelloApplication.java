@@ -6,6 +6,10 @@ import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import java.io.FileInputStream;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.example.netflexe.Model.*;
 import com.example.netflexe.Model.Profil;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -21,6 +25,7 @@ public class HelloApplication extends Application {
     private Connection myConn;
     private Statement myStat;
     private Profil user;
+    private String tempUserId;
     private RunnableDemo thread;
 
     public SceneController get_sceneController()
@@ -45,7 +50,9 @@ public class HelloApplication extends Application {
     private MovieCollection[] collection = {new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection(),new MovieCollection()};
     private ActorCollection collectionActor = new ActorCollection();
     public int selectedMenu ;
-    private String[] genre = {"Action","Science-Fiction","Aventure","Animation","Comédie"};
+    private ArrayList<String> genre = new ArrayList<String>();
+
+    
 
 
     public ActorCollection CollectionActeursMovie (String id_film) throws IOException {
@@ -86,12 +93,34 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         this.primaryStage = stage;
         this.primaryStage.setTitle("AddressApp");
+        sceneController = new SceneController(primaryStage, user, collection, this);
+    }
+
+    public void load_bdd_movie()
+    {
         try
         {
-
+            if(user != null)
+            {
+                ResultSet myres = myStat.executeQuery("SELECT genre.nom from utilisateur_genre JOIN genre ON utilisateur_genre.id_genre = genre.id_genre where id_user ='"+ String.valueOf(user.get_id()) +"' LIMIT 5;");
+                while(myres.next())
+                {
+                    String tempgenre = myres.getString("nom");
+                    genre.add(tempgenre);
+                    user.add_genre(tempgenre);
+                }
+            }
+            else
+            {
+                genre.add("Action");
+                genre.add("Science-Fiction");
+                genre.add("Aventure");
+                genre.add("Animation");
+                genre.add("Comédie");
+            }
             for(int i = 0; i<5;i++)
             {
-                ResultSet myRes = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan FROM film as f JOIN film_genre ON (f.id_film = film_genre.id_film) JOIN genre ON (genre.id_genre = film_genre.id_genre) WHERE genre.nom = '" + genre[i] + "';");
+                ResultSet myRes = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan FROM film as f JOIN film_genre ON (f.id_film = film_genre.id_film) JOIN genre ON (genre.id_genre = film_genre.id_genre) WHERE genre.nom = '" + genre.get(i) + "';");
                 while(myRes.next())
                 {
                     String poster = myRes.getString("poster");
@@ -139,12 +168,30 @@ public class HelloApplication extends Application {
         thread = new RunnableDemo("Mon thread");
         thread.setMainApp(this);
 
-        sceneController = new SceneController(primaryStage, user, collection, this);
+        sceneController.set_collection(collection);
+        sceneController.create_cine();
         sceneController.setProfil(user);
 
         //initRootLayout();
         //showMainMenu();
+    }
 
+    public ArrayList<Genre> get_genre_from_bdd()
+    {
+        ArrayList<Genre> genres = new ArrayList<Genre>();
+        try
+        {
+            ResultSet myRes = myStat.executeQuery("SELECT nom, id_genre from genre");
+            while(myRes.next())
+            {
+                genres.add(new Genre(myRes.getString("nom"),myRes.getInt("id_genre")));
+            }
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+        return genres;
     }
 
     public void threadStarter()
@@ -199,6 +246,18 @@ public class HelloApplication extends Application {
         }
     }
 
+    public void genre_like(String genre)
+    {
+        try
+        {
+            myStat.executeUpdate("INSERT INTO utilisateur_genre (id_user, id_genre) SELECT * FROM (SELECT '" + tempUserId +"' AS id_user, '" + genre +"' AS id_genre) AS tmp WHERE NOT EXISTS ( SELECT id_genre FROM utilisateur_genre WHERE (id_user='" + tempUserId + "' AND id_genre='" + genre +"')) LIMIT 1;");
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+
     public void modify_user(String field, FileInputStream value)
     {
         try
@@ -242,7 +301,8 @@ public class HelloApplication extends Application {
                 ResultSet myRes = myStat.executeQuery("SELECT id_user FROM utilisateur WHERE email = '" + login + "';");
                 while(myRes.next())
                 {
-                    if(myRes.getString("id_user") != "")
+                    tempUserId = myRes.getString("id_user");
+                    if(tempUserId != "")
                     {
                         return 1;
                     }
