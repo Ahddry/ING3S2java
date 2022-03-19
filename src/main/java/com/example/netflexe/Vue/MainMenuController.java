@@ -1,5 +1,7 @@
 package com.example.netflexe.Vue;
 
+import com.example.netflexe.Controller.HelloApplication;
+import com.example.netflexe.Model.ActorCollection;
 import com.example.netflexe.Model.MovieCollection;
 
 import javafx.collections.FXCollections;
@@ -15,6 +17,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.geometry.Insets;
 import com.example.netflexe.Model.Movie;
+
+import java.io.IOException;
+import java.util.Collection;
 
 public class MainMenuController {
 
@@ -48,7 +53,8 @@ public class MainMenuController {
 
 
     private MovieCollection[] collection = {new MovieCollection()};
-
+    private ActorCollection collectionActor = new ActorCollection();
+    private HelloApplication controller;
 
     @FXML
     private void initialize() {
@@ -146,7 +152,12 @@ public class MainMenuController {
                 String selectedName = listView1.getSelectionModel().getSelectedItem();
 
                 Movie movie = collection[j].getMovie(selectedName);
-
+                String id_film = movie.get_idFilm();
+                try {
+                    collectionActor = this.controller.CollectionActeursMovie(id_film);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 mainApp.showInfo(movie, false);
             }
         });
@@ -154,15 +165,15 @@ public class MainMenuController {
         listView1.setOrientation(Orientation.HORIZONTAL);
     }
 
-    public void setMainApp(SceneController mainApp) {
+    public void setMainApp(SceneController mainApp, HelloApplication controller) {
         this.mainApp = mainApp;
+        this.controller = controller;
     }
 
     @FXML
     private void lancerRecherche() {
         mainApp.showResearch(false);
     }
-
 
 }
 

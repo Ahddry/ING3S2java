@@ -152,7 +152,7 @@ public class SceneController
                 loader.setLocation(getClass().getResource("MainMenu.fxml"));
                 mainMenu = (AnchorPane) loader.load();
                 icontroller = loader.getController();
-                icontroller.setMainApp(this);
+                icontroller.setMainApp(this, this.controller);
                 scrollmainMenu = new ScrollPane();
                 scrollmainMenu.setContent(mainMenu);
                 icontroller.initializeBis();

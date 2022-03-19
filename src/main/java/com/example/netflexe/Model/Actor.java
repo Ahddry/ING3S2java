@@ -32,8 +32,8 @@ public class Actor {
         LocalDate date = LocalDate.parse(date_de_naissance);
         String birthday = Integer.toString(Period.between(date, LocalDate.now()).getYears());
         this.age = new SimpleStringProperty(birthday);
-        this.description = new SimpleStringProperty("No genre specified");
         this.imageNameActeur = adresseImage;
+        this.description = new SimpleStringProperty(description);
         this.role = new SimpleStringProperty(role);
     }
 

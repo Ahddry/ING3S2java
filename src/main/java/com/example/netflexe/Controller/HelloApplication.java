@@ -47,6 +47,41 @@ public class HelloApplication extends Application {
     public int selectedMenu ;
     private String[] genre = {"Action","Science-Fiction","Aventure","Animation","Comédie"};
 
+
+    public ActorCollection CollectionActeursMovie (String id_film) throws IOException {
+        try {
+            ResultSet myRes = myStat.executeQuery("SELECT person.nom, personnage.nom, prenom, pp, date_de_naissance, biographie FROM person JOIN film_person on film_person.id_person = person.id_person JOIN film \n" +
+                    "ON (film_person.id_film = film.id_film) JOIN personnage ON personnage.id_film = film_person.id_film\n" +
+                    " AND personnage.id_person = person.id_person WHERE film.id_film =" + id_film + ";");
+
+            while (myRes.next()) {
+                String nom = myRes.getString("person.nom");
+                if(nom == null)
+                    nom = "Donatien";
+                String prenom = myRes.getString("prenom");
+                if(prenom == null)
+                    prenom = "Chevillard";
+                String pp = myRes.getString("pp");
+                if(pp == null)
+                    pp = "https://tse2.mm.bing.net/th?id=OIP.X-25juJ5xWiHhacWDz8vnwHaLH&pid=Api";
+                String date_de_naissance = myRes.getString("date_de_naissance");
+                if(date_de_naissance == null)
+                    date_de_naissance = "2001-09-11";
+                String biographie = myRes.getString("biographie");
+                if(biographie == null)
+                    biographie = "Il/Elle est né(e), a vécu et tourné dans ce film, et va mourir un jour.";
+                String role = myRes.getString("personnage.nom");
+                if(role == null)
+                    role = "Figurant";
+                collectionActor.addActor(new Actor(prenom, nom, pp, date_de_naissance, biographie, role));
+            }
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+        return collectionActor;
+    }
     @Override
     public void start(Stage stage) throws IOException {
         this.primaryStage = stage;
