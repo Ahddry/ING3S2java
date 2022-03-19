@@ -32,7 +32,7 @@ public class SceneController
 
     private ScrollPane scrollmainMenu;
 
-    private final MovieCollection[] collections;
+    private MovieCollection[] collections;
     private Profil user;
 
     public SceneController(Stage stage, Profil p, MovieCollection[] c, HelloApplication controller)
@@ -44,6 +44,13 @@ public class SceneController
         //showMain();
         Login();
         //showGenre();
+    }
+    public void set_collection(MovieCollection[] c)
+    {
+        this.collections = c;
+    }
+    public void create_cine()
+    {
         cinemaAdmin = new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg");
         cinemaAdmin.ajoutFilm(collections[0].getMovie(0));
         cinemaAdmin.ajoutFilm(collections[0].getMovie(5));
@@ -91,7 +98,7 @@ public class SceneController
 
     public void setProfil(Profil user)
     {
-        this.user = user;
+        this.user = this.controller.getProfil();
     }
     public void updateProfil()
     {
@@ -158,6 +165,7 @@ public class SceneController
                 icontroller.setMainApp(this);
                 scrollmainMenu = new ScrollPane();
                 scrollmainMenu.setContent(mainMenu);
+                this.controller.load_bdd_movie();
                 icontroller.initializeBis();
                 controller.threadStarter();
             }
@@ -408,7 +416,7 @@ public class SceneController
 
     public Profil getProfil()
     {
-        return user;
+        return this.controller.getProfil();
     }
 
     public MovieCollection[] getMovieCollection(int truc)

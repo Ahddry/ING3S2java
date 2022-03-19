@@ -13,7 +13,7 @@
             <Image url="https://i.imgur.com/zwExuFY.png" />
          </image>
       </ImageView>
-      <Button fx:id="like_btn" layoutX="488.5" layoutY="638.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="303.0" style="-fx-background-color: #407070; -fx-background-radius: 6;" text="Enregistrer" textFill="WHITE" AnchorPane.leftAnchor="488.5" AnchorPane.rightAnchor="488.5" />
+      <Button fx:id="enregistrer" layoutX="488.5" layoutY="638.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="303.0" style="-fx-background-color: #407070; -fx-background-radius: 6;" text="Enregistrer" textFill="WHITE" AnchorPane.leftAnchor="488.5" AnchorPane.rightAnchor="488.5" />
       <ScrollPane fx:id="pane" layoutX="418.0" layoutY="174.0" prefHeight="415.0" prefWidth="444.0" style="-fx-border-color: BLACK;">
         <content>
           <AnchorPane fx:id="anchorGenre" minHeight="0.0" minWidth="0.0" prefWidth="444.0" style="-fx-background-color: BLACK;" />

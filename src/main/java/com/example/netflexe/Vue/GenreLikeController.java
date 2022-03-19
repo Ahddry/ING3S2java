@@ -10,15 +10,17 @@ import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 
 import com.example.netflexe.Controller.HelloApplication;
+import com.example.netflexe.Model.Genre;
 
 public class GenreLikeController{
     private SceneController mainApp;
     private HelloApplication controller;
+    private int genreLiker = 0;
     private GridPane gridPane;
     @FXML
     private AnchorPane root;
     @FXML
-    private Button like_btn;
+    private Button enregistrer;
     @FXML
     private AnchorPane anchorGenre;
     @FXML ScrollPane pane;
@@ -36,6 +38,12 @@ public class GenreLikeController{
         pane.setHbarPolicy(ScrollBarPolicy.NEVER);
         anchorGenre.getChildren().add(gridPane);
         
+        enregistrer.setOnMouseClicked(event -> {
+            if(genreLiker >= 5)
+            {
+                this.mainApp.Login();
+            }
+        });
         
         
 
@@ -43,15 +51,17 @@ public class GenreLikeController{
     public void initializeBis()
     {
 
-        ArrayList<String> genre = this.controller.get_genre_from_bdd();
+        ArrayList<Genre> genre = this.controller.get_genre_from_bdd();
         int count = 0;
         int count2 = 0;
         int count3 = 0;
         while(count < genre.size())
         {
-            Button temp  = new Button(genre.get(count));
+            Button temp  = new Button(genre.get(count).get_nom_genre());
+            temp.setId(String.valueOf(genre.get(count).get_id_genre()));
             temp.setOnMouseClicked(event -> {
-                System.out.println(temp.getText());
+                this.controller.genre_like(temp.getId());
+                this.genreLiker++;
             });
             temp.setStyle("-fx-background-radius : 100;");
             temp.setMinSize(130, 130);

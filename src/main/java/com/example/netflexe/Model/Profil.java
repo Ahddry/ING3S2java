@@ -15,6 +15,7 @@ public class Profil {
     private String age;
     private int id_user;
     private ArrayList<Reservation> mesReservations = new ArrayList<Reservation>();
+    private ArrayList<String> genreLiker = new ArrayList<String>();
 
     public Profil()
     {
@@ -42,6 +43,14 @@ public class Profil {
         this.age = a.age;
     }
 
+    public void add_genre(String genre)
+    {
+        this.genreLiker.add(genre);
+    }
+    public String get_genre(int i)
+    {
+        return this.genreLiker.get(i);
+    }
     public int get_id()
     {
         return this.id_user;

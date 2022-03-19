@@ -125,7 +125,7 @@ public class ProfileController{
             {
                 if(prenom_field.getText() != "")
                 {
-                    this.controller.modify_user("prenom",prenom_field.getText());
+                    this.controller.modify_user("prenom",prenom_field.getText().replace("'","''"));
                     //this.mainApp.showProfile();
                 }
             }
@@ -135,7 +135,7 @@ public class ProfileController{
             {
                 if(nom_field.getText() != "")
                 {
-                    this.controller.modify_user("nom",nom_field.getText());
+                    this.controller.modify_user("nom",nom_field.getText().replace("'","''"));
                 }
             }
         });
@@ -180,7 +180,7 @@ public class ProfileController{
                 {
                     final_genre = autres_field.getText();
                 }
-                this.controller.modify_user("genre", final_genre);
+                this.controller.modify_user("genre", final_genre.replace("'","''"));
             }
         });
 
