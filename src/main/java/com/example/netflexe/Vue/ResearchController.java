@@ -18,6 +18,9 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import com.example.netflexe.Model.Movie;
+
+import java.util.Locale;
+
 public class ResearchController {
 
     @FXML
@@ -64,7 +67,7 @@ public class ResearchController {
         ObservableList<String> items = FXCollections.observableArrayList ();
         for(int i = 0 ; i < collection[5].getSize(); i++)
         {
-            if(collection[5].getName(i).contains(ref))
+            if(collection[5].getName(i).toLowerCase(Locale.ROOT).contains(ref.toLowerCase(Locale.ROOT)))
             {
                 items.add(collection[5].getName(i)) ;
             }
