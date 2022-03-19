@@ -102,7 +102,7 @@ public class AjoutFilmFormController
             else
                 urlImage = affiche.getText();
 
-            Movie movie = new Movie(titre, realisateur, urlImage, dateDeSortie.toString(), dateDeSortie.toString(), dureeDuFilm, leSynopsis, leSlogan);
+            Movie movie = new Movie(titre, realisateur, urlImage, dateDeSortie.toString(), dateDeSortie.toString(), dureeDuFilm, leSynopsis, leSlogan, "0");
             movie.setImage(new Image(movie.getImageString()));
             monCinema.ajoutFilm(movie);
             mainApp.setCinemaAdmin(monCinema);

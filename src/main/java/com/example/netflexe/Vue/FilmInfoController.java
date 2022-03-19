@@ -1,5 +1,6 @@
 package com.example.netflexe.Vue;
 
+import com.example.netflexe.Model.ActorCollection;
 import com.example.netflexe.Model.Cinema;
 import com.example.netflexe.Model.Movie;
 import com.example.netflexe.Model.Profil;
@@ -38,11 +39,19 @@ public class FilmInfoController {
     @FXML
     private Label Slogan;
 
+    @FXML
+    private ListView ListView;
+
+    @FXML
+    private Label Label;
+
     private SceneController mainApp;
     private Movie movieS;
     private Profil monProfil;
     private boolean adminAccess;
     private Cinema monCinema;
+
+    private ActorCollection collection = new ActorCollection();
 
     @FXML
     private void initialize() {
@@ -62,6 +71,7 @@ public class FilmInfoController {
 
     public void setMovie(Movie movie)
     {
+
         //System.out.print(movie.getTitle());
         Title.setText(movie.getTitle());
         Poster.setImage(movie.getImage());
@@ -75,6 +85,10 @@ public class FilmInfoController {
     public void setProfil(Profil profil)
     {
         monProfil = profil;
+        if(monProfil == null)
+        {
+            LikeButton.setVisible(false);
+        }
     }
 
     @FXML

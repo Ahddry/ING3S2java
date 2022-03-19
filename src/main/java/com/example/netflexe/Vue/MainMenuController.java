@@ -53,7 +53,7 @@ public class MainMenuController {
     @FXML
     private void initialize() {
 
-        mainTitle.setText("Acceuil");
+        mainTitle.setText("Accueil");
         ResearchButton.setText("Rechercher");
         Label1.setText("Action");
         Label2.setText("Science-Fiction");
