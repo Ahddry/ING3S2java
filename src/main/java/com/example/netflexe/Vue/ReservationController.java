@@ -55,7 +55,6 @@ public class ReservationController {
     }
 
     private void initialiseListView(ListView<String> listView1) {
-        System.out.println("je suis là");
         ObservableList<String> items = FXCollections.observableArrayList();
         for (int i = 0; i < collection.getSize(); i++) {
             if(collection.getCinema(i).checkMovie(movie.getTitle()))

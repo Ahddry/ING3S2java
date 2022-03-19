@@ -68,7 +68,7 @@ public class ValiderReservation {
 
         promotion.add("Pas de promotion");
 
-
+        promoChoiceBox.setVisible(false);
 
         if(profil != null) {
             LocalDate date1 = LocalDate.parse(profil.get_age());
@@ -95,18 +95,13 @@ public class ValiderReservation {
         datePicker.setDayCellFactory(picker -> new DateCell() {
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
-
-
                 setDisable(true);
                 setStyle("-fx-background-color: #ffc0cb;");
-                for(int i = 0; i< seances.size(); i ++)
-                {
-
-                    if(seances.get(i).getDate().toString().equals(date.toString()) ) {
+                for (Seance seance : seances) {
+                    if (seance.getDate().toString().equals(date.toString())) {
                         setDisable(false);
                         setStyle("-fx-background-color: #cbc0ff;");
                     }
-
                 }
             }
         });
@@ -114,49 +109,35 @@ public class ValiderReservation {
         datePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
             horaires.clear();
             dateS = newValue;
-            for(int i = 0; i< seances.size();i++)
-            {
-                if((seances.get(i).getName().equals(movie.getTitle())) && (seances.get(i).getDate().toString().equals(newValue.toString()) ))
-                {
-                    horaires.add(seances.get(i).getHeure());
+            for (Seance seance : seances) {
+                if ((seance.getName().equals(movie.getTitle())) && (seance.getDate().toString().equals(newValue.toString()))) {
+                    horaires.add(seance.getHeure());
                 }
             }
-
             horaireBox.setItems(FXCollections.observableArrayList(horaires));
         });
 
         horaireBox.valueProperty().addListener((ov, oldValue, newValue) -> {
             horaireS = newValue;
-            for(int i = 0; i< seances.size();i++)
-            {
-                if((seances.get(i).getDate().toString().equals(datePicker.valueProperty().getValue().toString())) && (seances.get(i).getHeure().equals(newValue.toString())))
-                {
-                    seanceS = seances.get(i);
+            for (Seance seance : seances) {
+                if ((seance.getDate().toString().equals(datePicker.valueProperty().getValue().toString())) && (seance.getHeure().equals(newValue.toString()))) {
+                    seanceS = seance;
                     prixLabel.setText((String.valueOf(seanceS.getPrix())));
+                    promoChoiceBox.setVisible(true);
                 }
             }
         });
 
         promoChoiceBox.valueProperty().addListener((ov, oldValue, newValue) -> {
 
-            if(newValue.toString().equals("Pas de promotion"))
-            {
-                prixFinal = seanceS.getPrix();
-            }
-            else if(newValue.toString().equals("Promotion jeune"))
-            {
-                prixFinal = (seanceS.getPrix()*(0.8));
-            }
-            else if(newValue.toString().equals("Promotion senior"))
-            {
-                prixFinal = (seanceS.getPrix()*(0.7));
+            switch (newValue.toString()) {
+                case "Pas de promotion" -> prixFinal = seanceS.getPrix();
+                case "Promotion jeune" -> prixFinal = (seanceS.getPrix() * (0.8));
+                case "Promotion senior" -> prixFinal = (seanceS.getPrix() * (0.7));
             }
             prixFLabel.setText((String.valueOf(prixFinal)));
         });
-
-
     }
-
 
     public void setMainApp(SceneController mainApp) {
         this.mainApp = mainApp;
