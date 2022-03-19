@@ -7,6 +7,9 @@ import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import java.io.FileInputStream;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.example.netflexe.Model.*;
 import com.example.netflexe.Model.Profil;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -47,6 +50,8 @@ public class HelloApplication extends Application {
 
     public int selectedMenu ;
     private String[] genre = {"Action","Science-Fiction","Aventure","Animation","Comédie"};
+
+    
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -110,6 +115,24 @@ public class HelloApplication extends Application {
         //initRootLayout();
         //showMainMenu();
 
+    }
+
+    public ArrayList<String> get_genre_from_bdd()
+    {
+        ArrayList<String> genres = new ArrayList<String>();
+        try
+        {
+            ResultSet myRes = myStat.executeQuery("SELECT nom from genre");
+            while(myRes.next())
+            {
+                genres.add(myRes.getString("nom"));
+            }
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+        return genres;
     }
 
     public void threadStarter()

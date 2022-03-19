@@ -48,6 +48,7 @@ public class SceneController
         collections = c;
         //showMain();
         Login();
+        //showGenre();
         cinemaAdmin = new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg");
         cinemaAdmin.ajoutFilm(collections[0].getMovie(0));
         cinemaAdmin.ajoutFilm(collections[0].getMovie(5));
@@ -173,6 +174,26 @@ public class SceneController
     public void refreshMovie(int i)
     {
         icontroller.refresher(i);
+    }
+
+    public void showGenre()
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("genreliker.fxml"));
+            loginLayout = (AnchorPane) loader.load();
+            Scene scene = new Scene(loginLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+            GenreLikeController controller = loader.getController();
+            controller.setMainApp(this, this.controller);
+            controller.initializeBis();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 
