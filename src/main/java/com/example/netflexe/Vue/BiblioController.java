@@ -1,5 +1,6 @@
 package com.example.netflexe.Vue;
 
+import com.example.netflexe.Model.CinemaCollection;
 import com.example.netflexe.Model.MovieCollection;
 import com.example.netflexe.Model.Profil;
 
@@ -42,7 +43,8 @@ public class BiblioController {
     private SceneController mainApp;
 
 
-    private MovieCollection collection[] = {new MovieCollection(), new MovieCollection()};
+    private MovieCollection collection[] = {new MovieCollection(), new MovieCollection(), new MovieCollection()};
+    private CinemaCollection collectionC = new CinemaCollection();
     //private MovieCollection collectionAvenir = new MovieCollection();
     private LocalDate dateAJD = LocalDate.now();
 
@@ -73,6 +75,23 @@ public class BiblioController {
         {
             initialiseListView(listView2, 1);
         }
+
+        for(int j = 0; j < collection[0].getSize(); j++)
+        {
+            for (int i = 0; i < collectionC.getSize(); i++) {
+                if(collectionC.getCinema(i).checkMovie(collection[0].getMovie(j).getTitle()))
+                {
+                    if(!collection[2].checkBoolean(collection[0].getMovie(j).getTitle()))
+                    {
+                        collection[2].addMovie(collection[0].getMovie(j));
+                    }
+
+                }
+            }
+        }
+        initialiseListView(listView3, 2);
+
+
 
 
     }
@@ -134,6 +153,11 @@ public class BiblioController {
 
     public void setMainApp(SceneController mainApp) {
         this.mainApp = mainApp;
+    }
+
+    public void setCinemaC(CinemaCollection collection)
+    {
+        this.collectionC = collection;
     }
 
 
