@@ -69,6 +69,7 @@ public class AdminController
     }
     @FXML
     private void setMenu3() {
+        mainApp.showStats();
 
     }
     @FXML

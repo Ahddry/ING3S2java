@@ -46,7 +46,9 @@ public class ValiderReservation {
     private Movie movieS;
     private LocalDate dateS;
     private String cinemaName;
+    private Cinema cinema;
     private String horaireS;
+    private String promo;
 
 
     @FXML
@@ -58,6 +60,7 @@ public class ValiderReservation {
 
     public void initializeBis(Movie movie, Cinema cinema)
     {
+        this.cinema = cinema;
         movieS = movie;
         cinemaName = cinema.getName();
         image.setImage(movie.getImage());
@@ -137,6 +140,7 @@ public class ValiderReservation {
 
         promoChoiceBox.valueProperty().addListener((ov, oldValue, newValue) -> {
 
+            promo = newValue;
             switch (newValue.toString()) {
                 case "Pas de promotion" -> prixFinal = seanceS.getPrix();
                 case "Promotion jeune" -> prixFinal = (seanceS.getPrix() * (0.8));
@@ -166,6 +170,7 @@ public class ValiderReservation {
         {
             profil.ajouterReservation(new Reservation(movieS,horaireS,cinemaName,dateS.toString()));
             mainApp.showBiblioRes(profil);
+            this.cinema.updateStatsPromo(promo);
         }
         else
         {

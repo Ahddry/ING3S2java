@@ -26,15 +26,20 @@ public class SceneController
     private BorderPane rootLayout;
     private AnchorPane loginLayout;
     private AnchorPane mainMenu;
-    
+    private AnchorPane biblio;
+
+
+
     private Profil profil = null;
     private Cinema cinemaAdmin;
     
     
     private ProfileController controller_profil;
     private MainMenuController icontroller;
+    private BiblioController bcontroller;
 
     private ScrollPane scrollmainMenu;
+    private ScrollPane scrollBiblio;
 
     private MovieCollection[] collections;
     private CinemaCollection cinemaCollection = new CinemaCollection();
@@ -221,16 +226,22 @@ public class SceneController
     public void showBiblio(Profil monProfil) {
         try {
 
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("Biblio.fxml"));
-            AnchorPane biblio = (AnchorPane) loader.load();
-            BiblioController bcontroller = loader.getController();
-            bcontroller.setMainApp(this);
-            ScrollPane scroll = new ScrollPane();
-            scroll.setContent(biblio);
-            bcontroller.setCinemaC(cinemaCollection);
-            bcontroller.initializeBis(monProfil);
-            rootLayout.setCenter(scroll);
+            if(bcontroller == null)
+            {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("Biblio.fxml"));
+                biblio = (AnchorPane) loader.load();
+                bcontroller = loader.getController();
+                bcontroller.setMainApp(this);
+                 scrollBiblio = new ScrollPane();
+                scrollBiblio.setContent(biblio);
+                bcontroller.setCinemaC(cinemaCollection);
+                bcontroller.initializeBis(monProfil);
+
+            }
+
+            rootLayout.setCenter(scrollBiblio);
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -267,6 +278,7 @@ public class SceneController
             controller.setProfil(user);
             controller.setAdminAccess(admin);
             controller.setCinema(cinemaAdmin);
+            controller.setBiblioController(bcontroller);
 
             ScrollPane scroll = new ScrollPane();
             scroll.setContent(info);
@@ -339,6 +351,27 @@ public class SceneController
             controller.setMainApp(this);
             ScrollPane scroll = new ScrollPane();
             scroll.setContent(accueilAdmin);
+
+            rootLayout.setCenter(scroll);
+            controller.init(cinemaAdmin);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showStats()
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("statsPage.fxml"));
+            AnchorPane stats = loader.load();
+
+            statsPageController controller = loader.getController();
+            //controller.setMainApp(this);
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(stats);
 
             rootLayout.setCenter(scroll);
             controller.init(cinemaAdmin);

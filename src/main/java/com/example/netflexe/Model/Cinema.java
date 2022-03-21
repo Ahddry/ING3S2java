@@ -13,6 +13,7 @@ public class Cinema {
     private Image image = null;
     private String imageString = "";
     private List<Salle> salles = new ArrayList<>();
+    private ArrayList<String> promoUtilisees = new ArrayList<String>();
 
     public Cinema()
     {
@@ -87,6 +88,16 @@ public class Cinema {
                 elem.addSeance(seance);
             }
         }
+    }
+
+    public void updateStatsPromo(String promo)
+    {
+        promoUtilisees.add(promo);
+    }
+
+    public ArrayList<String> getPromoUtilisees()
+    {
+        return promoUtilisees;
     }
 
     public void setSalles(List<Salle> salles)
