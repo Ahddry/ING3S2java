@@ -9,18 +9,21 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.Image;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 
 public class Seance {
     String filmJoue;
+    Movie movie;
     LocalDate date;
     String heure;
     int salle;
     int prix;
 
-    public Seance(String film,LocalDate newDate,String newHeure, int newSalle, int newPrix )
+    public Seance(String film,Movie movie,LocalDate newDate,String newHeure, int newSalle, int newPrix )
     {
         this.filmJoue = film;
+        this.movie = movie;
         this.date = newDate;
         this.heure = newHeure;
         this.salle = newSalle;
@@ -41,7 +44,20 @@ public class Seance {
 
     public int getPrix(){ return prix;}
 
+    public Movie getMovie()
+    {
+        return movie;
+    }
 
+    public void setMovie(Movie movie)
+    {
+        this.movie = movie;
+    }
+
+    public void setImage()
+    {
+        movie.setImage(new Image(movie.getImageString()));
+    }
 }
 
 

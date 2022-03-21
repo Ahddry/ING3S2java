@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Cinema {
 
@@ -11,7 +12,7 @@ public class Cinema {
     private MovieCollection filmP = new MovieCollection();
     private Image image = null;
     private String imageString = "";
-    private ArrayList<Seance> seances = new ArrayList<Seance>();
+    private List<Salle> salles = new ArrayList<>();
 
     public Cinema()
     {
@@ -62,15 +63,34 @@ public class Cinema {
         return filmP;
     }
 
-    public void ajouterSeance(String movieTitle, String date,String heure,int salle, int prix)
-    {
-        seances.add(new Seance(movieTitle,LocalDate.parse(date),heure,salle,prix));
-    }
-
     public void setFilmP(MovieCollection filmP)
     {
         this.filmP = filmP;
     }
 
-    public ArrayList<Seance> getAllSeances(){return seances;}
+    public List<Salle> getSalles()
+    {
+        return salles;
+    }
+
+    public void addSalles(Salle salle)
+    {
+        salles.add(salle);
+    }
+
+    public void addSeance(int salle, Seance seance)
+    {
+        for (var elem : salles)
+        {
+            if (elem.getNumero() == salle)
+            {
+                elem.addSeance(seance);
+            }
+        }
+    }
+
+    public void setSalles(List<Salle> salles)
+    {
+        this.salles = salles;
+    }
 }

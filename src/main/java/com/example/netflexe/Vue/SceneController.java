@@ -10,8 +10,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import com.example.netflexe.Controller.HelloApplication;
+import javafx.util.converter.LocalDateStringConverter;
+import javafx.util.converter.LocalTimeStringConverter;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class SceneController
 {
@@ -352,11 +356,11 @@ public class SceneController
             loader.setLocation(getClass().getResource("ValiderReservation.fxml"));
             AnchorPane accueilAdmin = loader.load();
 
-            cinema.ajouterSeance(movie.getTitle(),"2022-03-18","12H30",1,45);
-            cinema.ajouterSeance(movie.getTitle(),"2022-03-18","14H30",1,45);
-            cinema.ajouterSeance(movie.getTitle(),"2022-03-18","16H30",1,45);
-            cinema.ajouterSeance(movie.getTitle(),"2022-03-19","14H30",1,45);
-            cinema.ajouterSeance(movie.getTitle(),"2022-03-19","16H30",1,45);
+            cinema.addSalles(new Salle(1, new ArrayList<>(),53));
+            cinema.addSeance(1, new Seance(movie.getTitle(),movie,LocalDate.of(2022,3,18),"14H30",1,45));
+            cinema.addSeance(1, new Seance(movie.getTitle(),movie,LocalDate.of(2022,3,18),"16H30",1,45));
+            cinema.addSeance(1, new Seance(movie.getTitle(),movie,LocalDate.of(2022,3,19),"14H30",1,45));
+            cinema.addSeance(1, new Seance(movie.getTitle(),movie,LocalDate.of(2022,3,19),"16H30",1,45));
 
             ValiderReservation controller = loader.getController();
             controller.setMainApp(this);
@@ -416,6 +420,27 @@ public class SceneController
         }
     }
 
+    public void showSeances()
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("Seances.fxml"));
+            AnchorPane seancesView = loader.load();
+
+
+            SeancesController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.init(cinemaAdmin);
+
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(seancesView);
+
+            rootLayout.setCenter(scroll);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Profil getProfil()
     {
         return this.controller.getProfil();
@@ -434,6 +459,23 @@ public class SceneController
     public void setCinemaAdmin(Cinema cinemaAdmin)
     {
         this.cinemaAdmin = cinemaAdmin;
+    }
+
+
+    public void testSeances()
+    {
+        var test = collections[1];
+        cinemaAdmin.addSalles(new Salle(1, new ArrayList<>(),53));
+        cinemaAdmin.addSeance(1, new Seance(test.getMovie(6).getTitle(),test.getMovie(6),LocalDate.of(2022,3,18),"14H30",1,45));
+        cinemaAdmin.addSeance(1, new Seance(test.getMovie(16).getTitle(),test.getMovie(16),LocalDate.of(2022,3,18),"16H30",1,45));
+        cinemaAdmin.addSeance(1, new Seance(test.getMovie(6).getTitle(),test.getMovie(6),LocalDate.of(2022,3,19),"14H30",1,45));
+        cinemaAdmin.addSeance(1, new Seance(test.getMovie(16).getTitle(),test.getMovie(16),LocalDate.of(2022,3,19),"16H30",1,45));
+        cinemaAdmin.addSalles(new Salle(2, new ArrayList<>(),53));
+        cinemaAdmin.addSeance(2, new Seance(test.getMovie(8).getTitle(),test.getMovie(8),LocalDate.of(2022,3,18),"14H30",1,45));
+        cinemaAdmin.addSeance(2, new Seance(test.getMovie(18).getTitle(),test.getMovie(18),LocalDate.of(2022,3,18),"16H30",1,45));
+        cinemaAdmin.addSeance(2, new Seance(test.getMovie(8).getTitle(),test.getMovie(8),LocalDate.of(2022,3,19),"14H30",1,45));
+        cinemaAdmin.addSeance(2, new Seance(test.getMovie(18).getTitle(),test.getMovie(18),LocalDate.of(2022,3,19),"16H30",1,45));
+        showSeances();
     }
 
 }

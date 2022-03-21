@@ -61,7 +61,14 @@ public class ValiderReservation {
         movieS = movie;
         cinemaName = cinema.getName();
         image.setImage(movie.getImage());
-        seances = cinema.getAllSeances();
+        //seances = cinema.getAllSeances();
+        /* A MODIF */
+        for(var elem:cinema.getSalles())
+        {
+            seances = (ArrayList<Seance>) elem.getSeances();
+        }
+
+
         ArrayList<String> horaires = new ArrayList<>();
         ArrayList<String> promotion = new ArrayList<>();
         int age = 0;
