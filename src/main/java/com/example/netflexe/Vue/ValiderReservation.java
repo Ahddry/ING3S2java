@@ -151,6 +151,19 @@ public class ValiderReservation {
     @FXML
     public void reserver()
     {
-        profil.ajouterReservation(new Reservation(movieS,horaireS,cinemaName,dateS.toString()));
+
+
+        Mail mail = new Mail();
+        mail.sendMail(new Reservation(movieS,horaireS,cinemaName,dateS.toString()), mailInput.getText());
+        if(profil != null)
+        {
+            profil.ajouterReservation(new Reservation(movieS,horaireS,cinemaName,dateS.toString()));
+            mainApp.showBiblioRes(profil);
+        }
+        else
+        {
+            mainApp.showMainMenu();
+        }
+
     }
 }
