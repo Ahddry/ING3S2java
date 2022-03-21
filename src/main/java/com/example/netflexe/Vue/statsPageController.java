@@ -15,6 +15,9 @@ public class statsPageController {
     @FXML
     private PieChart promoPie;
 
+    @FXML
+    private BarChart<String,Number> barreFilm;
+
 
 
     public void init(Cinema cinema)
@@ -23,6 +26,8 @@ public class statsPageController {
 
 
         promoPie.getData().addAll(stats.getPromotionUtilisees());
+        barreFilm.getData().addAll(stats.getBarreChart()) ;
+
     }
 
 

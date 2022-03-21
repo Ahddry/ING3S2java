@@ -14,6 +14,7 @@ public class Cinema {
     private String imageString = "";
     private List<Salle> salles = new ArrayList<>();
     private ArrayList<String> promoUtilisees = new ArrayList<String>();
+    private ArrayList<String> filmVendus = new ArrayList<String>();
 
     public Cinema()
     {
@@ -30,8 +31,6 @@ public class Cinema {
     {
         return filmP.checkBoolean(name);
     }
-
-
 
     public void ajoutFilm(Movie movie)
     {
@@ -94,11 +93,17 @@ public class Cinema {
     {
         promoUtilisees.add(promo);
     }
+    public void updateStatsFilm(String title)
+    {
+        filmVendus.add(title);
+    }
 
     public ArrayList<String> getPromoUtilisees()
     {
         return promoUtilisees;
     }
+
+    public ArrayList<String> getFilmVendus( ) {return filmVendus;}
 
     public void setSalles(List<Salle> salles)
     {

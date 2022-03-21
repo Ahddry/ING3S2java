@@ -171,6 +171,7 @@ public class ValiderReservation {
             profil.ajouterReservation(new Reservation(movieS,horaireS,cinemaName,dateS.toString()));
             mainApp.showBiblioRes(profil);
             this.cinema.updateStatsPromo(promo);
+            this.cinema.updateStatsFilm(movieS.getTitle());
         }
         else
         {
