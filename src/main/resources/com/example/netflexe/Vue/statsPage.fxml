@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="1061.0" prefWidth="1138.0" styleClass="background" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.netflexe.Vue.statsPageController">
+   <children>
+      <PieChart fx:id="promoPie" layoutX="577.0" layoutY="104.0" />
+      <Label layoutX="43.0" layoutY="298.0" prefHeight="45.0" prefWidth="500.0" text="Liste des promotions utilisées lors de l'achat de ticket dans votre cinéma :" />
+      <BarChart fx:id="barreFilm" layoutX="577.0" layoutY="576.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <Label layoutX="306.0" layoutY="753.0" prefHeight="45.0" prefWidth="249.0" text="Nombre de places vendues par film:" />
+   </children>
+</AnchorPane>

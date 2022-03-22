@@ -46,7 +46,9 @@ public class ValiderReservation {
     private Movie movieS;
     private LocalDate dateS;
     private String cinemaName;
+    private Cinema cinema;
     private String horaireS;
+    private String promo;
 
 
     @FXML
@@ -58,10 +60,18 @@ public class ValiderReservation {
 
     public void initializeBis(Movie movie, Cinema cinema)
     {
+        this.cinema = cinema;
         movieS = movie;
         cinemaName = cinema.getName();
         image.setImage(movie.getImage());
-        seances = cinema.getAllSeances();
+        //seances = cinema.getAllSeances();
+        /* A MODIF */
+        for(var elem:cinema.getSalles())
+        {
+            seances = (ArrayList<Seance>) elem.getSeances();
+        }
+
+
         ArrayList<String> horaires = new ArrayList<>();
         ArrayList<String> promotion = new ArrayList<>();
         int age = 0;
@@ -130,6 +140,7 @@ public class ValiderReservation {
 
         promoChoiceBox.valueProperty().addListener((ov, oldValue, newValue) -> {
 
+            promo = newValue;
             switch (newValue.toString()) {
                 case "Pas de promotion" -> prixFinal = seanceS.getPrix();
                 case "Promotion jeune" -> prixFinal = (seanceS.getPrix() * (0.8));
@@ -151,6 +162,21 @@ public class ValiderReservation {
     @FXML
     public void reserver()
     {
-        profil.ajouterReservation(new Reservation(movieS,horaireS,cinemaName,dateS.toString()));
+
+
+        Mail mail = new Mail();
+        mail.sendMail(new Reservation(movieS,horaireS,cinemaName,dateS.toString()), mailInput.getText());
+        if(profil != null)
+        {
+            profil.ajouterReservation(new Reservation(movieS,horaireS,cinemaName,dateS.toString()));
+            mainApp.showBiblioRes(profil);
+            this.cinema.updateStatsPromo(promo);
+            this.cinema.updateStatsFilm(movieS.getTitle());
+        }
+        else
+        {
+            mainApp.showMainMenu();
+        }
+
     }
 }

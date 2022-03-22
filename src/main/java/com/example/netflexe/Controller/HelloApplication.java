@@ -91,6 +91,9 @@ public class HelloApplication extends Application {
     }
     @Override
     public void start(Stage stage) throws IOException {
+
+
+
         this.primaryStage = stage;
         this.primaryStage.setTitle("AddressApp");
         sceneController = new SceneController(primaryStage, user, collection, this);

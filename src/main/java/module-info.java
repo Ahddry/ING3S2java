@@ -9,6 +9,7 @@ module com.example.netflexe {
     requires javafx.web;
     requires org.apache.commons.codec;
     requires com.google.common;
+    requires java.mail;
 
     opens com.example.netflexe.Vue to javafx.fxml;
     opens com.example.netflexe.Model to javafx.fxml;

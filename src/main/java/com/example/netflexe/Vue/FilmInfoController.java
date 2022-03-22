@@ -71,6 +71,7 @@ public class FilmInfoController {
     private Label Label;
 
     private SceneController mainApp;
+    private BiblioController biblioController;
     private Movie movieS;
     private Actor ActorS;
     private Profil monProfil;
@@ -86,6 +87,9 @@ public class FilmInfoController {
 
     public void setMainApp(SceneController mainApp) {
         this.mainApp = mainApp;
+    }
+    public void setBiblioController(BiblioController biblioController) {
+        this.biblioController = biblioController;
     }
 
     @FXML
@@ -132,6 +136,11 @@ public class FilmInfoController {
     {
         if (!adminAccess)
             monProfil.ajouterLike(movieS);
+        if(biblioController!= null)
+        {
+            biblioController.initializeBis(monProfil);
+        }
+
     }
 
     @FXML
