@@ -113,9 +113,14 @@ public class Profil {
     {
         this.age = age;
     }
+    public void set_image()
+    {
+        this.filmLike.setImage();
+    }
 
     public void ajouterLike(Movie movie)
     {
+        
         if(!filmLike.checkBoolean(movie.getTitle()))
         {
             filmLike.addMovie(movie);

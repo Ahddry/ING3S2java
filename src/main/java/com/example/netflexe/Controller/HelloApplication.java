@@ -91,6 +91,9 @@ public class HelloApplication extends Application {
     }
     @Override
     public void start(Stage stage) throws IOException {
+
+
+
         this.primaryStage = stage;
         this.primaryStage.setTitle("AddressApp");
         sceneController = new SceneController(primaryStage, user, collection, this);
@@ -156,8 +159,16 @@ public class HelloApplication extends Application {
             cinemaCollection.addMovie(collection[0].getMovie(0),"Cinema Le Village");
             cinemaCollection.setImage();
 
-
-
+            if(user != null)
+            {
+                ResultSet myRes2 = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan FROM film as f JOIN liked ON (f.id_film = liked.id_film) WHERE liked.id_user = '" + String.valueOf(user.get_id()) +"';");
+                while(myRes2.next())
+                {
+                    String tempDatedesortie = myRes2.getString("date_de_sortie");
+                    user.ajouterLike(new Movie(myRes2.getString("nom_film"), "MOI", myRes2.getString("poster"), tempDatedesortie,tempDatedesortie,myRes2.getString("duree"), myRes2.getString("synopsis"), myRes2.getString("slogan"), myRes2.getString("id_film")));
+                }
+                user.set_image();
+            }
 
         }
         catch(Exception exception)
@@ -176,15 +187,38 @@ public class HelloApplication extends Application {
         //showMainMenu();
     }
 
+    public void add_like(int id_user, String id_film)
+    {
+        try
+        {
+            myStat.executeUpdate("INSERT INTO liked (id_user, id_film) SELECT * FROM (SELECT '" + String.valueOf(id_user) +"' AS id_user, '" + id_film +"' AS id_film) AS tmp WHERE NOT EXISTS ( SELECT id_user FROM liked WHERE (id_user='" + String.valueOf(id_user) + "' AND id_film='" + id_film +"')) LIMIT 1;");    
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+
     public ArrayList<Genre> get_genre_from_bdd()
     {
         ArrayList<Genre> genres = new ArrayList<Genre>();
+        String tempnom;
+        int id_genre;
+        String tempLien = "";
         try
         {
+            Statement myStat2 = myConn.createStatement();
             ResultSet myRes = myStat.executeQuery("SELECT nom, id_genre from genre");
             while(myRes.next())
             {
-                genres.add(new Genre(myRes.getString("nom"),myRes.getInt("id_genre")));
+                tempnom = myRes.getString("nom");
+                id_genre  = myRes.getInt("id_genre");
+                ResultSet myRes2 = myStat2.executeQuery("SELECT poster FROM film JOIN film_genre ON film_genre.id_film = film.id_film JOIN genre ON genre.id_genre = film_genre.id_genre WHERE genre.id_genre = '" + String.valueOf(id_genre) + "' ORDER BY RAND() LIMIT 1;");
+                while(myRes2.next())
+                {
+                    tempLien = myRes2.getString("poster");
+                }
+                genres.add(new Genre(tempnom,id_genre, tempLien));
             }
         }
         catch(Exception exception)
