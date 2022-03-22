@@ -14,6 +14,8 @@ public class Profil {
     private String genre;
     private String age;
     private int id_user;
+    private boolean admin;
+    private Cinema cinema;
     private ArrayList<Reservation> mesReservations = new ArrayList<Reservation>();
     private ArrayList<String> genreLiker = new ArrayList<String>();
 
@@ -22,7 +24,7 @@ public class Profil {
 
     }
 
-    public Profil(int id_user, String prenom, String nom, String mail, String genre, String age, InputStream pp)
+    public Profil(int id_user, String prenom, String nom, String mail, String genre, String age, InputStream pp, boolean admin, Cinema cinema)
     {
         this.id_user = id_user;
         this.pp = pp;
@@ -31,6 +33,8 @@ public class Profil {
         this.mail = mail;
         this.genre = genre;
         this.age = age;
+        this.admin = admin;
+        this.cinema = cinema;
     }
     public Profil(Profil a)
     {
@@ -41,6 +45,8 @@ public class Profil {
         this.mail = a.mail;
         this.genre = a.genre;
         this.age = a.age;
+        this.admin = a.admin;
+        this.cinema = a.cinema;
     }
 
     public void add_genre(String genre)

@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Cinema {
 
+    private int id_cine;
     private String nom;
     private MovieCollection filmP = new MovieCollection();
     private Image image = null;
@@ -21,8 +22,9 @@ public class Cinema {
 
     }
 
-    public Cinema(String nom,String image)
+    public Cinema(int id_cine,String nom,String image)
     {
+        this.id_cine = id_cine;
         this.nom = nom;
         this.imageString = image;
     }
@@ -41,6 +43,14 @@ public class Cinema {
     {
         image = new Image(imageString);
 
+    }
+    public void set_id_cine(int id_cine)
+    {
+        this.id_cine = id_cine;
+    }
+    public int get_id_cine()
+    {
+        return this.id_cine;
     }
 
     public Image getImage()

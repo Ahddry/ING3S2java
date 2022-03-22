@@ -65,7 +65,7 @@ public class LoginController {
             if(event.getClickCount() == 1) {
                 if(login.getText() != "" && mdp.getText() != "")
                 {
-                    if(this.controller.login_acct(login.getText(), mdp.getText()) == 1)
+                    if(this.controller.login_acct(login.getText().toLowerCase(), mdp.getText()) == 1)
                     {
                         error.setVisible(false);
                         this.mainApp.showMain();

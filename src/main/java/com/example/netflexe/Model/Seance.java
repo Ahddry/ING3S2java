@@ -18,9 +18,9 @@ public class Seance {
     LocalDate date;
     String heure;
     int salle;
-    int prix;
+    double prix;
 
-    public Seance(String film,Movie movie,LocalDate newDate,String newHeure, int newSalle, int newPrix )
+    public Seance(String film,Movie movie,LocalDate newDate,String newHeure, int newSalle, double newPrix )
     {
         this.filmJoue = film;
         this.movie = movie;
@@ -42,7 +42,7 @@ public class Seance {
 
     public  LocalDate getDate(){ return date;}
 
-    public int getPrix(){ return prix;}
+    public double getPrix(){ return prix;}
 
     public Movie getMovie()
     {

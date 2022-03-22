@@ -64,8 +64,8 @@ public class AdminController
     }
     @FXML
     private void setMenu2() {
-        //mainApp.showSeances();
-        mainApp.testSeances(); //TEMPORAIRE
+        mainApp.showSeances();
+        //mainApp.testSeances(); //TEMPORAIRE
     }
     @FXML
     private void setMenu3() {

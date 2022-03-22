@@ -8,6 +8,7 @@ import java.util.List;
 public class Salle
 {
     private int numero;
+    private int id_bdd;
     private List<Seance> seances;
     private int nbPlaces;
 
@@ -18,13 +19,25 @@ public class Salle
         nbPlaces = 0;
     }
 
-    public Salle(int numero, List<Seance> seances, int nbPlaces)
+    public Salle(int id_bdd, int numero, int nbPlaces)
     {
+        this.id_bdd = id_bdd;
+        this.numero = numero;
+        this.seances = new ArrayList<>();
+        this.nbPlaces = nbPlaces;
+    }
+    public Salle(int id_bdd, int numero, List<Seance> seances, int nbPlaces)
+    {
+        this.id_bdd = id_bdd;
         this.numero = numero;
         this.seances = seances;
         this.nbPlaces = nbPlaces;
     }
 
+    public int get_id_bdd()
+    {
+        return this.id_bdd;
+    }
     public int getNumero()
     {
         return numero;

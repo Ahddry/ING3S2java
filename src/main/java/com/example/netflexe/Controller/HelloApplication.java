@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import java.io.FileInputStream;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,10 +21,10 @@ public class HelloApplication extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private CinemaCollection cinemaCollection = new CinemaCollection();
     private SceneController sceneController;
     private Connection myConn;
     private Statement myStat;
+    private Statement myStat2;
     private Profil user;
     private String tempUserId;
     private RunnableDemo thread;
@@ -40,6 +41,7 @@ public class HelloApplication extends Application {
         {
             this.myConn = DriverManager.getConnection("jdbc:mysql://fournierfamily.ovh:3306/Netflece", "jps", "poojava");
             this.myStat = myConn.createStatement();
+            this.myStat2 = myConn.createStatement();
         }
         catch(Exception exception)
         {
@@ -133,7 +135,7 @@ public class HelloApplication extends Application {
                     String slogan = myRes.getString("slogan");
                     String id_film = myRes.getString("id_film");
                     //System.out.println(poster);
-                    collection[i].addMovie(new Movie(myRes.getString("nom_film"),"MOI",poster, dateDeSortie, dateDeSortie, duree, synopsis, slogan, id_film) );
+                    collection[i].addMovie(new Movie(myRes.getString("nom_film"),"MOI",poster, dateDeSortie, dateDeSortie, duree, synopsis, slogan, id_film));
                 }
             }
 
@@ -149,15 +151,30 @@ public class HelloApplication extends Application {
                 }
             }
 
-            cinemaCollection.addCinema(new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg"));
-            cinemaCollection.addCinema(new Cinema("Cinema UGC","https://www.pagesjaunes.fr/media/resto/ugc_cine_cite_la_defense_OSD52406032-78652.jpeg"));
-            cinemaCollection.addCinema(new Cinema("Cinema Le Village","https://salles-cinema.com/wp-content/uploads/2009/07/cinema-neuilly-sur-seine.jpg"));
-            cinemaCollection.addMovie(collection[0].getMovie(0),"Cinema Gaumont");
-            cinemaCollection.addMovie(collection[0].getMovie(1),"Cinema Gaumont");
-            cinemaCollection.addMovie(collection[0].getMovie(2),"Cinema Gaumont");
-            cinemaCollection.addMovie(collection[0].getMovie(0),"Cinema UGC");
-            cinemaCollection.addMovie(collection[0].getMovie(0),"Cinema Le Village");
-            cinemaCollection.setImage();
+            ResultSet myRes = myStat.executeQuery("SELECT id_cine, nom, lien_image FROM cinema");
+            while(myRes.next())
+            {
+                sceneController.getCinemaCollection().addCinema(new Cinema(myRes.getInt("id_cine"), myRes.getString("nom"), myRes.getString("lien_image")));
+            }
+            for(int i = 0 ; i < sceneController.getCinemaCollection().getSize(); i++)
+            {
+                ResultSet myRes2 = myStat.executeQuery("SELECT salle.id_salle, capacite, num_salle FROM salle JOIN cinema_salle ON cinema_salle.id_salle = salle.id_salle WHERE cinema_salle.id_cine = '" + String.valueOf(sceneController.getCinemaCollection().getCinema(i).get_id_cine()) +"';");
+                while(myRes2.next())
+                {
+                    sceneController.getCinemaCollection().getCinema(i).addSalles(new Salle(myRes2.getInt("salle.id_salle"), myRes2.getInt("num_salle"), myRes2.getInt("capacite")));
+                }
+            }
+            for(int i = 0 ; i < sceneController.getCinemaCollection().getSize(); i++)
+            {
+                for(int j = 0 ; j < sceneController.getCinemaCollection().getCinema(i).getSalles().size();j++)
+                {
+                    ResultSet myRes3 = myStat.executeQuery("SELECT seance.id_film, seance.date_horraire, seance.prix, film.id_film, film.poster, film.nom_film, film.date_de_sortie, film.duree, film.synopsis, film.slogan, film.trailer, salle.num_salle FROM seance JOIN film on film.id_film = seance.id_film JOIN salle ON salle.id_salle = seance.id_salle WHERE seance.id_cine = '" + String.valueOf(sceneController.getCinemaCollection().getCinema(i).get_id_cine()) + "' AND seance.id_salle = '"+ String.valueOf(sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).get_id_bdd())+"';");
+                    while(myRes3.next())
+                    {
+                        sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).addSeance(new Seance(myRes3.getString("film.nom_film"),new Movie(myRes3.getString("film.nom_film"), "MOI", myRes3.getString("film.poster"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.duree"), myRes3.getString("film.synopsis"), myRes3.getString("film.slogan"), myRes3.getString("film.id_film")), LocalDate.parse(myRes3.getString("seance.date_horraire").split(" ")[0]), myRes3.getString("seance.date_horraire").split(" ")[1], myRes3.getInt("salle.num_salle"), myRes3.getDouble("seance.prix")));
+                    }
+                }
+            }
 
             if(user != null)
             {
@@ -180,7 +197,6 @@ public class HelloApplication extends Application {
         thread.setMainApp(this);
 
         sceneController.set_collection(collection);
-        sceneController.create_cine();
         sceneController.setProfil(user);
 
         //initRootLayout();
@@ -361,12 +377,17 @@ public class HelloApplication extends Application {
     {
         try
         {
-            ResultSet myRes = myStat.executeQuery("SELECT id_user, prenom, nom, date_de_naissance, genre, email, pp, admin FROM utilisateur where email='" + login +"'" + " AND pwd='" + DigestUtils.sha256Hex(mdp) +"'");
+            ResultSet myRes = myStat.executeQuery("SELECT utilisateur.id_user, prenom, utilisateur.nom, date_de_naissance, genre, email, pp, admin, cinema.id_cine,cinema.nom, cinema.lien_image FROM utilisateur LEFT JOIN cinema ON cinema.id_user = utilisateur.id_user WHERE email='" + login +"'" + " AND pwd='" + DigestUtils.sha256Hex(mdp) +"'");
             while(myRes.next())
             {
-                if(myRes.getString("id_user") != "")
+                if(myRes.getString("utilisateur.id_user") != "")
                 {
-                    this.user = new Profil(myRes.getInt("id_user"), myRes.getString("prenom"), myRes.getString("nom"), myRes.getString("email"), myRes.getString("genre"), myRes.getString("date_de_naissance"), myRes.getBinaryStream("pp"));
+                    Cinema tempCine = null;
+                    if(myRes.getString("cinema.nom") != null && myRes.getString("cinema.lien_image") != null && myRes.getString("cinema.id_cine") != null)
+                    {
+                        tempCine = new Cinema(myRes.getInt("cinema.id_cine"),myRes.getString("cinema.nom"), myRes.getString("cinema.lien_image"));
+                    }
+                    this.user = new Profil(myRes.getInt("utilisateur.id_user"), myRes.getString("prenom"), myRes.getString("nom"), myRes.getString("email"), myRes.getString("genre"), myRes.getString("date_de_naissance"), myRes.getBinaryStream("pp"), myRes.getBoolean("admin"), tempCine);
                     //System.out.println(this.user.get_prenom());
                     sceneController.setProfil(this.user);
                     return 1;

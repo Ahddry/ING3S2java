@@ -112,7 +112,7 @@ public class SignUpController{
                     if(!((String)genre.getValue() != "" && autres.getText() != ""))
                     {
                         
-                        int used = this.controller.create_acct(prenom.getText().replace("'","''"), nom.getText().replace("'","''"), genrefinal.replace("'","''"), value.getYear(), value.getMonthValue(), value.getDayOfMonth(), login.getText().replace("'","''"), mdp.getText(), admin.isSelected(), linkFile);
+                        int used = this.controller.create_acct(prenom.getText().replace("'","''"), nom.getText().replace("'","''"), genrefinal.replace("'","''"), value.getYear(), value.getMonthValue(), value.getDayOfMonth(), login.getText().replace("'","''").toLowerCase(), mdp.getText(), admin.isSelected(), linkFile);
                         if(used == 1)
                         {
                             warning.setVisible(false);

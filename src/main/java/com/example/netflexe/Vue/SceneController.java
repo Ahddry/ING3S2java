@@ -70,15 +70,6 @@ public class SceneController
     {
         this.collections = c;
     }
-    public void create_cine()
-    {
-        cinemaAdmin = new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg");
-        cinemaAdmin.ajoutFilm(collections[0].getMovie(0));
-        cinemaAdmin.ajoutFilm(collections[0].getMovie(5));
-        cinemaAdmin.ajoutFilm(collections[0].getMovie(12));
-        cinemaAdmin.ajoutFilm(collections[0].getMovie(8));
-        cinemaAdmin.ajoutFilm(collections[0].getMovie(22));
-    }
 
     public void showMain()
     {
@@ -179,7 +170,6 @@ public class SceneController
         try {
             if(icontroller == null)
             {
-
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("MainMenu.fxml"));
                 mainMenu = (AnchorPane) loader.load();
@@ -188,18 +178,9 @@ public class SceneController
                 scrollmainMenu = new ScrollPane();
                 scrollmainMenu.setContent(mainMenu);
                 this.controller.load_bdd_movie();
+                this.cinemaAdmin = cinemaCollection.getCinema(0);
                 icontroller.initializeBis();
                 controller.threadStarter();
-
-                cinemaCollection.addCinema(new Cinema("Cinema Gaumont","https://www.sortiraparis.com/images/80/89810/538658-le-cinema-gaumont-parnasse.jpg"));
-                cinemaCollection.addCinema(new Cinema("Cinema UGC","https://www.pagesjaunes.fr/media/resto/ugc_cine_cite_la_defense_OSD52406032-78652.jpeg"));
-                cinemaCollection.addCinema(new Cinema("Cinema Le Village","https://salles-cinema.com/wp-content/uploads/2009/07/cinema-neuilly-sur-seine.jpg"));
-                cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema Gaumont");
-        /*cinemaCollection.addMovie(collections[0].getMovie(1),"Cinema Gaumont");
-        cinemaCollection.addMovie(collections[0].getMovie(2),"Cinema Gaumont");*/
-                cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema UGC");
-                cinemaCollection.addMovie(collections[0].getMovie(0),"Cinema Le Village");
-                cinemaCollection.setImage();
             }
             rootLayout.setCenter(scrollmainMenu);
             
@@ -434,12 +415,6 @@ public class SceneController
             loader.setLocation(getClass().getResource("ValiderReservation.fxml"));
             AnchorPane accueilAdmin = loader.load();
 
-            cinema.addSalles(new Salle(1, new ArrayList<>(),53));
-            cinema.addSeance(1, new Seance(movie.getTitle(),movie,LocalDate.of(2022,3,18),"14H30",1,45));
-            cinema.addSeance(1, new Seance(movie.getTitle(),movie,LocalDate.of(2022,3,18),"16H30",1,45));
-            cinema.addSeance(1, new Seance(movie.getTitle(),movie,LocalDate.of(2022,3,19),"14H30",1,45));
-            cinema.addSeance(1, new Seance(movie.getTitle(),movie,LocalDate.of(2022,3,19),"16H30",1,45));
-
             ValiderReservation controller = loader.getController();
             controller.setMainApp(this);
             controller.setProfil(profil);
@@ -533,27 +508,14 @@ public class SceneController
     {
         return scene;
     }
+    public CinemaCollection getCinemaCollection()
+    {
+        return cinemaCollection;
+    }
 
     public void setCinemaAdmin(Cinema cinemaAdmin)
     {
         this.cinemaAdmin = cinemaAdmin;
-    }
-
-
-    public void testSeances()
-    {
-        var test = collections[1];
-        cinemaAdmin.addSalles(new Salle(1, new ArrayList<>(),53));
-        cinemaAdmin.addSeance(1, new Seance(test.getMovie(6).getTitle(),test.getMovie(6),LocalDate.of(2022,3,18),"14H30",1,45));
-        cinemaAdmin.addSeance(1, new Seance(test.getMovie(16).getTitle(),test.getMovie(16),LocalDate.of(2022,3,18),"16H30",1,45));
-        cinemaAdmin.addSeance(1, new Seance(test.getMovie(6).getTitle(),test.getMovie(6),LocalDate.of(2022,3,19),"14H30",1,45));
-        cinemaAdmin.addSeance(1, new Seance(test.getMovie(16).getTitle(),test.getMovie(16),LocalDate.of(2022,3,19),"16H30",1,45));
-        cinemaAdmin.addSalles(new Salle(2, new ArrayList<>(),53));
-        cinemaAdmin.addSeance(2, new Seance(test.getMovie(8).getTitle(),test.getMovie(8),LocalDate.of(2022,3,18),"14H30",1,45));
-        cinemaAdmin.addSeance(2, new Seance(test.getMovie(18).getTitle(),test.getMovie(18),LocalDate.of(2022,3,18),"16H30",1,45));
-        cinemaAdmin.addSeance(2, new Seance(test.getMovie(8).getTitle(),test.getMovie(8),LocalDate.of(2022,3,19),"14H30",1,45));
-        cinemaAdmin.addSeance(2, new Seance(test.getMovie(18).getTitle(),test.getMovie(18),LocalDate.of(2022,3,19),"16H30",1,45));
-        showSeances();
     }
 
 }
