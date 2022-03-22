@@ -94,7 +94,7 @@ public class GenreLikeController{
             Button temp  = new Button();
             temp.setId(String.valueOf(genre.get(count).get_id_genre()));
             ImageView tempimage = new ImageView(getRoundImage(new Image(genre.get(count).get_poster()), 65));
-            tempimage.setEffect(new GaussianBlur(15));
+            tempimage.setEffect(new GaussianBlur());
             Label tempLabel = new Label(genre.get(count).get_nom_genre());
             tempLabel.setPrefHeight(15);
             tempLabel.getStylesheets().addAll(getClass().getResource("genre.css").toExternalForm());
