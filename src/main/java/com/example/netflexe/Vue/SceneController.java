@@ -1,20 +1,35 @@
 package com.example.netflexe.Vue;
 
 import com.example.netflexe.Model.*;
-import com.example.netflexe.Vue.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import com.example.netflexe.Controller.HelloApplication;
+import javafx.util.converter.LocalDateStringConverter;
+import javafx.util.converter.LocalTimeStringConverter;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+
 
 public class SceneController
 {
+
     private HelloApplication controller;
     private Stage primaryStage;
     private Scene scene;
@@ -22,15 +37,20 @@ public class SceneController
     private BorderPane rootLayout;
     private AnchorPane loginLayout;
     private AnchorPane mainMenu;
-    
+    private AnchorPane biblio;
+
+
+
     private Profil profil = null;
     private Cinema cinemaAdmin;
     
     
     private ProfileController controller_profil;
     private MainMenuController icontroller;
+    private BiblioController bcontroller;
 
     private ScrollPane scrollmainMenu;
+    private ScrollPane scrollBiblio;
 
     private MovieCollection[] collections;
     private CinemaCollection cinemaCollection = new CinemaCollection();
@@ -217,16 +237,22 @@ public class SceneController
     public void showBiblio(Profil monProfil) {
         try {
 
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("Biblio.fxml"));
-            AnchorPane biblio = (AnchorPane) loader.load();
-            BiblioController bcontroller = loader.getController();
-            bcontroller.setMainApp(this);
-            ScrollPane scroll = new ScrollPane();
-            scroll.setContent(biblio);
-            bcontroller.setCinemaC(cinemaCollection);
-            bcontroller.initializeBis(monProfil);
-            rootLayout.setCenter(scroll);
+            if(bcontroller == null)
+            {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("Biblio.fxml"));
+                biblio = (AnchorPane) loader.load();
+                bcontroller = loader.getController();
+                bcontroller.setMainApp(this);
+                 scrollBiblio = new ScrollPane();
+                scrollBiblio.setContent(biblio);
+                bcontroller.setCinemaC(cinemaCollection);
+                bcontroller.initializeBis(monProfil);
+
+            }
+
+            rootLayout.setCenter(scrollBiblio);
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -251,7 +277,7 @@ public class SceneController
         }
     }
 
-    public void showInfo(Movie movie, boolean admin) {
+    public void showInfo(Movie movie,ActorCollection collectionActor, boolean admin) {
         try {
 
             FXMLLoader loader = new FXMLLoader();
@@ -260,6 +286,8 @@ public class SceneController
             FilmInfoController controller = loader.getController();
             controller.setMainApp(this);
             controller.setMovie(movie);
+            controller.showActors(collectionActor);
+
             controller.setProfil(user);
             controller.setAdminAccess(admin);
             controller.setCinema(cinemaAdmin);
@@ -272,6 +300,39 @@ public class SceneController
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+///Pas oublier de changer pour Biblio etc (ajouter aussi l'affichage des acteurs)
+    public void showInfo(Movie movie, boolean admin) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("FilmInfo.fxml"));
+            AnchorPane info = (AnchorPane) loader.load();
+            FilmInfoController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setMovie(movie);
+            controller.setProfil(user);
+            controller.setAdminAccess(admin);
+            controller.setCinema(cinemaAdmin);
+            controller.setBiblioController(bcontroller);
+
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(info);
+            rootLayout.setCenter(scroll);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showInfoActor(Actor acteur) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("FilmInfo.fxml"));
+        AnchorPane info = (AnchorPane) loader.load();
+        FilmInfoController controller = loader.getController();
+        controller.setMainApp(this);
+        controller.setActor(acteur);
     }
 
     public void showResearch(boolean admin)
@@ -345,6 +406,27 @@ public class SceneController
         }
     }
 
+    public void showStats()
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("statsPage.fxml"));
+            AnchorPane stats = loader.load();
+
+            statsPageController controller = loader.getController();
+            //controller.setMainApp(this);
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(stats);
+
+            rootLayout.setCenter(scroll);
+            controller.init(cinemaAdmin);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void showValiderReseravtion(Movie movie, Cinema cinema, Profil profil)
     {
         try {
@@ -352,11 +434,11 @@ public class SceneController
             loader.setLocation(getClass().getResource("ValiderReservation.fxml"));
             AnchorPane accueilAdmin = loader.load();
 
-            cinema.ajouterSeance(movie.getTitle(),"2022-03-18","12H30",1,45);
-            cinema.ajouterSeance(movie.getTitle(),"2022-03-18","14H30",1,45);
-            cinema.ajouterSeance(movie.getTitle(),"2022-03-18","16H30",1,45);
-            cinema.ajouterSeance(movie.getTitle(),"2022-03-19","14H30",1,45);
-            cinema.ajouterSeance(movie.getTitle(),"2022-03-19","16H30",1,45);
+            cinema.addSalles(new Salle(1, new ArrayList<>(),53));
+            cinema.addSeance(1, new Seance(movie.getTitle(),movie,LocalDate.of(2022,3,18),"14H30",1,45));
+            cinema.addSeance(1, new Seance(movie.getTitle(),movie,LocalDate.of(2022,3,18),"16H30",1,45));
+            cinema.addSeance(1, new Seance(movie.getTitle(),movie,LocalDate.of(2022,3,19),"14H30",1,45));
+            cinema.addSeance(1, new Seance(movie.getTitle(),movie,LocalDate.of(2022,3,19),"16H30",1,45));
 
             ValiderReservation controller = loader.getController();
             controller.setMainApp(this);
@@ -416,6 +498,27 @@ public class SceneController
         }
     }
 
+    public void showSeances()
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("Seances.fxml"));
+            AnchorPane seancesView = loader.load();
+
+
+            SeancesController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.init(cinemaAdmin);
+
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(seancesView);
+
+            rootLayout.setCenter(scroll);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Profil getProfil()
     {
         return this.controller.getProfil();
@@ -434,6 +537,23 @@ public class SceneController
     public void setCinemaAdmin(Cinema cinemaAdmin)
     {
         this.cinemaAdmin = cinemaAdmin;
+    }
+
+
+    public void testSeances()
+    {
+        var test = collections[1];
+        cinemaAdmin.addSalles(new Salle(1, new ArrayList<>(),53));
+        cinemaAdmin.addSeance(1, new Seance(test.getMovie(6).getTitle(),test.getMovie(6),LocalDate.of(2022,3,18),"14H30",1,45));
+        cinemaAdmin.addSeance(1, new Seance(test.getMovie(16).getTitle(),test.getMovie(16),LocalDate.of(2022,3,18),"16H30",1,45));
+        cinemaAdmin.addSeance(1, new Seance(test.getMovie(6).getTitle(),test.getMovie(6),LocalDate.of(2022,3,19),"14H30",1,45));
+        cinemaAdmin.addSeance(1, new Seance(test.getMovie(16).getTitle(),test.getMovie(16),LocalDate.of(2022,3,19),"16H30",1,45));
+        cinemaAdmin.addSalles(new Salle(2, new ArrayList<>(),53));
+        cinemaAdmin.addSeance(2, new Seance(test.getMovie(8).getTitle(),test.getMovie(8),LocalDate.of(2022,3,18),"14H30",1,45));
+        cinemaAdmin.addSeance(2, new Seance(test.getMovie(18).getTitle(),test.getMovie(18),LocalDate.of(2022,3,18),"16H30",1,45));
+        cinemaAdmin.addSeance(2, new Seance(test.getMovie(8).getTitle(),test.getMovie(8),LocalDate.of(2022,3,19),"14H30",1,45));
+        cinemaAdmin.addSeance(2, new Seance(test.getMovie(18).getTitle(),test.getMovie(18),LocalDate.of(2022,3,19),"16H30",1,45));
+        showSeances();
     }
 
 }

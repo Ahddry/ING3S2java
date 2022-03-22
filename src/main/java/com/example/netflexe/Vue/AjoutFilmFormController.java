@@ -25,7 +25,7 @@ public class AjoutFilmFormController
     @FXML
     private TextField affiche;
     @FXML
-    private ChoiceBox genre;
+    private ChoiceBox<String> genre;
     @FXML
     private DatePicker dateSortie;
     @FXML

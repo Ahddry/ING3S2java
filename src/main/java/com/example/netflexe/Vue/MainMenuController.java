@@ -3,6 +3,7 @@ package com.example.netflexe.Vue;
 import com.example.netflexe.Controller.HelloApplication;
 import com.example.netflexe.Model.ActorCollection;
 import com.example.netflexe.Model.MovieCollection;
+import com.example.netflexe.Model.Mail;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -70,6 +71,8 @@ public class MainMenuController {
 
     public void initializeBis()
     {
+
+
 
         initialiseListView(listView1,0);
         initialiseListView(listView2,1);
@@ -164,7 +167,7 @@ public class MainMenuController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                mainApp.showInfo(movie, false);
+                mainApp.showInfo(movie, collectionActor, false);
             }
         });
 

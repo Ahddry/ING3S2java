@@ -21,6 +21,7 @@ public class Actor {
     private final StringProperty role;
     private  Image imageActeur = null;
     private String imageNameActeur;
+    private String nom;
 
     public Actor() {
         this(null, null, null, null, null, null);
@@ -40,6 +41,7 @@ public class Actor {
     public String getFirstName() {
         return first_name.get();
     }
+
 
     public String getLastName() {
         return last_name.get();
