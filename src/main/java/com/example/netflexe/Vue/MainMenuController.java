@@ -164,7 +164,7 @@ public class MainMenuController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                mainApp.showInfo(movie, false);
+                mainApp.showInfo(movie, collectionActor, false);
             }
         });
 

@@ -1,20 +1,31 @@
 package com.example.netflexe.Vue;
 
 import com.example.netflexe.Model.*;
-import com.example.netflexe.Vue.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import com.example.netflexe.Controller.HelloApplication;
 
 import java.io.IOException;
 
+
+
 public class SceneController
 {
+
     private HelloApplication controller;
     private Stage primaryStage;
     private Scene scene;
@@ -251,6 +262,31 @@ public class SceneController
         }
     }
 
+    public void showInfo(Movie movie,ActorCollection collectionActor, boolean admin) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("FilmInfo.fxml"));
+            AnchorPane info = (AnchorPane) loader.load();
+            FilmInfoController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setMovie(movie);
+            controller.showActors(collectionActor);
+
+            controller.setProfil(user);
+            controller.setAdminAccess(admin);
+            controller.setCinema(cinemaAdmin);
+
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(info);
+            rootLayout.setCenter(scroll);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+///Pas oublier de changer pour Biblio etc (ajouter aussi l'affichage des acteurs)
     public void showInfo(Movie movie, boolean admin) {
         try {
 
@@ -272,6 +308,15 @@ public class SceneController
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void showInfoActor(Actor acteur) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("FilmInfo.fxml"));
+        AnchorPane info = (AnchorPane) loader.load();
+        FilmInfoController controller = loader.getController();
+        controller.setMainApp(this);
+        controller.setActor(acteur);
     }
 
     public void showResearch(boolean admin)
