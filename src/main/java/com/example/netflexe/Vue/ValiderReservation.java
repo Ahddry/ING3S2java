@@ -177,6 +177,7 @@ public class ValiderReservation {
             mainApp.showBiblioRes(profil);
             this.cinema.updateStatsPromo(promo);
             this.cinema.updateStatsFilm(movieS.getTitle());
+            ///ajoute ici à la base donnée   voilà ce que tu dois rajouter (new Reservation(movieS,horaireS,cinemaName,dateS.toString()))
         }
         else
         {
