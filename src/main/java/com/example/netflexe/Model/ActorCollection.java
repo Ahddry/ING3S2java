@@ -17,7 +17,7 @@ public class ActorCollection {
     public Actor getActor(String name) {
         int resultat = 0;
         for (int i = 0; i < collection.size(); i++) {
-            if (collection.get(i).getName() == name) {
+            if (collection.get(i).getName().equals(name)) {
                 resultat = i;
             }
 
@@ -47,7 +47,7 @@ public class ActorCollection {
         int resultat = 0;
         for(int i = 0 ; i < collection.size(); i++)
         {
-            if (collection.get(i).getName() == name)
+            if (collection.get(i).getName().equals(name))
             {
                 resultat = i ;
             }

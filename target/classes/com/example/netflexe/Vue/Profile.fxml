@@ -30,7 +30,7 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <Label fx:id="mail" layoutX="110.0" layoutY="478.0" textFill="WHITE">
+      <Label fx:id="mail" layoutX="171.0" layoutY="478.0" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
@@ -43,39 +43,39 @@
       <CheckBox fx:id="setNews" layoutX="803.0" layoutY="122.0" mnemonicParsing="false" />
       <ImageView fx:id="pp_change_display" fitHeight="115.0" fitWidth="115.0" layoutX="512.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="pp_change" layoutX="512.0" layoutY="159.0" mnemonicParsing="false" prefHeight="115.0" prefWidth="115.0" text="+" />
-      <Button fx:id="submit_pp" layoutX="774.0" layoutY="201.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="79.0" text="Modifier" />
+      <Button fx:id="submit_pp" layoutX="774.0" layoutY="201.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="100.0" text="Modifier" />
       <TextField fx:id="prenom_field" layoutX="408.0" layoutY="285.0" prefHeight="33.0" prefWidth="333.0" promptText="prénom" style="-fx-background-color: #1d1d1d#1d1d1d; -fx-border-color: #4d4b4b#4d4b4b; -fx-border-radius: 4;">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <Button fx:id="submit_prenom" layoutX="774.0" layoutY="285.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="79.0" text="Modifier" />
+      <Button fx:id="submit_prenom" layoutX="774.0" layoutY="285.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="100.0" text="Modifier" />
       <TextField fx:id="nom_field" layoutX="407.0" layoutY="356.0" prefHeight="33.0" prefWidth="333.0" promptText="nom" style="-fx-background-color: #1d1d1d#1d1d1d; -fx-text-fill: WHITE; -fx-border-color: #4d4b4b#4d4b4b; -fx-border-radius: 4;">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <Button fx:id="submit_nom" layoutX="773.0" layoutY="356.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="79.0" text="Modifier" />
+      <Button fx:id="submit_nom" layoutX="773.0" layoutY="356.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="100.0" text="Modifier" />
       <TextField fx:id="mail_edit" layoutX="407.0" layoutY="427.0" prefHeight="33.0" prefWidth="333.0" promptText="Adresse mail" style="-fx-background-color: #1d1d1d#1d1d1d; -fx-text-fill: WHITE; -fx-border-color: #4d4b4b#4d4b4b; -fx-border-radius: 4;">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <Button fx:id="submit_mail" layoutX="773.0" layoutY="427.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="79.0" text="Modifier" />
+      <Button fx:id="submit_mail" layoutX="773.0" layoutY="427.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="100.0" text="Modifier" />
       <PasswordField fx:id="pwd_field" layoutX="407.0" layoutY="498.0" prefHeight="33.0" prefWidth="333.0" promptText="Mot de passe" style="-fx-background-color:#1d1d1d; -fx-text-fill: WHITE; -fx-border-color: #4d4b4b#4d4b4b #4d4b4b#4d4b4b; -fx-border-radius: 4;">
          <font>
             <Font size="16.0" />
          </font>
       </PasswordField>
-      <Button fx:id="submit_pwd" layoutX="773.0" layoutY="498.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="79.0" text="Modifier" />
+      <Button fx:id="submit_pwd" layoutX="773.0" layoutY="498.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="100.0" text="Modifier" />
       <DatePicker fx:id="naissance_field" layoutX="407.0" layoutY="569.0" prefHeight="33.0" prefWidth="333.0" />
-      <Button fx:id="submit_naissance" layoutX="773.0" layoutY="569.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="79.0" text="Modifier" />
+      <Button fx:id="submit_naissance" layoutX="773.0" layoutY="569.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="100.0" text="Modifier" />
       <ChoiceBox fx:id="genre_field" layoutX="408.0" layoutY="640.0" prefHeight="33.0" prefWidth="150.0" style="-fx-background-color: #1d1d1d; -fx-border-color: #4d4b4b#4d4b4b; -fx-border-radius: 4;" />
-      <TextField fx:id="autres_field" layoutX="581.0" layoutY="640.0" prefHeight="33.0" promptText="Autres..." style="-fx-background-color: #1d1d1d; -fx-text-fill: WHITE; -fx-border-radius: 4; -fx-border-color: #4d4b4b;" />
-      <Button fx:id="submit_genre" layoutX="773.0" layoutY="640.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="79.0" text="Modifier" />
+      <TextField fx:id="autres_field" layoutX="581.0" layoutY="640.0" prefHeight="33.0" prefWidth="160.0" promptText="Autres..." style="-fx-background-color: #1d1d1d; -fx-text-fill: WHITE; -fx-border-radius: 4; -fx-border-color: #4d4b4b;" />
+      <Button fx:id="submit_genre" layoutX="773.0" layoutY="640.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="100.0" text="Modifier" />
       <ImageView fx:id="sizewarning" fitHeight="86.0" fitWidth="309.0" layoutX="419.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image  url="https://i.imgur.com/dXDYVei.png" />
+            <Image url="https://i.imgur.com/dXDYVei.png" />
          </image>
       </ImageView>
    </children>

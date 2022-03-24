@@ -24,6 +24,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
+import java.io.IOException;
+
 
 public class FilmInfoController {
     private WebEngine engine;
@@ -80,6 +82,12 @@ public class FilmInfoController {
     private WebView youtube;
     @FXML
     private AnchorPane root;
+
+    @FXML
+    private AnchorPane Acteur;
+
+    @FXML
+    private Button ActeurClose;
 
 
     private SceneController mainApp;
@@ -228,13 +236,9 @@ public class FilmInfoController {
             items.add(collectionActor.getName(i)) ;
 
         }
-        for(int i = 0; i< items.size();i++)
-        {
-           // System.out.println(items.get(i));
-        }
+
         listView1.setItems(items);
         listView1.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        System.out.println("azerty");
 
         listView1.setCellFactory(param -> new ListCell<String>() {
 
@@ -250,10 +254,10 @@ public class FilmInfoController {
 
                 } else {
                     String tempName = "";
+
                     imageView.setImage(collectionActor.getImage(name));
-                    System.out.println("1234567890");
-                    imageView.setFitHeight(160);
-                    imageView.setFitWidth(110);
+                    imageView.setFitHeight(90);
+                    imageView.setFitWidth(70);
                     setText(null);
                     if(name.length() > 15)
                     {
@@ -268,18 +272,32 @@ public class FilmInfoController {
                 }
             }
         });
-        //listView1.setOnMouseClicked(event -> {
-            /*if (event.getClickCount() == 2  ) {
-                //String selectedName = listView1.getSelectionModel().getSelectedItem();
-
+        listView1.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2  ) {
+                this.Acteur.setVisible(true);
+                this.root.setVisible(false);
+                String selectedName = listView1.getSelectionModel().getSelectedItem();
+                System.out.println(selectedName);
                 Actor acteur = collectionActor.getActor(selectedName);
                 try {
                     mainApp.showInfoActor(acteur);
+                    ImageActeur.setImage(acteur.getImageActeur());
+                    Age.setText(acteur.getAge());
+                    Nom.setText(acteur.getName());
+                    Description.setText(acteur.getDescription());
+                    Role.setText(acteur.getRole());
+                    ActeurClose.setOnMouseClicked(event2 -> {
+                        if(event2.getClickCount() == 1)
+                        {
+                            this.Acteur.setVisible(false);
+                            this.root.setVisible(true);
+                        }
+                    });
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }*/
-        //});
+            }
+        });
 
         listView1.setOrientation(Orientation.HORIZONTAL);
     }

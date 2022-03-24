@@ -48,7 +48,7 @@ public class Actor {
     }
     public String getName(){ return first_name.get() + " " + last_name.get();}
     public String getAge() {
-        return age.get();
+        return age.get() + " ans";
     }
 
     public String getDescription() {return description.get();}

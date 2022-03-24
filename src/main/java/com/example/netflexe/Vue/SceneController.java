@@ -310,7 +310,7 @@ public class SceneController
     public void showInfoActor(Actor acteur) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("FilmInfo.fxml"));
-        AnchorPane info = (AnchorPane) loader.load();
+        AnchorPane Acteur = (AnchorPane) loader.load();
         FilmInfoController controller = loader.getController();
         controller.setMainApp(this);
         controller.setActor(acteur);
