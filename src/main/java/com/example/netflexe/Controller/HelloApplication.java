@@ -125,7 +125,7 @@ public class HelloApplication extends Application {
             }
             for(int i = 0; i<5;i++)
             {
-                ResultSet myRes = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan FROM film as f JOIN film_genre ON (f.id_film = film_genre.id_film) JOIN genre ON (genre.id_genre = film_genre.id_genre) WHERE genre.nom = '" + genre.get(i) + "';");
+                ResultSet myRes = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer FROM film as f JOIN film_genre ON (f.id_film = film_genre.id_film) JOIN genre ON (genre.id_genre = film_genre.id_genre) WHERE genre.nom = '" + genre.get(i) + "';");
                 while(myRes.next())
                 {
                     String poster = myRes.getString("poster");
@@ -134,8 +134,17 @@ public class HelloApplication extends Application {
                     String synopsis = myRes.getString("synopsis");
                     String slogan = myRes.getString("slogan");
                     String id_film = myRes.getString("id_film");
+                    String trailer;
+                    if(myRes.getString("trailer") != "" && myRes.getString("trailer") != null)
+                    {
+                        trailer = myRes.getString("trailer").split("=")[1];
+                    }
+                    else
+                    {
+                        trailer = null;
+                    }
                     //System.out.println(poster);
-                    collection[i].addMovie(new Movie(myRes.getString("nom_film"),"MOI",poster, dateDeSortie, dateDeSortie, duree, synopsis, slogan, id_film));
+                    collection[i].addMovie(new Movie(myRes.getString("nom_film"),"MOI",poster, dateDeSortie, dateDeSortie, duree, synopsis, slogan, id_film, trailer));
                 }
             }
 
@@ -171,18 +180,36 @@ public class HelloApplication extends Application {
                     ResultSet myRes3 = myStat.executeQuery("SELECT seance.id_film, seance.date_horraire, seance.prix, film.id_film, film.poster, film.nom_film, film.date_de_sortie, film.duree, film.synopsis, film.slogan, film.trailer, salle.num_salle FROM seance JOIN film on film.id_film = seance.id_film JOIN salle ON salle.id_salle = seance.id_salle WHERE seance.id_cine = '" + String.valueOf(sceneController.getCinemaCollection().getCinema(i).get_id_cine()) + "' AND seance.id_salle = '"+ String.valueOf(sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).get_id_bdd())+"';");
                     while(myRes3.next())
                     {
-                        sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).addSeance(new Seance(myRes3.getString("film.nom_film"),new Movie(myRes3.getString("film.nom_film"), "MOI", myRes3.getString("film.poster"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.duree"), myRes3.getString("film.synopsis"), myRes3.getString("film.slogan"), myRes3.getString("film.id_film")), LocalDate.parse(myRes3.getString("seance.date_horraire").split(" ")[0]), myRes3.getString("seance.date_horraire").split(" ")[1], myRes3.getInt("salle.num_salle"), myRes3.getDouble("seance.prix")));
+                        String trailer;
+                        if(myRes3.getString("film.trailer") != "" && myRes3.getString("film.trailer") != null)
+                        {
+                            trailer = myRes3.getString("film.trailer").split("=")[1];
+                        }
+                        else
+                        {
+                            trailer = null;
+                        }
+                        sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).addSeance(new Seance(myRes3.getString("film.nom_film"),new Movie(myRes3.getString("film.nom_film"), "MOI", myRes3.getString("film.poster"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.duree"), myRes3.getString("film.synopsis"), myRes3.getString("film.slogan"), myRes3.getString("film.id_film"),trailer), LocalDate.parse(myRes3.getString("seance.date_horraire").split(" ")[0]), myRes3.getString("seance.date_horraire").split(" ")[1], myRes3.getInt("salle.num_salle"), myRes3.getDouble("seance.prix")));
                     }
                 }
             }
 
             if(user != null)
             {
-                ResultSet myRes2 = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan FROM film as f JOIN liked ON (f.id_film = liked.id_film) WHERE liked.id_user = '" + String.valueOf(user.get_id()) +"';");
+                ResultSet myRes2 = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer FROM film as f JOIN liked ON (f.id_film = liked.id_film) WHERE liked.id_user = '" + String.valueOf(user.get_id()) +"';");
                 while(myRes2.next())
                 {
                     String tempDatedesortie = myRes2.getString("date_de_sortie");
-                    user.ajouterLike(new Movie(myRes2.getString("nom_film"), "MOI", myRes2.getString("poster"), tempDatedesortie,tempDatedesortie,myRes2.getString("duree"), myRes2.getString("synopsis"), myRes2.getString("slogan"), myRes2.getString("id_film")));
+                    String trailer;
+                    if(myRes2.getString("trailer") != "" && myRes2.getString("trailer") != null)
+                    {
+                        trailer = myRes2.getString("trailer").split("=")[1];
+                    }
+                    else
+                    {
+                        trailer = null;
+                    }
+                    user.ajouterLike(new Movie(myRes2.getString("nom_film"), "MOI", myRes2.getString("poster"), tempDatedesortie,tempDatedesortie,myRes2.getString("duree"), myRes2.getString("synopsis"), myRes2.getString("slogan"), myRes2.getString("id_film"), trailer));
                 }
                 user.set_image();
             }

@@ -15,17 +15,18 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
-import java.io.IOException;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 
 public class FilmInfoController {
-
+    private WebEngine engine;
     @FXML
     private Button Retour;
     @FXML
@@ -69,6 +70,17 @@ public class FilmInfoController {
     private ListView<String> listView;
     @FXML
     private Label Label;
+    @FXML
+    private AnchorPane trailer_page;
+    @FXML
+    private Button trailer_button;
+    @FXML
+    private Button trailer_close;
+    @FXML
+    private WebView youtube;
+    @FXML
+    private AnchorPane root;
+
 
     private SceneController mainApp;
     private BiblioController biblioController;
@@ -83,6 +95,20 @@ public class FilmInfoController {
 
     @FXML
     private void initialize() {
+        trailer_button.setOnMouseClicked(event -> {
+            if(event.getClickCount() == 1) {
+                this.trailer_page.setVisible(true);
+                this.root.setVisible(false);
+            }
+        });
+        trailer_close.setOnMouseClicked(event -> {
+            if(event.getClickCount() == 1)
+            {
+                this.trailer_page.setVisible(false);
+                this.root.setVisible(true);
+            }
+        });
+        this.engine = this.youtube.getEngine();
     }
 
     public void setMainApp(SceneController mainApp) {
@@ -110,6 +136,14 @@ public class FilmInfoController {
         Duree.setText(movie.getDuree());
         Synopsis.setText(movie.getSynopsis());
         Slogan.setText(movie.getSlogan());
+        if(movie.getTrailer() != null)
+        {
+            this.engine.load("https://www.youtube.com/embed/" + movie.getTrailer());
+        }
+        else
+        {
+            this.trailer_button.setVisible(false);
+        }
         movieS = movie;
     }
 

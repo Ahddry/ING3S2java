@@ -26,17 +26,18 @@ public class Movie {
     private final StringProperty synopsis;
     private final StringProperty slogan;
     private final StringProperty id_film;
+    private final StringProperty trailer;
     private final ObjectProperty<LocalDate> releaseDate;
     private  Image image = null;
     private String imageName;
 
     public Movie() {
         this(null, null, null, "1212-12-12",
-                "0000-00-00", null, null, null, null );
+                "0000-00-00", null, null, null, null ,null);
     }
 
     public Movie(String title, String director, String adresseImage, String date_de_sortie_LD,
-                 String date_de_sortie_S, String duree, String synopsis, String slogan, String id_film) {
+                 String date_de_sortie_S, String duree, String synopsis, String slogan, String id_film, String trailer) {
         this.title = new SimpleStringProperty(title);
         this.director = new SimpleStringProperty(director);
         this.produceur = new SimpleStringProperty("No produceur specified");
@@ -50,6 +51,14 @@ public class Movie {
         this.synopsis = new SimpleStringProperty(synopsis);
         this.slogan = new SimpleStringProperty(slogan);
         this.id_film = new SimpleStringProperty(id_film);
+        if(trailer != null)
+        {
+            this.trailer = new SimpleStringProperty(trailer);
+        }
+        else
+        {
+            this.trailer = null;
+        }
     }
 
 
@@ -82,6 +91,18 @@ public class Movie {
     }
     public StringProperty produceurProperty() {
         return produceur;
+    }
+
+    public String getTrailer()
+    {
+        if(trailer != null)
+        {
+            return trailer.get();
+        }
+        else
+        {
+            return null;
+        }
     }
 
 

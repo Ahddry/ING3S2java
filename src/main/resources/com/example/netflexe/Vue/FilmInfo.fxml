@@ -12,9 +12,12 @@
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1138.0" styleClass="background" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.netflexe.Vue.FilmInfoController">
+<AnchorPane  prefHeight="720.0" prefWidth="1138.0" styleClass="background" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.netflexe.Vue.FilmInfoController">
    <children>
+      <AnchorPane fx:id="root" prefHeight="720.0" prefWidth="1138.0">
+         <children>
       <Label fx:id="Title" alignment="CENTER" layoutX="511.0" layoutY="31.0" styleClass="label-header" text="Label" />
       <ImageView fx:id="Poster" fitHeight="376.0" fitWidth="258.0" layoutX="76.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="Retour" layoutX="36.0" layoutY="31.0" mnemonicParsing="false" onAction="#retourMenu" text="Retour" />
@@ -61,5 +64,14 @@
             <Label text="Label" />
          </children>
       </GridPane>
+      <Button fx:id="trailer_button" layoutX="1003.0" layoutY="31.0" mnemonicParsing="false" text="Trailer" />
+      </children>
+   </AnchorPane>
+      <AnchorPane fx:id="trailer_page" prefHeight="722.0" prefWidth="1138.0" style="-fx-background-color: #1d1d1d;" visible="false">
+         <children>
+            <WebView fx:id="youtube" layoutX="96.0" layoutY="76.0" prefHeight="601.0" prefWidth="971.0" />
+            <Button fx:id="trailer_close" layoutX="3.0" layoutY="646.0" mnemonicParsing="false" text="Fermer" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
