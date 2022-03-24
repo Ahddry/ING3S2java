@@ -134,6 +134,11 @@ public class Profil {
 
     }
 
+    public boolean isAdmin()
+    {
+        return admin;
+    }
+
     public void ajouterReservation(Reservation reservation)
     {
         mesReservations.add(reservation);

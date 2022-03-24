@@ -108,6 +108,25 @@ public class SceneController
         }
     }
 
+    public void showProfileCinema()
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("ProfileCinema.fxml"));
+            AnchorPane cinema = loader.load();
+
+            ProfileCinemaController cinemaController = loader.getController();
+            cinemaController.setMainApp(this, controller);
+            cinemaController.setCinema(cinemaAdmin);
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(cinema);
+
+            rootLayout.setCenter(scroll);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setProfil(Profil user)
     {
         this.user = this.controller.getProfil();
@@ -487,6 +506,28 @@ public class SceneController
 
             ScrollPane scroll = new ScrollPane();
             scroll.setContent(seancesView);
+
+            rootLayout.setCenter(scroll);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showCreationSeance(Movie movie)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("CreationSeance.fxml"));
+            AnchorPane creationSeancesView = loader.load();
+
+
+            CreationSeanceController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setMovie(movie);
+            controller.setCinema(cinemaAdmin);
+
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(creationSeancesView);
 
             rootLayout.setCenter(scroll);
         } catch (IOException e) {

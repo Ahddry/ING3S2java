@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
+
 public class Cinema {
 
     private int id_cine;
@@ -131,5 +133,15 @@ public class Cinema {
     public void setSalles(List<Salle> salles)
     {
         this.salles = salles;
+    }
+
+    public void setNom(String nom)
+    {
+        this.nom = nom;
+    }
+
+    public void setImageString(String imageString)
+    {
+        this.imageString = imageString;
     }
 }
