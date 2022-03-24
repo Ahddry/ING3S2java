@@ -11,6 +11,7 @@ public class Cinema {
     private int id_cine;
     private String nom;
     private MovieCollection filmP = new MovieCollection();
+    private ArrayList<String> filmProjetes = new ArrayList<String>();
     private Image image = null;
     private String imageString = "";
     private List<Salle> salles = new ArrayList<>();
@@ -31,7 +32,19 @@ public class Cinema {
 
     public boolean checkMovie(String name)
     {
-        return filmP.checkBoolean(name);
+        boolean result = false;
+        for(int i = 0;i< salles.size();i++)
+        {
+            filmProjetes = salles.get(i).getFilmP();
+            for(int j = 0; j<filmProjetes.size(); j++)
+            {
+                if(filmProjetes.get(j).equals(name)){
+
+                    result  = true;
+                }
+            }
+        }
+        return result;
     }
 
     public void ajoutFilm(Movie movie)

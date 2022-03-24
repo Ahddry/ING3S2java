@@ -165,6 +165,7 @@ public class HelloApplication extends Application {
             {
                 sceneController.getCinemaCollection().addCinema(new Cinema(myRes.getInt("id_cine"), myRes.getString("nom"), myRes.getString("lien_image")));
             }
+            sceneController.getCinemaCollection().setImage();
             for(int i = 0 ; i < sceneController.getCinemaCollection().getSize(); i++)
             {
                 ResultSet myRes2 = myStat.executeQuery("SELECT salle.id_salle, capacite, num_salle FROM salle JOIN cinema_salle ON cinema_salle.id_salle = salle.id_salle WHERE cinema_salle.id_cine = '" + String.valueOf(sceneController.getCinemaCollection().getCinema(i).get_id_cine()) +"';");
@@ -172,6 +173,7 @@ public class HelloApplication extends Application {
                 {
                     sceneController.getCinemaCollection().getCinema(i).addSalles(new Salle(myRes2.getInt("salle.id_salle"), myRes2.getInt("num_salle"), myRes2.getInt("capacite")));
                 }
+
             }
             for(int i = 0 ; i < sceneController.getCinemaCollection().getSize(); i++)
             {

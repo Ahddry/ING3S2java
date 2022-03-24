@@ -11,6 +11,7 @@ public class Salle
     private int id_bdd;
     private List<Seance> seances;
     private int nbPlaces;
+    private ArrayList<String> filmP = new ArrayList<>();
 
     public Salle()
     {
@@ -55,7 +56,9 @@ public class Salle
 
     public void addSeance(Seance seance)
     {
+
         seances.add(seance);
+        filmP.add(seance.getName());
     }
 
     public boolean deleteSeance(String name)
@@ -106,4 +109,10 @@ public class Salle
         }
         return seances.get(res);
     }
+
+    public ArrayList<String> getFilmP()
+    {
+        return filmP;
+    }
+
 }

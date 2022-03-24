@@ -68,7 +68,7 @@ public class ValiderReservation {
         /* A MODIF */
         for(var elem:cinema.getSalles())
         {
-            seances = (ArrayList<Seance>) elem.getSeances();
+            seances.addAll(elem.getSeances());
         }
 
 
@@ -120,7 +120,12 @@ public class ValiderReservation {
             horaires.clear();
             dateS = newValue;
             for (Seance seance : seances) {
+                System.out.println(seance.getName());
+                System.out.println(movie.getTitle());
+                System.out.println(seance.getDate().toString());
+                System.out.println(newValue.toString());
                 if ((seance.getName().equals(movie.getTitle())) && (seance.getDate().toString().equals(newValue.toString()))) {
+
                     horaires.add(seance.getHeure());
                 }
             }
