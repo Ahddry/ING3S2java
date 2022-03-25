@@ -92,4 +92,9 @@ public class ActorCollection {
         }
 
     }
+
+    public void erase()
+    {
+        collection.clear();
+    }
 }

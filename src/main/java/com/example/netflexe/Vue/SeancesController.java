@@ -15,6 +15,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SeancesController
 {
@@ -87,7 +88,7 @@ public class SeancesController
                         setGraphic(null);
                     } else
                     {
-                        String tempName = "";
+                        String tempName = "", tempDate = "", tempHeure = "";
                         imageView.setImage(salle.getImage(name));
                         imageView.setFitHeight(250);
                         imageView.setFitWidth(171);
@@ -99,7 +100,15 @@ public class SeancesController
                         {
                             tempName = name;
                         }
-                        VBox myBox = new VBox(imageView, new Label(tempName));
+                        for (var seance : collection)
+                        {
+                            if (Objects.equals(seance.getMovie().getTitle(), name))
+                            {
+                                tempDate = seance.getDate().toString();
+                                tempHeure = seance.getHeure();
+                            }
+                        }
+                        VBox myBox = new VBox(imageView, new Label(tempName), new Label(tempDate), new Label(tempHeure));
                         myBox.setAlignment(Pos.BASELINE_CENTER);
                         setGraphic(myBox);
                     }

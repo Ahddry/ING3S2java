@@ -1,10 +1,6 @@
 package com.example.netflexe.Vue;
 
-import com.example.netflexe.Model.ActorCollection;
-import com.example.netflexe.Model.Cinema;
-import com.example.netflexe.Model.Movie;
-import com.example.netflexe.Model.Profil;
-import com.example.netflexe.Model.Actor;
+import com.example.netflexe.Model.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -224,7 +220,10 @@ public class FilmInfoController {
     public void showActors(ActorCollection collectionActor)
     {
         this.collectionActor = collectionActor;
-        collectionActor.setImage();
+        RunnableDemoActor thread = new RunnableDemoActor("monThread");
+        thread.setActorCollection(this.collectionActor);
+        thread.setMainApp(this);
+        thread.start();
         initializeListView(listView);
     }
 
@@ -256,8 +255,8 @@ public class FilmInfoController {
                     String tempName = "";
 
                     imageView.setImage(collectionActor.getImage(name));
-                    imageView.setFitHeight(90);
-                    imageView.setFitWidth(70);
+                    imageView.setFitHeight(160);
+                    imageView.setFitWidth(120);
                     setText(null);
                     if(name.length() > 15)
                     {
@@ -300,5 +299,11 @@ public class FilmInfoController {
         });
 
         listView1.setOrientation(Orientation.HORIZONTAL);
+    }
+
+    public void refresher() {
+
+            listView.refresh();
+
     }
 }
