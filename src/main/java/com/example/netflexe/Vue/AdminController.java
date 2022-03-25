@@ -1,14 +1,23 @@
 package com.example.netflexe.Vue;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 
 public class AdminController
 {
+    @FXML
+    private BorderPane borderPane;
     @FXML
     private Button Button1;
     @FXML
@@ -17,8 +26,6 @@ public class AdminController
     private Button Button3;
     @FXML
     private Button Button4;
-    @FXML
-    private ToggleButton ToggleButton1;
 
     private SceneController mainApp;
 
@@ -51,7 +58,14 @@ public class AdminController
         Button2.setGraphic(image2);
         Button3.setGraphic(image3);
         Button4.setGraphic(image4);
-        ToggleButton1.setText("Admin");
+        ToggleButton adminButton = new ToggleButton("Admin");
+        adminButton.setOnAction(event -> switchUser());
+        adminButton.setBackground(new Background(new BackgroundFill(Color.valueOf("#407070"), new CornerRadii(6), Insets.EMPTY)));
+        adminButton.setTextFill(Color.WHITE);
+        borderPane.setTop(adminButton);
+        BorderPane.setAlignment(adminButton, Pos.CENTER_RIGHT);
+        BorderPane.setMargin(adminButton, new Insets(5, 15, 5, 5));
+        borderPane.setBackground(new Background(new BackgroundFill(Color.valueOf("#1d1d1d"), new CornerRadii(0), Insets.EMPTY)));
     }
 
     public void setMainApp(SceneController mainApp) {
@@ -65,7 +79,6 @@ public class AdminController
     @FXML
     private void setMenu2() {
         mainApp.showSeances();
-        //mainApp.testSeances(); //TEMPORAIRE
     }
     @FXML
     private void setMenu3() {
@@ -74,7 +87,7 @@ public class AdminController
     }
     @FXML
     private void setMenu4() {
-
+        mainApp.showProfileCinema();
     }
 
     @FXML

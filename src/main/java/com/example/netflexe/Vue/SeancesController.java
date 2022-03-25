@@ -26,7 +26,6 @@ public class SeancesController
     private Cinema cinema;
     private SceneController mainApp;
     private List<Seance> collection;
-    private final ContextMenu contextMenu = new ContextMenu();
 
     /**
      * Méthode d'initialisation de la vue
@@ -106,7 +105,7 @@ public class SeancesController
                     }
                 }
             });
-
+            ContextMenu contextMenu = new ContextMenu();
             MenuItem suppr = new MenuItem("Supprimer le film");
             suppr.setOnAction(event ->
             {
@@ -119,12 +118,11 @@ public class SeancesController
                     {
                         if (salle.deleteSeance(selectedName))
                         {
-                            //System.out.println("Supprimé : " + selectedName);
                             cinema.setSalles(salles);
-                            mainApp.showAccueilAdmin();
+                            mainApp.showSeances();
                         } else
                         {
-                            Alert alert2 = new Alert(Alert.AlertType.ERROR, "Le film n'a pas pu être supprimé.");
+                            Alert alert2 = new Alert(Alert.AlertType.ERROR, "La séance n'a pas pu être supprimé.");
                             alert2.show();
                         }
                     }
@@ -152,24 +150,17 @@ public class SeancesController
                 }
             });
 
-            Button butonAjoutSeance = new Button("+");
-            butonAjoutSeance.setAlignment(Pos.CENTER);
-            butonAjoutSeance.setStyle("-fx-background-color: #9a9a9a; -fx-border-radius: 100; -fx-background-radius: 100;");
-            butonAjoutSeance.setOnAction(event -> ajoutSeanceBoutonClick(salle.getNumero()));
-            butonAjoutSeance.setTooltip(new Tooltip("Cliquez ici pour ajouter une séance à la salle " + salle.getNumero() + "."));
-
             listView.setOrientation(Orientation.HORIZONTAL);
             listView.setStyle("-fx-base: #1d1d1d; -fx-control-inner-background: #1d1d1d; -fx-background-color: #1d1d1d; -fx-table-cell-border-color: transparent;\n" +
                     " -fx-table-header-border-color: transparent; -fx-padding: 5;");
             listView.setPrefSize(300.0, 320.0);
             grid.addRow(compteur);
             grid.add(listView, 1, compteur);
-            grid.add(butonAjoutSeance,2,compteur);
             compteur++;
         }
         Button nouvelleSalle = new Button("Ajouter une salle"); //Bouton pour l'ajout d'une nouvelle salle
         nouvelleSalle.setTooltip(new Tooltip("Cliquez ici pour ajouter une salle au cinéma."));
-        nouvelleSalle.setOnAction(actionEvent -> ajoutSalleBoutonClick()); //Bind temporaire à showAjouterFilm, sera remplacé plus tard
+        nouvelleSalle.setOnAction(actionEvent -> ajoutSalleBoutonClick());
         nouvelleSalle.setAlignment(Pos.CENTER);
         grid.addRow(compteur);
         grid.add(nouvelleSalle, 1, compteur);
@@ -181,14 +172,9 @@ public class SeancesController
         pane.getChildren().setAll(grid);
     }
 
-    public void ajoutSeanceBoutonClick(int salle)
-    {
-        System.out.println("Salle : " + salle);
-    }
-
     public void ajoutSalleBoutonClick()
     {
-        cinema.addSalles(new Salle());
+        cinema.addSalles(new Salle(1, cinema.getSalles().size() + 1, 50));
         mainApp.setCinemaAdmin(this.cinema);
         mainApp.showSeances();
     }

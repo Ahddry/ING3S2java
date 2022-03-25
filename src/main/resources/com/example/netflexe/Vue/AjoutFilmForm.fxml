@@ -22,7 +22,7 @@
                 <Insets bottom="5.0" />
             </FlowPane.margin>
         </Label>
-        <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="368.0" prefWidth="402.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <TextField fx:id="title" promptText="Titre" style="-fx-background-color: #1d1d1d; -fx-border-color: white; -fx-border-radius: 6;             -fx-text-fill: WHITE;" />
             <FlowPane alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <TextField fx:id="director" prefWidth="183.0" promptText="Réalisateur" style="-fx-background-color: #1d1d1d;                 -fx-border-color: white; -fx-border-radius: 6; -fx-text-fill: WHITE;">

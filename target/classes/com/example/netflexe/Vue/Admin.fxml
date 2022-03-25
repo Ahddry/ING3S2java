@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0"
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0"
             stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.netflexe.Vue.AdminController">
     <left>
         <VBox prefHeight="721.0" prefWidth="128.0" BorderPane.alignment="CENTER">
@@ -19,10 +19,4 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" />
         </ScrollPane>
     </center>
-    <top>
-        <ToggleButton fx:id="ToggleButton1" mnemonicParsing="false" onAction="#switchUser" selected="true" text="Admin" BorderPane.alignment="TOP_RIGHT">
-         <BorderPane.margin>
-            <Insets bottom="5.0" left="5.0" right="15.0" top="5.0" />
-         </BorderPane.margin></ToggleButton>
-    </top>
 </BorderPane>

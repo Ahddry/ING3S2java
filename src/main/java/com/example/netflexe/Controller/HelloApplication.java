@@ -166,6 +166,7 @@ public class HelloApplication extends Application {
             {
                 sceneController.getCinemaCollection().addCinema(new Cinema(myRes.getInt("id_cine"), myRes.getString("nom"), myRes.getString("lien_image")));
             }
+            sceneController.getCinemaCollection().setImage();
             for(int i = 0 ; i < sceneController.getCinemaCollection().getSize(); i++)
             {
                 ResultSet myRes2 = myStat.executeQuery("SELECT salle.id_salle, capacite, num_salle FROM salle JOIN cinema_salle ON cinema_salle.id_salle = salle.id_salle WHERE cinema_salle.id_cine = '" + String.valueOf(sceneController.getCinemaCollection().getCinema(i).get_id_cine()) +"';");
@@ -173,6 +174,7 @@ public class HelloApplication extends Application {
                 {
                     sceneController.getCinemaCollection().getCinema(i).addSalles(new Salle(myRes2.getInt("salle.id_salle"), myRes2.getInt("num_salle"), myRes2.getInt("capacite")));
                 }
+
             }
             for(int i = 0 ; i < sceneController.getCinemaCollection().getSize(); i++)
             {
@@ -190,9 +192,12 @@ public class HelloApplication extends Application {
                         {
                             trailer = null;
                         }
-                        sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).addSeance(new Seance(myRes3.getString("film.nom_film"),new Movie(myRes3.getString("film.nom_film"), "MOI", myRes3.getString("film.poster"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.duree"), myRes3.getString("film.synopsis"), myRes3.getString("film.slogan"), myRes3.getString("film.id_film"),trailer), LocalDate.parse(myRes3.getString("seance.date_horraire").split(" ")[0]), myRes3.getString("seance.date_horraire").split(" ")[1], myRes3.getInt("salle.num_salle"), myRes3.getDouble("seance.prix")));
+                        Movie movie = new Movie(myRes3.getString("film.nom_film"), "MOI", myRes3.getString("film.poster"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.duree"), myRes3.getString("film.synopsis"), myRes3.getString("film.slogan"), myRes3.getString("film.id_film"),trailer);
+                        sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).addSeance(new Seance(myRes3.getString("film.nom_film"), movie, LocalDate.parse(myRes3.getString("seance.date_horraire").split(" ")[0]), myRes3.getString("seance.date_horraire").split(" ")[1], myRes3.getInt("salle.num_salle"), myRes3.getDouble("seance.prix")));
+                        sceneController.getCinemaCollection().getCinema(i).ajoutFilm(movie);
                     }
                 }
+                sceneController.getCinemaCollection().getCinema(i).setImage();
             }
 
             if(user != null)

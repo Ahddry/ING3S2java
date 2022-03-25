@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.text.TextAlignment;
-import com.google.common.base.Strings;
 
 import java.time.LocalDate;
 

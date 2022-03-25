@@ -15,14 +15,15 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class AccueilAdminController
 {
     @FXML
     private Label nomCinema;
     @FXML
     private ListView<String> listView1 = new ListView<>();
-    @FXML
-    private ListView<String> listView2;
     @FXML
     private Button ajoutFilmBouton;
 
@@ -37,11 +38,13 @@ public class AccueilAdminController
         cinema = c;
         nomCinema.setText(cinema.getName());
         collection = c.getFilmP();
+        Set<String> filmsAffiche = new HashSet<>();
         ObservableList<String> items = FXCollections.observableArrayList();
         for (int i = 0; i < collection.getSize(); i++)
         {
-            items.add(collection.getName(i));
+            filmsAffiche.add(collection.getName(i));
         }
+        items.addAll(filmsAffiche);
         listView1.setItems(items);
         listView1.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         listView1.setCellFactory(param -> new ListCell<String>()
@@ -83,13 +86,12 @@ public class AccueilAdminController
             /* https://stackoverflow.com/questions/11662857/javafx-2-1-messagebox */
             String selectedName = listView1.getSelectionModel().getSelectedItem();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Voulez-vous vraiment supprimer ce film ?", ButtonType.YES, ButtonType.NO);
-            alert.showAndWait().ifPresent(rs ->
+            alert.showAndWait().ifPresent(resultat ->
             {
-                if (rs == ButtonType.YES)
+                if (resultat == ButtonType.YES)
                 {
                     if (collection.deleteMovie(selectedName))
                     {
-                        //System.out.println("Supprimé : " + selectedName);
                         cinema.setFilmP(collection);
                         mainApp.showAccueilAdmin();
                     } else
@@ -107,10 +109,8 @@ public class AccueilAdminController
             if (event.getClickCount() == 2)
             {
                 String selectedName = listView1.getSelectionModel().getSelectedItem();
-
                 Movie movie = collection.getMovie(selectedName);
-
-                mainApp.showInfo(movie, false);
+                mainApp.showCreationSeance(movie);
             } else if (event.getButton() == MouseButton.SECONDARY)
             {
                 contextMenu.show(mainApp.getScene().getWindow(), event.getScreenX(), event.getScreenY());

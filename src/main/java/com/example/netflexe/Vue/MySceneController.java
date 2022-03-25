@@ -1,15 +1,24 @@
 package com.example.netflexe.Vue;
 
+import com.example.netflexe.Model.Profil;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.image.*;
-import javafx.scene.effect.*;
-import java.io.File;
-import java.io.FileInputStream;
-import com.example.netflexe.Model.*;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.effect.SepiaTone;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 
 
 public class MySceneController {
+    @FXML
+    BorderPane borderPane;
 
     @FXML
     private Button Button1;
@@ -19,19 +28,10 @@ public class MySceneController {
     private Button Button3;
     @FXML
     private Button Button4;
-    @FXML
-    private ToggleButton ToggleButton1;
 
     private SceneController mainApp;
 
     private Profil profil;
-
-    @FXML
-    private void initialize() {
-
-
-        ToggleButton1.setText("User");
-    }
 
     public void initialiseBis()
     {
@@ -63,7 +63,20 @@ public class MySceneController {
         Button3.setGraphic(image2);
         Button4.setGraphic(image);
 
-
+        if (profil != null)
+        {
+            if (profil.isAdmin())
+            {
+                ToggleButton adminButton = new ToggleButton("User");
+                adminButton.setOnAction(event -> switchAdmin());
+                adminButton.setBackground(new Background(new BackgroundFill(Color.valueOf("#407070"), new CornerRadii(6), Insets.EMPTY)));
+                adminButton.setTextFill(Color.WHITE);
+                borderPane.setTop(adminButton);
+                BorderPane.setAlignment(adminButton, Pos.CENTER_RIGHT);
+                BorderPane.setMargin(adminButton, new Insets(5, 15, 5, 5));
+                borderPane.setBackground(new Background(new BackgroundFill(Color.valueOf("#1d1d1d"), new CornerRadii(0), Insets.EMPTY)));
+            }
+        }
     }
 
     public void setProfil(Profil profil)
