@@ -56,9 +56,10 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="Duree" layoutX="297.0" layoutY="198.0" prefHeight="21.0" prefWidth="74.0" text="Duree" />
+      <Label fx:id="Duree" layoutX="299.0" layoutY="198.0" prefHeight="21.0" prefWidth="74.0" text="Duree" />
       <Label layoutX="299.0" layoutY="135.0" text="Date de sortie :" />
       <Label layoutX="299.0" layoutY="177.0" text="Durée :" />
+            <Label fx:id="real" layoutX="299.0" layoutY="226.0" text="Realisateur" />
       <GridPane layoutX="334.0" layoutY="399.0" prefHeight="250.0" prefWidth="727.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="852.6666666666667" minWidth="10.0" prefWidth="852.6666666666667" />

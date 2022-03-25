@@ -1,13 +1,14 @@
 package com.example.netflexe.Vue;
 
-import com.example.netflexe.Model.*;
+import com.example.netflexe.Model.Cinema;
+import com.example.netflexe.Model.Salle;
+import com.example.netflexe.Model.Seance;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -27,9 +28,11 @@ public class SeancesController
     private Cinema cinema;
     private SceneController mainApp;
     private List<Seance> collection;
+    private ComboBox<String> comboBox = new ComboBox<>();
 
     /**
      * Méthode d'initialisation de la vue
+     *
      * @param c Cinéma à afficher
      */
     public void init(Cinema c)
@@ -67,7 +70,7 @@ public class SeancesController
             ObservableList<String> items = FXCollections.observableArrayList();
             for (var elem : collection)
             {
-                //String nomSeance = elem.getHeure() + " | " + elem.getName();
+                elem.setImage();
                 String nomSeance = elem.getName();
                 items.add(nomSeance);
             }
@@ -100,12 +103,12 @@ public class SeancesController
                         {
                             tempName = name;
                         }
-                        for (var seance : collection)
+                        for (var seance : salle.getSeances())
                         {
-                            if (Objects.equals(seance.getMovie().getTitle(), name))
+                            if (Objects.equals(seance.getName(), name))
                             {
                                 tempDate = seance.getDate().toString();
-                                tempHeure = seance.getHeure();
+                                tempHeure = seance.getHeure().split("\\.")[0];
                             }
                         }
                         VBox myBox = new VBox(imageView, new Label(tempName), new Label(tempDate), new Label(tempHeure));
@@ -167,25 +170,73 @@ public class SeancesController
             grid.add(listView, 1, compteur);
             compteur++;
         }
+
         Button nouvelleSalle = new Button("Ajouter une salle"); //Bouton pour l'ajout d'une nouvelle salle
         nouvelleSalle.setTooltip(new Tooltip("Cliquez ici pour ajouter une salle au cinéma."));
         nouvelleSalle.setOnAction(actionEvent -> ajoutSalleBoutonClick());
         nouvelleSalle.setAlignment(Pos.CENTER);
+        Button retirerSalle = new Button("Supprimer une salle"); //Bouton pour l'ajout d'une nouvelle salle
+        retirerSalle.setTooltip(new Tooltip("Cliquez ici pour supprimer une salle au cinéma."));
+        retirerSalle.setOnAction(actionEvent -> retirerSalleBoutonClick());
+        retirerSalle.setAlignment(Pos.CENTER);
+        comboBox.setStyle("-fx-background-color: BLACK; -fx-border-color: GREY; -fx-border-radius: 6; -fx-text-color: WHITE; -fx-control-inner-background-fx-control-inner-background: WHITE;");
+        for (var salle : salles)
+            comboBox.getItems().add("Salle " + salle.getNumero());
+        FlowPane flowPane = new FlowPane(nouvelleSalle, new Label("  "), retirerSalle, comboBox);
+        flowPane.setOrientation(Orientation.HORIZONTAL);
         grid.addRow(compteur);
-        grid.add(nouvelleSalle, 1, compteur);
+        grid.add(flowPane, 1, compteur);
         RowConstraints last = new RowConstraints();
         last.setPrefHeight(50);
         grid.getRowConstraints().add(last);
         Label labelVide = new Label("");
-        grid.add(labelVide, 0, compteur+1);
+        grid.add(labelVide, 0, compteur + 1);
         pane.getChildren().setAll(grid);
     }
 
     public void ajoutSalleBoutonClick()
     {
-        cinema.addSalles(new Salle(1, cinema.getSalles().size() + 1, 50));
+        int numSalle = 1;
+        for (var salle : cinema.getSalles())
+        {
+            if (numSalle == salle.getNumero())
+                numSalle++;
+            else
+                break;
+        }
+        cinema.addSalles(new Salle(1, numSalle, 50));
         mainApp.setCinemaAdmin(this.cinema);
         mainApp.showSeances();
+    }
+
+    public void retirerSalleBoutonClick()
+    {
+        if (comboBox.getValue() != null)
+        {
+            int numSalle = Integer.parseInt(comboBox.getValue().split(" ")[1]);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Voulez-vous vraiment supprimer la salle " + numSalle + " et toutes ces séances ?", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait().ifPresent(rs ->
+            {
+                if (rs == ButtonType.YES)
+                {
+                    if (cinema.deleteSalles(numSalle))
+                    {
+                        mainApp.setCinemaAdmin(this.cinema);
+                        mainApp.showSeances();
+                    } else
+                    {
+                        Alert alert2 = new Alert(Alert.AlertType.ERROR, "La salle n'a pas pu être supprimé.");
+                        alert2.show();
+                    }
+                }
+            });
+        }
+        else
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Vous n'avez pas sélectionné de salle à supprimer", ButtonType.OK);
+            alert.show();
+        }
+
     }
 
     public Cinema getCinema()

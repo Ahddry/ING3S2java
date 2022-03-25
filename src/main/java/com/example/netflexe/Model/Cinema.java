@@ -103,6 +103,21 @@ public class Cinema {
         salles.add(salle);
     }
 
+    public boolean deleteSalles(int numSalle)
+    {
+        Salle s = new Salle();
+        for (var salle : salles)
+        {
+            if (salle.getNumero() == numSalle)
+                s = salle;
+        }
+        if (salles.contains(s))
+            salles.remove(s);
+        else
+            return false;
+        return true;
+    }
+
     public void addSeance(int salle, Seance seance)
     {
         for (var elem : salles)
