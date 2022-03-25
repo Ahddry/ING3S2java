@@ -1,29 +1,15 @@
 package com.example.netflexe.Vue;
 
 import com.example.netflexe.Model.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import com.example.netflexe.Controller.HelloApplication;
-import javafx.util.converter.LocalDateStringConverter;
-import javafx.util.converter.LocalTimeStringConverter;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 
 
@@ -269,6 +255,7 @@ public class SceneController
             controller.setMainApp(this);
             ScrollPane scroll = new ScrollPane();
             scroll.setContent(biblio);
+            
             controller.initializeBis(monProfil);
             rootLayout.setCenter(scroll);
 
@@ -557,6 +544,10 @@ public class SceneController
     public void setCinemaAdmin(Cinema cinemaAdmin)
     {
         this.cinemaAdmin = cinemaAdmin;
+    }
+    public HelloApplication getHello()
+    {
+        return this.controller;
     }
 
 }

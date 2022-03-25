@@ -93,7 +93,7 @@ public class CreationSeanceController
                     dateDeSeance = LocalDate.now();
                 }
                 int numSalle = Integer.parseInt(choixSalle.getValue().split(" ")[1]);
-                Seance seance = new Seance(movieS.getTitle(), movieS, dateDeSeance, heureSeance.getText(), numSalle, prixFinal);
+                Seance seance = new Seance(movieS.getTitle(), movieS, dateDeSeance, heureSeance.getText(), numSalle, prixFinal,-1);
                 monCinema.addSeance(numSalle, seance);
                 mainApp.setCinemaAdmin(monCinema);
                 mainApp.showAccueilAdmin();

@@ -170,14 +170,14 @@ public class ValiderReservation {
 
 
         Mail mail = new Mail();
-        mail.sendMail(new Reservation(movieS,horaireS,cinemaName,dateS.toString()), mailInput.getText());
+        mail.sendMail(new Reservation(movieS,horaireS,cinemaName,dateS.toString(),-1), mailInput.getText());
         if(profil != null)
         {
-            profil.ajouterReservation(new Reservation(movieS,horaireS,cinemaName,dateS.toString()));
+            profil.ajouterReservation(new Reservation(movieS,horaireS,cinemaName,dateS.toString(),-1));
             mainApp.showBiblioRes(profil);
             this.cinema.updateStatsPromo(promo);
             this.cinema.updateStatsFilm(movieS.getTitle());
-            ///ajoute ici à la base donnée   voilà ce que tu dois rajouter (new Reservation(movieS,horaireS,cinemaName,dateS.toString()))
+            this.mainApp.getHello().add_reservation(this.profil.get_id(),seanceS.get_idSeance(),prixFinal);
         }
         else
         {

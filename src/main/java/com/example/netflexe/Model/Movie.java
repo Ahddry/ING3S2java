@@ -35,6 +35,23 @@ public class Movie {
         this(null, null, null, "1212-12-12",
                 "0000-00-00", null, null, null, null ,null);
     }
+    public Movie(String title, String adresseImage)
+    {
+        this.title = new SimpleStringProperty(title);
+        this.imageName = null;
+        this.image = new Image(adresseImage);
+        this.director = null;
+        this.produceur = null;
+        this.genre = null;
+        this.releaseDate = null;
+        this.date_de_sortie_LD = null;
+        this.date_de_sortie_S = null;
+        this.duree = null;
+        this.synopsis = null;
+        this.slogan = null;
+        this.id_film = null;
+        this.trailer = null;
+    }
 
     public Movie(String title, String director, String adresseImage, String date_de_sortie_LD,
                  String date_de_sortie_S, String duree, String synopsis, String slogan, String id_film, String trailer) {

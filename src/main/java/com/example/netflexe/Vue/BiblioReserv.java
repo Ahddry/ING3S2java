@@ -84,6 +84,7 @@ public class BiblioReserv {
                     String tempHoraire = "";
                     String tempDate = "";
                     String tempNom = "";
+                    String tempNbBillet = "";
 
                     for(int i = 0; i< collection.size();i++)
                     {
@@ -92,9 +93,10 @@ public class BiblioReserv {
                             imageView.setImage(collection.get(i).getMovie().getImage());
                             tempName = name;
                             tempDate = collection.get(i).getDate();
-                            tempHoraire =    collection.get(i).getHoraire() ;
+                            tempHoraire = collection.get(i).getHoraire() ;
                             tempNom =  collection.get(i).getNomCinema();
-                            System.out.print(tempName);
+                            tempNbBillet = String.valueOf(collection.get(i).getPLace());
+                            //System.out.print(tempName);
                         }
                     }
                     imageView.setFitHeight(360);

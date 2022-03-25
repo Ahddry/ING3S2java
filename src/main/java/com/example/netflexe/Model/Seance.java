@@ -19,8 +19,9 @@ public class Seance {
     String heure;
     int salle;
     double prix;
+    int id_seance;
 
-    public Seance(String film,Movie movie,LocalDate newDate,String newHeure, int newSalle, double newPrix )
+    public Seance(String film,Movie movie,LocalDate newDate,String newHeure, int newSalle, double newPrix ,int id_seance)
     {
         this.filmJoue = film;
         this.movie = movie;
@@ -28,6 +29,7 @@ public class Seance {
         this.heure = newHeure;
         this.salle = newSalle;
         this.prix = newPrix;
+        this.id_seance = id_seance;
     }
 
     public String getName()
@@ -57,6 +59,10 @@ public class Seance {
     public void setImage()
     {
         movie.setImage(new Image(movie.getImageString()));
+    }
+    public int get_idSeance()
+    {
+        return this.id_seance;
     }
 }
 

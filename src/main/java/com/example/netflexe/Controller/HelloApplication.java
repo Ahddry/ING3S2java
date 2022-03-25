@@ -179,7 +179,7 @@ public class HelloApplication extends Application {
             {
                 for(int j = 0 ; j < sceneController.getCinemaCollection().getCinema(i).getSalles().size();j++)
                 {
-                    ResultSet myRes3 = myStat.executeQuery("SELECT seance.id_film, seance.date_horraire, seance.prix, film.id_film, film.poster, film.nom_film, film.date_de_sortie, film.duree, film.synopsis, film.slogan, film.trailer, salle.num_salle FROM seance JOIN film on film.id_film = seance.id_film JOIN salle ON salle.id_salle = seance.id_salle WHERE seance.id_cine = '" + String.valueOf(sceneController.getCinemaCollection().getCinema(i).get_id_cine()) + "' AND seance.id_salle = '"+ String.valueOf(sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).get_id_bdd())+"';");
+                    ResultSet myRes3 = myStat.executeQuery("SELECT seance.id_seance, seance.id_film, seance.date_horraire, seance.prix, film.id_film, film.poster, film.nom_film, film.date_de_sortie, film.duree, film.synopsis, film.slogan, film.trailer, salle.num_salle FROM seance JOIN film on film.id_film = seance.id_film JOIN salle ON salle.id_salle = seance.id_salle WHERE seance.id_cine = '" + String.valueOf(sceneController.getCinemaCollection().getCinema(i).get_id_cine()) + "' AND seance.id_salle = '"+ String.valueOf(sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).get_id_bdd())+"';");
                     while(myRes3.next())
                     {
                         String trailer;
@@ -192,7 +192,7 @@ public class HelloApplication extends Application {
                             trailer = null;
                         }
                         Movie movie = new Movie(myRes3.getString("film.nom_film"), "MOI", myRes3.getString("film.poster"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.duree"), myRes3.getString("film.synopsis"), myRes3.getString("film.slogan"), myRes3.getString("film.id_film"),trailer);
-                        sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).addSeance(new Seance(myRes3.getString("film.nom_film"), movie, LocalDate.parse(myRes3.getString("seance.date_horraire").split(" ")[0]), myRes3.getString("seance.date_horraire").split(" ")[1], myRes3.getInt("salle.num_salle"), myRes3.getDouble("seance.prix")));
+                        sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).addSeance(new Seance(myRes3.getString("film.nom_film"), movie, LocalDate.parse(myRes3.getString("seance.date_horraire").split(" ")[0]), myRes3.getString("seance.date_horraire").split(" ")[1], myRes3.getInt("salle.num_salle"), myRes3.getDouble("seance.prix"), myRes3.getInt("seance.id_seance")));
                         sceneController.getCinemaCollection().getCinema(i).ajoutFilm(movie);
                     }
                 }
@@ -240,6 +240,17 @@ public class HelloApplication extends Application {
         try
         {
             myStat.executeUpdate("INSERT INTO liked (id_user, id_film) SELECT * FROM (SELECT '" + String.valueOf(id_user) +"' AS id_user, '" + id_film +"' AS id_film) AS tmp WHERE NOT EXISTS ( SELECT id_user FROM liked WHERE (id_user='" + String.valueOf(id_user) + "' AND id_film='" + id_film +"')) LIMIT 1;");    
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+    public void add_reservation(int id_user, int id_seance, double tarif)
+    {
+        try
+        {
+            myStat.executeUpdate("INSERT INTO reservation (id_user, id_seance, tarif) VALUES ('"+ String.valueOf(id_user) +"','" + String.valueOf(id_seance) + "','" + String.valueOf(tarif) + "');");
         }
         catch(Exception exception)
         {
@@ -420,6 +431,14 @@ public class HelloApplication extends Application {
                         tempCine = new Cinema(myRes.getInt("cinema.id_cine"),myRes.getString("cinema.nom"), myRes.getString("cinema.lien_image"));
                     }
                     this.user = new Profil(myRes.getInt("utilisateur.id_user"), myRes.getString("prenom"), myRes.getString("nom"), myRes.getString("email"), myRes.getString("genre"), myRes.getString("date_de_naissance"), myRes.getBinaryStream("pp"), myRes.getBoolean("admin"), tempCine);
+                    ResultSet myRes2 = myStat2.executeQuery("SELECT film.poster, film.nom_film, seance.date_horraire, cinema.nom, COUNT(*) FROM reservation JOIN seance on reservation.id_seance = seance.id_seance JOIN film ON seance.id_film = film.id_film JOIN cinema ON cinema.id_cine = seance.id_cine WHERE reservation.id_user ='" + myRes.getInt("utilisateur.id_user") +"'GROUP BY reservation.id_user, reservation.id_seance;");
+                    while(myRes2.next())
+                    {
+                        this.user.ajouterReservation(new Reservation(new Movie(myRes2.getString("film.nom_film"), myRes2.getString("film.poster")), myRes2.getString("seance.date_horraire").split(" ")[1],myRes2.getString("cinema.nom") , myRes2.getString("seance.date_horraire").split(" ")[0], myRes2.getInt("COUNT(*)")));
+                        //this.user.getFilmRes().get(this.user.getFilmRes().size()-1).getMovie()
+                        
+                    }
+                    //this.user.ajouterReservation(new Reservation());
                     //System.out.println(this.user.get_prenom());
                     sceneController.setProfil(this.user);
                     return 1;
