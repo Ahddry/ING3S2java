@@ -73,7 +73,8 @@ public class HelloApplication extends Application {
                     prenom = "Chevillard";
                 String pp = myRes.getString("pp");
                 if(pp == null)
-                    pp = "https://tse2.mm.bing.net/th?id=OIP.X-25juJ5xWiHhacWDz8vnwHaLH&pid=Api";
+                    pp = "https://scontent-cdg2-1.xx.fbcdn.net/v/t31.18172-8/28335920_10155374977864352_2211314611360502777_o.jpg?_nc_cat=108&ccb=1-5&_nc_sid=174925&_nc_ohc=uX32zEDgc6YAX_BmANe&_nc_ht=scontent-cdg2-1.xx&oh=00_AT-ZbRNI9ccH3cfJIXite7GdJ_WqxwvrfQQs8hmqWsH9Cg&oe=6262AF32";
+                    //pp = "https://tse2.mm.bing.net/th?id=OIP.X-25juJ5xWiHhacWDz8vnwHaLH&pid=Api";
                 String date_de_naissance = myRes.getString("date_de_naissance");
                 if(date_de_naissance == null)
                     date_de_naissance = "2001-09-11";
