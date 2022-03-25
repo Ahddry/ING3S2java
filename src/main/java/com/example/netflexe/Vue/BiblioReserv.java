@@ -96,6 +96,7 @@ public class BiblioReserv {
                             tempHoraire = collection.get(i).getHoraire() ;
                             tempNom =  collection.get(i).getNomCinema();
                             tempNbBillet = String.valueOf(collection.get(i).getPLace());
+                            
                             //System.out.print(tempName);
                         }
                     }

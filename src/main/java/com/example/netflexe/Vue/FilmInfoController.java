@@ -84,6 +84,8 @@ public class FilmInfoController {
 
     @FXML
     private Button ActeurClose;
+    @FXML
+    private Label real;
 
 
     private SceneController mainApp;
@@ -140,6 +142,7 @@ public class FilmInfoController {
         Duree.setText(movie.getDuree());
         Synopsis.setText(movie.getSynopsis());
         Slogan.setText(movie.getSlogan());
+        real.setText(movie.getDirector());
         if(movie.getTrailer() != null)
         {
             this.engine.load("https://www.youtube.com/embed/" + movie.getTrailer());

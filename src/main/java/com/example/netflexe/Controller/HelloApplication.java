@@ -130,7 +130,7 @@ public class HelloApplication extends Application {
             }
             for(int i = 0; i<5;i++)
             {
-                ResultSet myRes = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer FROM film as f JOIN film_genre ON (f.id_film = film_genre.id_film) JOIN genre ON (genre.id_genre = film_genre.id_genre) WHERE genre.nom = '" + genre.get(i) + "';");
+                ResultSet myRes = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.nom, person.prenom FROM film as f JOIN film_genre ON (f.id_film = film_genre.id_film) JOIN genre ON (genre.id_genre = film_genre.id_genre) JOIN realisateur ON realisateur.id_film = f.id_film JOIN person ON person.id_person = realisateur.id_person WHERE genre.nom = '" + genre.get(i) + "';");
                 while(myRes.next())
                 {
                     String poster = myRes.getString("poster");
@@ -149,7 +149,23 @@ public class HelloApplication extends Application {
                         trailer = null;
                     }
                     //System.out.println(poster);
-                    collection[i].addMovie(new Movie(myRes.getString("nom_film"),"MOI",poster, dateDeSortie, dateDeSortie, duree, synopsis, slogan, id_film, trailer));
+                    String realisateur = "";
+                    if(myRes.getString("person.prenom") != null && myRes.getString("person.prenom") != "")
+                    {
+                        realisateur += myRes.getString("person.prenom");
+                    }
+                    if(myRes.getString("person.nom") != null && myRes.getString("person.nom") != "")
+                    {
+                        if(!realisateur.equals(""))
+                        {
+                            realisateur += " " + myRes.getString("person.nom");
+                        }
+                        else
+                        {
+                            realisateur += myRes.getString("person.nom");
+                        }
+                    }
+                    collection[i].addMovie(new Movie(myRes.getString("nom_film"),realisateur,poster, dateDeSortie, dateDeSortie, duree, synopsis, slogan, id_film, trailer));
                 }
             }
 
@@ -184,7 +200,7 @@ public class HelloApplication extends Application {
             {
                 for(int j = 0 ; j < sceneController.getCinemaCollection().getCinema(i).getSalles().size();j++)
                 {
-                    ResultSet myRes3 = myStat.executeQuery("SELECT seance.id_seance, seance.id_film, seance.date_horraire, seance.prix, film.id_film, film.poster, film.nom_film, film.date_de_sortie, film.duree, film.synopsis, film.slogan, film.trailer, salle.num_salle FROM seance JOIN film on film.id_film = seance.id_film JOIN salle ON salle.id_salle = seance.id_salle WHERE seance.id_cine = '" + String.valueOf(sceneController.getCinemaCollection().getCinema(i).get_id_cine()) + "' AND seance.id_salle = '"+ String.valueOf(sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).get_id_bdd())+"';");
+                    ResultSet myRes3 = myStat.executeQuery("SELECT seance.id_seance, seance.id_film, seance.date_horraire, seance.prix, film.id_film, film.poster, film.nom_film, film.date_de_sortie, film.duree, film.synopsis, film.slogan, film.trailer, salle.num_salle, person.prenom, person.nom FROM seance JOIN film on film.id_film = seance.id_film JOIN salle ON salle.id_salle = seance.id_salle  JOIN realisateur ON realisateur.id_film = film.id_film JOIN person ON person.id_person = realisateur.id_person WHERE seance.id_cine = '" + String.valueOf(sceneController.getCinemaCollection().getCinema(i).get_id_cine()) + "' AND seance.id_salle = '"+ String.valueOf(sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).get_id_bdd())+"';");
                     while(myRes3.next())
                     {
                         String trailer;
@@ -196,7 +212,23 @@ public class HelloApplication extends Application {
                         {
                             trailer = null;
                         }
-                        Movie movie = new Movie(myRes3.getString("film.nom_film"), "MOI", myRes3.getString("film.poster"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.duree"), myRes3.getString("film.synopsis"), myRes3.getString("film.slogan"), myRes3.getString("film.id_film"),trailer);
+                        String realisateur = "";
+                        if(myRes3.getString("person.prenom") != null && myRes3.getString("person.prenom") != "")
+                        {
+                            realisateur += myRes3.getString("person.prenom");
+                        }
+                        if(myRes3.getString("person.nom") != null && myRes3.getString("person.nom") != "")
+                        {
+                            if(!realisateur.equals(""))
+                            {
+                                realisateur += " " + myRes3.getString("person.nom");
+                            }
+                            else
+                            {
+                                realisateur += myRes3.getString("person.nom");
+                            }
+                        }
+                        Movie movie = new Movie(myRes3.getString("film.nom_film"), realisateur, myRes3.getString("film.poster"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.duree"), myRes3.getString("film.synopsis"), myRes3.getString("film.slogan"), myRes3.getString("film.id_film"),trailer);
                         sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).addSeance(new Seance(myRes3.getString("film.nom_film"), movie, LocalDate.parse(myRes3.getString("seance.date_horraire").split(" ")[0]), myRes3.getString("seance.date_horraire").split(" ")[1], myRes3.getInt("salle.num_salle"), myRes3.getDouble("seance.prix"), myRes3.getInt("seance.id_seance")));
                         sceneController.getCinemaCollection().getCinema(i).ajoutFilm(movie);
                     }
@@ -206,7 +238,7 @@ public class HelloApplication extends Application {
 
             if(user != null)
             {
-                ResultSet myRes2 = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer FROM film as f JOIN liked ON (f.id_film = liked.id_film) WHERE liked.id_user = '" + String.valueOf(user.get_id()) +"';");
+                ResultSet myRes2 = myStat.executeQuery("SELECT film.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.prenom, person.nom FROM film JOIN liked ON film.id_film = liked.id_film JOIN realisateur ON realisateur.id_film = film.id_film JOIN person ON person.id_person = realisateur.id_person WHERE liked.id_user = '" + String.valueOf(user.get_id()) +"';");
                 while(myRes2.next())
                 {
                     String tempDatedesortie = myRes2.getString("date_de_sortie");
@@ -219,7 +251,23 @@ public class HelloApplication extends Application {
                     {
                         trailer = null;
                     }
-                    user.ajouterLike(new Movie(myRes2.getString("nom_film"), "MOI", myRes2.getString("poster"), tempDatedesortie,tempDatedesortie,myRes2.getString("duree"), myRes2.getString("synopsis"), myRes2.getString("slogan"), myRes2.getString("id_film"), trailer));
+                    String realisateur = "";
+                    if(myRes2.getString("person.prenom") != null && myRes2.getString("person.prenom") != "")
+                    {
+                        realisateur += myRes2.getString("person.prenom");
+                    }
+                    if(myRes2.getString("person.nom") != null && myRes2.getString("person.nom") != "")
+                    {
+                        if(!realisateur.equals(""))
+                        {
+                            realisateur += " " + myRes2.getString("person.nom");
+                        }
+                        else
+                        {
+                            realisateur += myRes.getString("person.nom");
+                        }
+                    }
+                    user.ajouterLike(new Movie(myRes2.getString("nom_film"), realisateur, myRes2.getString("poster"), tempDatedesortie,tempDatedesortie,myRes2.getString("duree"), myRes2.getString("synopsis"), myRes2.getString("slogan"), myRes2.getString("id_film"), trailer));
                 }
                 user.set_image();
             }
