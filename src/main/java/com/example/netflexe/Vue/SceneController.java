@@ -268,7 +268,7 @@ public class SceneController
             controller.setMainApp(this);
             controller.setMovie(movie);
             controller.showActors(collectionActor);
-
+            System.out.println(collectionActor.getSize());
             controller.setProfil(user);
             controller.setAdminAccess(admin);
             controller.setCinema(cinemaAdmin);

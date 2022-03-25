@@ -58,6 +58,7 @@ public class HelloApplication extends Application {
 
 
     public ActorCollection CollectionActeursMovie (String id_film) throws IOException {
+        collectionActor.erase();
         try {
             ResultSet myRes = myStat.executeQuery("SELECT person.nom, personnage.nom, prenom, pp, date_de_naissance, biographie FROM person JOIN film_person on film_person.id_person = person.id_person JOIN film \n" +
                     "ON (film_person.id_film = film.id_film) JOIN personnage ON personnage.id_film = film_person.id_film\n" +

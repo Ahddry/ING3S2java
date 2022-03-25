@@ -256,8 +256,8 @@ public class FilmInfoController {
                     String tempName = "";
 
                     imageView.setImage(collectionActor.getImage(name));
-                    imageView.setFitHeight(90);
-                    imageView.setFitWidth(70);
+                    imageView.setFitHeight(160);
+                    imageView.setFitWidth(120);
                     setText(null);
                     if(name.length() > 15)
                     {
