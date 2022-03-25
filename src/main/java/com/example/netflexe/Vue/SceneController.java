@@ -522,6 +522,49 @@ public class SceneController
         }
     }
 
+    public void showChoixCinema(Profil profil)
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("ChoixCinema.fxml"));
+            AnchorPane choixCine = loader.load();
+
+            ChoixCinemaController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.init(cinemaCollection, profil);
+
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(choixCine);
+
+            rootLayout.setCenter(scroll);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void showCreationCinema(Profil profil)
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("CreationCinema.fxml"));
+            AnchorPane creaCine = loader.load();
+
+            CreationCinemaController controller = loader.getController();
+            controller.setMainApp(this, cinemaCollection, profil);
+
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(creaCine);
+
+            rootLayout.setCenter(scroll);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public Profil getProfil()
     {
         return this.controller.getProfil();

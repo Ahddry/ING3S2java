@@ -42,10 +42,10 @@ public class SeancesController
         col1.setPercentWidth(5);
         col1.setMaxWidth(84);
         ColumnConstraints col2 = new ColumnConstraints();
-        col2.setPercentWidth(57);
-        col2.setMaxWidth(706);
+        col2.setPercentWidth(90);
+        col2.setPrefWidth(1000);
         ColumnConstraints col3 = new ColumnConstraints();
-        col3.setPercentWidth(38);
+        col3.setPercentWidth(5);
         col3.setMaxWidth(200);
         grid.getColumnConstraints().addAll(col1, col2, col3);
         cinema = c;
@@ -53,7 +53,7 @@ public class SeancesController
         Label nomCine = new Label(cinema.getName()); //Nom du cinéma affiché en haut de la page
         nomCine.setStyle("-fx-font-size: 32pt; -fx-font-family: \"Segoe UI Light\"; -fx-text-fill: white; -fx-opacity: 1;");
         grid.addRow(0);
-        grid.add(nomCine, 0, 0);
+        grid.add(nomCine, 1, 0);
 
         int compteur = 1;
         List<Salle> salles = c.getSalles(); //Salles du cinéma
@@ -162,7 +162,7 @@ public class SeancesController
             listView.setOrientation(Orientation.HORIZONTAL);
             listView.setStyle("-fx-base: #1d1d1d; -fx-control-inner-background: #1d1d1d; -fx-background-color: #1d1d1d; -fx-table-cell-border-color: transparent;\n" +
                     " -fx-table-header-border-color: transparent; -fx-padding: 5;");
-            listView.setPrefSize(300.0, 320.0);
+            listView.setPrefSize(300.0, 340.0);
             grid.addRow(compteur);
             grid.add(listView, 1, compteur);
             compteur++;

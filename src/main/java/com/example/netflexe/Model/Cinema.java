@@ -56,8 +56,8 @@ public class Cinema {
 
     public void setImage()
     {
-        image = new Image(imageString);
-
+        if (imageString != null)
+            image = new Image(imageString);
     }
     public void set_id_cine(int id_cine)
     {
