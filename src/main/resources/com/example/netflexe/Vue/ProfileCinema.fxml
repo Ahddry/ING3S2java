@@ -12,19 +12,19 @@
             <Font size="16.0" />
         </font>
     </TextField>
-    <Button layoutX="774.0" layoutY="285.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="114.0" text="Modifier" onAction="#modifierNomClick"/>
+    <Button layoutX="774.0" layoutY="285.0" mnemonicParsing="false" onAction="#modifierNomClick" prefHeight="34.0" prefWidth="114.0" text="Modifier" />
     <TextField fx:id="adresseImageField" layoutX="407.0" layoutY="356.0" prefHeight="33.0" prefWidth="333.0" promptText="Adresse de la nouvelle image" style="-fx-background-color: #1d1d1d#1d1d1d; -fx-text-fill: WHITE; -fx-border-color: #4d4b4b#4d4b4b; -fx-border-radius: 4;">
         <font>
             <Font size="16.0" />
         </font>
     </TextField>
-    <Button layoutX="773.0" layoutY="356.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="114.0" text="Modifier" onAction="#modifierImageClick"/>
+    <Button layoutX="773.0" layoutY="356.0" mnemonicParsing="false" onAction="#modifierImageClick" prefHeight="34.0" prefWidth="114.0" text="Modifier" />
     <Label fx:id="nbSalles" layoutX="407.0" layoutY="427.0" prefHeight="33.0" prefWidth="333.0" text="Nombre de salles">
         <font>
             <Font size="16.0" />
         </font>
     </Label>
-    <Label fx:id="nbFilms" layoutX="407.0" layoutY="498.0" prefHeight="33.0" prefWidth="333.0" text="Nombre de films à l'affiche" >
+    <Label fx:id="nbFilms" layoutX="407.0" layoutY="498.0" prefHeight="33.0" prefWidth="333.0" text="Nombre de films à l'affiche">
         <font>
             <Font size="16.0" />
         </font>
@@ -32,5 +32,6 @@
    <VBox alignment="CENTER" layoutX="152.0" layoutY="10.0" prefHeight="200.0" prefWidth="843.0">
        <Label fx:id="nomCine" contentDisplay="CENTER" layoutX="451.0" layoutY="110.0" styleClass="label-header" text="Nom Cinéma" textAlignment="CENTER" />
    </VBox>
+   <Button fx:id="approbAdminBouton" layoutX="884.0" layoutY="557.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="222.0" text="Demandes d'approbation de compte administrateur" textAlignment="CENTER" wrapText="true"/>
 
 </AnchorPane>

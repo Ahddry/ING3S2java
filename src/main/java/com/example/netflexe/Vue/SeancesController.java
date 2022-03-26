@@ -27,8 +27,7 @@ public class SeancesController
 
     private Cinema cinema;
     private SceneController mainApp;
-    private List<Seance> collection;
-    private ComboBox<String> comboBox = new ComboBox<>();
+    private final ComboBox<String> comboBox = new ComboBox<>();
 
     /**
      * Méthode d'initialisation de la vue
@@ -66,7 +65,7 @@ public class SeancesController
             grid.addRow(compteur);
             grid.add(numSalle, 1, compteur);
             compteur++;
-            collection = salle.getSeances();
+            List<Seance> collection = salle.getSeances();
             ObservableList<String> items = FXCollections.observableArrayList();
             for (var elem : collection)
             {

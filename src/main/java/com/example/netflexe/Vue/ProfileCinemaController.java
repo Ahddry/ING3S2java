@@ -11,6 +11,8 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 public class ProfileCinemaController
 {
     @FXML
+    private Button approbAdminBouton;
+    @FXML
     private ImageView imageCinema;
     @FXML
     private TextField nomField;
@@ -37,6 +39,12 @@ public class ProfileCinemaController
         nb = cinema.getFilmP().getSize() - 1;
         nbFilms.setText("Nombre de films : " + nb);
 
+        if (!mainApp.getHello().getAttenteAdmin().isEmpty())
+        {
+            approbAdminBouton.setOnAction(event -> approbAdminBoutonClick());
+        }
+        else
+            approbAdminBouton.setVisible(false);
     }
 
     public void modifierNomClick()
@@ -72,6 +80,11 @@ public class ProfileCinemaController
             Alert alert = new Alert(Alert.AlertType.ERROR, "Nouvelle image incorrecte.", ButtonType.OK);
             alert.show();
         }
+    }
+
+    public void approbAdminBoutonClick()
+    {
+        mainApp.showApprobationAdmin();
     }
 
     public void setMainApp(SceneController mainApp, HelloApplication controller) {

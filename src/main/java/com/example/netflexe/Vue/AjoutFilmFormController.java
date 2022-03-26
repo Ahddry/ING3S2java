@@ -42,26 +42,23 @@ public class AjoutFilmFormController
         enregistrerBouton.setText("Ajouter le film\nau cinéma");
         enregistrerBouton.textAlignmentProperty().set(TextAlignment.CENTER);
         genre.getItems().add("Action");
+        genre.getItems().add("Animation");
         genre.getItems().add("Aventure");
-        genre.getItems().add("Biopic");
-        genre.getItems().add("Burlesque");
-        genre.getItems().add("Cape et d'épée");
-        genre.getItems().add("Catastrophe");
         genre.getItems().add("Comédie");
-        genre.getItems().add("Comédie musicale");
+        genre.getItems().add("Crime");
+        genre.getItems().add("Documentaire");
         genre.getItems().add("Drame");
-        genre.getItems().add("Espionnage");
+        genre.getItems().add("Familial");
         genre.getItems().add("Fantastique");
         genre.getItems().add("Guerre");
-        genre.getItems().add("Historique");
+        genre.getItems().add("Histoire");
         genre.getItems().add("Horreur");
-        genre.getItems().add("Péplum");
-        genre.getItems().add("Policier");
+        genre.getItems().add("Musique");
+        genre.getItems().add("Mystère");
         genre.getItems().add("Romance");
         genre.getItems().add("Science-Fiction");
-        genre.getItems().add("Super-Héros");
+        genre.getItems().add("Thriller");
         genre.getItems().add("Western");
-        genre.getItems().add("Autre");
     }
 
     public void enregistrerBoutonClick()

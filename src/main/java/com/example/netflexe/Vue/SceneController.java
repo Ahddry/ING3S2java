@@ -565,6 +565,27 @@ public class SceneController
         }
     }
 
+    public void showApprobationAdmin()
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("ApprobationAdmin.fxml"));
+            AnchorPane approAdmin = loader.load();
+
+            ApprobationAdminController controller = loader.getController();
+            controller.init(this);
+
+            ScrollPane scroll = new ScrollPane();
+            scroll.setContent(approAdmin);
+
+            rootLayout.setCenter(scroll);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public Profil getProfil()
     {
         return this.controller.getProfil();
