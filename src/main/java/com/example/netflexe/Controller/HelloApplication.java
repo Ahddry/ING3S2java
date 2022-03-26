@@ -484,6 +484,28 @@ public class HelloApplication extends Application {
         }
         return 0;
     }
+    public void insertCinema_into_bdd(String nom, int id_admin, String lien_image)
+    {
+        try
+        {
+            myStat.executeUpdate("INSERT INTO cinema (nom,id_user,lien_image) SELECT * FROM (SELECT '" + nom +"' AS nom, '" + id_admin + "' AS id_user, '" + lien_image + "' AS lien_image) AS tmp WHERE NOT EXISTS ( SELECT id_cine FROM cinema WHERE (nom = '"+ nom + "' AND id_user = '" + id_admin + "' AND lien_image = '" + lien_image + "')) LIMIT 1;");    
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+    public void SupprimerCinemaBDD(int id_cine)
+    {
+        try
+        {
+            myStat.executeUpdate("DELETE FROM cinema WHERE id_cine = '" + id_cine + "';");
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
     public void insertMovie_into_bdd(String lien_poster, String nom_film, String date_de_sortie, String duree, String synopsis, String slogan, String trailer)
     {
         try
@@ -624,15 +646,15 @@ public class HelloApplication extends Application {
             exception.printStackTrace();
         }
     }
-    public ArrayList<Integer> getAttenteAdmin()
+    public ArrayList<Profil> getAttenteAdmin()
     {
-        ArrayList<Integer> temp = new ArrayList<Integer>();
+        ArrayList<Profil> temp = new ArrayList<Profil>();
         try
         {
-            ResultSet myRes = myStat.executeQuery("SELECT * FROM attente_admin");
+            ResultSet myRes = myStat.executeQuery("SELECT utilisateur.id_user, utilisateur.prenom, utilisateur.nom, utilisateur.date_de_naissance, utilisateur.genre, utilisateur.email FROM attente_admin JOIN utilisateur ON utilisateur.id_user = attente_admin.id_user;");
             while(myRes.next())
             {
-                temp.add(Integer.valueOf(myRes.getInt("id_user")));
+                temp.add(new Profil(myRes.getInt("utilisateur.id_user"), myRes.getString("utilisateur.prenom"), myRes.getString("utilisateur.nom"), myRes.getString("utilisateur.email"), myRes.getString("utilisateur.genre"), myRes.getString("utilisateur.date_de_naissance"), null, false,null));
             }
         }
         catch(Exception exception)
