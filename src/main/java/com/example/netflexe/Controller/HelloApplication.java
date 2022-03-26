@@ -287,6 +287,17 @@ public class HelloApplication extends Application {
         //initRootLayout();
         //showMainMenu();
     }
+    public void set_deja_vu(int id_user, int id_film)
+    {
+        try
+        {
+            myStat.executeUpdate("INSERT INTO deja_vu (id_user, id_film) SELECT * FROM (SELECT '" + String.valueOf(id_user) +"' AS id_user, '" + String.valueOf(id_film) +"' AS id_film) AS tmp WHERE NOT EXISTS ( SELECT id_user FROM deja_vu WHERE (id_user='" + String.valueOf(id_user) + "' AND id_film='" + String.valueOf(id_film) +"')) LIMIT 1;");    
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
 
     public void add_like(int id_user, String id_film)
     {
@@ -469,6 +480,35 @@ public class HelloApplication extends Application {
         }
         return 0;
     }
+    public void insertMovie_into_bdd(String lien_poster, String nom_film, String date_de_sortie, String duree, String synopsis, String slogan, String trailer)
+    {
+        try
+        {
+            myStat.executeUpdate("INSERT INTO film (poster,nom_film,date_de_sortie,duree,synopsis,slogan,trailer) SELECT * FROM (SELECT '" + lien_poster +"' AS poster, '" + nom_film +"' AS nom_film, '"+ date_de_sortie +"' AS date_de_sortie, '" + duree + "' AS duree, '" + synopsis + "' AS synopsis, '" + slogan + "' AS slogan, '" + trailer + "' AS trailer) AS tmp WHERE NOT EXISTS ( SELECT id_film FROM film WHERE (nom_film='" + nom_film  + "' AND poster='" + lien_poster +"' AND date_de_sortie = '" + date_de_sortie + "' AND duree= '"+ duree +"' AND synopsis = '" + synopsis + "' AND slogan = '" + slogan + "' AND trailer = '" + trailer + "')) LIMIT 1;");    
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+    public ArrayList<Integer> getAttenteAdmin()
+    {
+        ArrayList<Integer> temp = new ArrayList<Integer>();
+        try
+        {
+            ResultSet myRes = myStat.executeQuery("SELECT * FROM attente_admin");
+            while(myRes.next())
+            {
+                temp.add(Integer.valueOf(myRes.getInt("id_user")));
+            }
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+        return temp;
+    }
+
     public int login_acct(String login, String mdp)
     {
         try

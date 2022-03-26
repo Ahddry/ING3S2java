@@ -86,6 +86,8 @@ public class FilmInfoController {
     private Button ActeurClose;
     @FXML
     private Label real;
+    @FXML
+    private Button dejavu;
 
 
     private SceneController mainApp;
@@ -112,6 +114,12 @@ public class FilmInfoController {
             {
                 this.trailer_page.setVisible(false);
                 this.root.setVisible(true);
+            }
+        });
+        dejavu.setOnMouseClicked(event -> {
+            if(event.getClickCount() == 1)
+            {
+                this.mainApp.getHello().set_deja_vu(monProfil.get_id(), Integer.valueOf(movieS.get_idFilm()));
             }
         });
         this.engine = this.youtube.getEngine();
@@ -177,12 +185,14 @@ public class FilmInfoController {
     {
         if (!adminAccess)
             monProfil.ajouterLike(movieS);
+            this.mainApp.getHello().add_like(monProfil.get_id(), movieS.get_idFilm());
         if(biblioController!= null)
         {
             biblioController.initializeBis(monProfil);
         }
 
     }
+    
 
     @FXML
     public void startReservation()
