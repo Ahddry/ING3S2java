@@ -188,11 +188,13 @@ public class SeancesController
         int numSalle = 1;
         for (var salle : cinema.getSalles())
         {
+            System.out.println(salle.getNumero());
             if (numSalle == salle.getNumero())
                 numSalle++;
             else
                 break;
         }
+        System.out.println("Num salle " + numSalle);
         cinema.addSalles(new Salle(1, numSalle, 50));
         mainApp.getHello().AjouterSalleCinema_into_bdd(50, numSalle, cinema.get_id_cine());
         mainApp.setCinemaAdmin(this.cinema);
