@@ -442,7 +442,17 @@ public class HelloApplication extends Application {
             exception.printStackTrace();
         }
     }
-
+    public void setDemandeAdmin(String id_user_bdd)
+    {
+        try
+        {
+            myStat.executeUpdate("INSERT INTO attente_admin (id_user) SELECT * FROM (SELECT '"+ id_user_bdd +"' AS id_user) AS tmp WHERE NOT EXISTS ( SELECT id_user FROM attente_admin WHERE (id_user = '" + id_user_bdd + "')) LIMIT 1;");
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
 
     public int create_acct(String prenom, String nom, String genre, int year, int month, int day, String login, String mdp, boolean admin, String filePath)
     {
@@ -463,7 +473,7 @@ public class HelloApplication extends Application {
                     {
                         if(admin)
                         {
-                            setDemandeAdmin(Integer.valueOf(tempUserId));
+                            setDemandeAdmin(tempUserId);
                         }
                         return 1;
                     }
@@ -624,17 +634,7 @@ public class HelloApplication extends Application {
             exception.printStackTrace();
         }
     }
-    public void setDemandeAdmin(int id_user)
-    {
-        try
-        {
-            myStat.executeUpdate("INSERT INTO attente_admin (id_user) SELECT * FROM (SELECT '"+ id_user + "' AS id_user) AS tmp WHERE NOT EXISTS ( SELECT id_user FROM attente_admin WHERE (id_user = '" + id_user + "') LIMIT 1;");
-        }
-        catch(Exception exception)
-        {
-            exception.printStackTrace();
-        }
-    }
+    
     public void removeWaitingAdmin(int id_user)
     {
         try
