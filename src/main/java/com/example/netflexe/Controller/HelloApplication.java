@@ -533,10 +533,10 @@ public class HelloApplication extends Application {
         {
             int id_salle = -1;
             myStat.executeUpdate("INSERT INTO salle (capacite, num_salle) VALUES ('"+ String.valueOf(capacite) +"','" + String.valueOf(num_salle) + "');");
-            ResultSet myRes = myStat.executeQuery("SELECT @@IDENTITY AS [Last-Inserted Identity Value];");
+            ResultSet myRes = myStat.executeQuery("SELECT LAST_INSERT_ID();");
             while(myRes.next())
             {
-                id_salle = myRes.getInt("Last-Inserted Identity Value");
+                id_salle = myRes.getInt("LAST_INSERT_ID()");
             }
             if(id_salle != -1)
             {
