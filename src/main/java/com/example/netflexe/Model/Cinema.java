@@ -129,6 +129,16 @@ public class Cinema {
         }
     }
 
+    public int getIdSalle(int numSalle)
+    {
+        for (var salle : salles)
+        {
+            if (salle.getNumero() == numSalle)
+                return salle.get_id_bdd();
+        }
+        return 0;
+    }
+
     public void updateStatsPromo(String promo)
     {
         promoUtilisees.add(promo);

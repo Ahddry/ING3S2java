@@ -57,7 +57,7 @@ public class CreationCinemaController
                 cinema.setImage();
                 cinemaCollection.addCinema(cinema);
 
-                /* AJOUTER SQL ICI */
+                mainApp.getHello().insertCinema_into_bdd(cinema.getName(), profil.get_id(), cinema.getImageString());
 
                 profil.setCinema(cinema);
                 mainApp.setCinemaAdmin(cinema);

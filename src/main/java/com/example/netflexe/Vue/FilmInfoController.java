@@ -227,6 +227,7 @@ public class FilmInfoController {
         {
             ReserverButton.setText("Ajouter le fim au cinéma");
             LikeButton.setVisible(false);
+            dejavu.setVisible(false);
         }
     }
 

@@ -77,6 +77,9 @@ public class ChoixCinemaController
                 profil.setCinema(collection.getCinema(selectedName));
                 mainApp.setProfil(profil);
                 mainApp.setCinemaAdmin(collection.getCinema(selectedName));
+
+                /* AJOUTER REQUETE ICI POUR LINK USER ET CINEMA */
+
                 mainApp.showAccueilAdmin();
             }
         });

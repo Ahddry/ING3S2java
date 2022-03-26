@@ -52,7 +52,8 @@ public class ProfileCinemaController
         if(!isNullOrWhiteSpace(nomField.getText()))
         {
             cinema.setNom(nomField.getText());
-            /* IMPLEMENTER LE CHANGEMENT VIA SQL ICI */
+
+            mainApp.getHello().changerNomCinema(cinema.get_id_cine(), nomField.getText());
 
             mainApp.setCinemaAdmin(cinema);
             mainApp.showProfileCinema();
@@ -70,7 +71,8 @@ public class ProfileCinemaController
         {
             cinema.setImageString(adresseImageField.getText());
             cinema.setImage();
-            /* IMPLEMENTER LE CHANGEMENT VIA SQL ICI */
+
+            mainApp.getHello().changerLienImageCinema(cinema.get_id_cine(), adresseImageField.getText());
 
             mainApp.setCinemaAdmin(cinema);
             mainApp.showProfileCinema();
