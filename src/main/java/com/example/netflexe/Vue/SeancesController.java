@@ -127,9 +127,11 @@ public class SeancesController
                 {
                     if (rs == ButtonType.YES)
                     {
+                        Seance s = salle.getSeance(selectedName);
                         if (salle.deleteSeance(selectedName))
                         {
                             cinema.setSalles(salles);
+                            mainApp.getHello().SupprimerUnseSeanceBDD(s.get_idSeance());
                             mainApp.showSeances();
                         } else
                         {
@@ -143,19 +145,7 @@ public class SeancesController
 
             listView.setOnMouseClicked(event ->
             {
-                if (event.getClickCount() == 2)
-                {
-                    String selectedName = listView.getSelectionModel().getSelectedItem();
-                    /*
-
-                    AJOUTER L'AFFICHAGE DU PARAMETRAGE DE SEANCES ICI
-
-                    Movie movie = collection.getMovie(selectedName);
-
-                    mainApp.showInfo(movie, false);
-
-                     */
-                } else if (event.getButton() == MouseButton.SECONDARY)
+                if (event.getButton() == MouseButton.SECONDARY)
                 {
                     contextMenu.show(mainApp.getScene().getWindow(), event.getScreenX(), event.getScreenY());
                 }
@@ -204,6 +194,7 @@ public class SeancesController
                 break;
         }
         cinema.addSalles(new Salle(1, numSalle, 50));
+        mainApp.getHello().AjouterSalleCinema_into_bdd(50, numSalle, cinema.get_id_cine());
         mainApp.setCinemaAdmin(this.cinema);
         mainApp.showSeances();
     }
@@ -218,9 +209,19 @@ public class SeancesController
             {
                 if (rs == ButtonType.YES)
                 {
+                    Salle s = new Salle();
+                    for (var salle : cinema.getSalles())
+                    {
+                        if (salle.getNumero() == numSalle)
+                        {
+                            s = salle;
+                            break;
+                        }
+                    }
                     if (cinema.deleteSalles(numSalle))
                     {
                         mainApp.setCinemaAdmin(this.cinema);
+                        mainApp.getHello().SupprimerUneSalleBDD(s.get_id_bdd());
                         mainApp.showSeances();
                     } else
                     {
