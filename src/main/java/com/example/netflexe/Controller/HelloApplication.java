@@ -548,6 +548,17 @@ public class HelloApplication extends Application {
             exception.printStackTrace();
         }
     }
+    public void AssignCinema(int id_user, int id_cine_bdd)
+    {
+        try
+        {
+            myStat.executeUpdate("UPDATE cinema SET id_user = '" + String.valueOf(id_user) + "' WHERE id_cine = '" + String.valueOf(id_cine_bdd) + "';");
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
     public void SupprimerUneSalleBDD(int id_salle_bdd)
     {
         try
