@@ -67,6 +67,7 @@ public class MySceneController {
         {
             if (profil.isAdmin())
             {
+                mainApp.setProfil(profil);
                 ToggleButton adminButton = new ToggleButton("User");
                 adminButton.setOnAction(event -> switchAdmin());
                 adminButton.setBackground(new Background(new BackgroundFill(Color.valueOf("#407070"), new CornerRadii(6), Insets.EMPTY)));
@@ -122,7 +123,13 @@ public class MySceneController {
     @FXML
     private void switchAdmin()
     {
-        mainApp.showAdmin();
+        if (profil.getCinema() != null)
+        {
+            //mainApp.setCinemaAdmin(profil.getCinema());
+            mainApp.showAdmin();
+        }
+        else
+            mainApp.showChoixCinema(profil);
     }
 
 }

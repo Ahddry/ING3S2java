@@ -144,6 +144,16 @@ public class Profil {
         mesReservations.add(reservation);
     }
 
+    public Cinema getCinema()
+    {
+        return cinema;
+    }
+
+    public void setCinema(Cinema cinema)
+    {
+        this.cinema = cinema;
+    }
+
     public MovieCollection getFilmLike()
     {
         return filmLike;

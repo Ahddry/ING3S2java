@@ -56,8 +56,8 @@ public class Cinema {
 
     public void setImage()
     {
-        image = new Image(imageString);
-
+        if (imageString != null)
+            image = new Image(imageString);
     }
     public void set_id_cine(int id_cine)
     {
@@ -101,6 +101,21 @@ public class Cinema {
     public void addSalles(Salle salle)
     {
         salles.add(salle);
+    }
+
+    public boolean deleteSalles(int numSalle)
+    {
+        Salle s = new Salle();
+        for (var salle : salles)
+        {
+            if (salle.getNumero() == numSalle)
+                s = salle;
+        }
+        if (salles.contains(s))
+            salles.remove(s);
+        else
+            return false;
+        return true;
     }
 
     public void addSeance(int salle, Seance seance)

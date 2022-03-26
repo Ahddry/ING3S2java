@@ -39,9 +39,9 @@ public class Mail {
             );
             message.setSubject("Votre réservation pour: " + reservation.getMovie().getTitle());
             message.setText("Bonjour,"
-                    + "\n\n Vous avez réservez une séance pour le film suivant: \n\n" +
+                    + "\n\n Vous avez réservé une séance pour le film suivant: \n\n" +
                     reservation.getMovie().getTitle()
-                    + "\n\n Votre séance à lieu au cinéma :" + reservation.getNomCinema() + "\n Horaire: " + reservation.getHoraire() +"\nDate: " + reservation.getDate()
+                    + "\n\n Votre séance a lieu au cinéma : " + reservation.getNomCinema() + "\n Horaire : " + reservation.getHoraire() +"\nDate : " + reservation.getDate()
              + "\n\nOn vous attend en salle,\nL'Equipe Netflece");
 
             Transport.send(message);
