@@ -461,6 +461,10 @@ public class HelloApplication extends Application {
                     tempUserId = myRes.getString("id_user");
                     if(tempUserId != "")
                     {
+                        if(admin)
+                        {
+                            setDemandeAdmin(Integer.valueOf(tempUserId));
+                        }
                         return 1;
                     }
                     else
@@ -485,6 +489,135 @@ public class HelloApplication extends Application {
         try
         {
             myStat.executeUpdate("INSERT INTO film (poster,nom_film,date_de_sortie,duree,synopsis,slogan,trailer) SELECT * FROM (SELECT '" + lien_poster +"' AS poster, '" + nom_film +"' AS nom_film, '"+ date_de_sortie +"' AS date_de_sortie, '" + duree + "' AS duree, '" + synopsis + "' AS synopsis, '" + slogan + "' AS slogan, '" + trailer + "' AS trailer) AS tmp WHERE NOT EXISTS ( SELECT id_film FROM film WHERE (nom_film='" + nom_film  + "' AND poster='" + lien_poster +"' AND date_de_sortie = '" + date_de_sortie + "' AND duree= '"+ duree +"' AND synopsis = '" + synopsis + "' AND slogan = '" + slogan + "' AND trailer = '" + trailer + "')) LIMIT 1;");    
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+    public void AjouterSalleCinema_into_bdd(int capacite, int num_salle, int id_cine_bdd)
+    {
+        try
+        {
+            int id_salle = -1;
+            myStat.executeUpdate("INSERT INTO salle (capacite, num_salle) VALUES ('"+ String.valueOf(capacite) +"','" + String.valueOf(num_salle) + "');");
+            ResultSet myRes = myStat.executeQuery("SELECT @@IDENTITY AS [Last-Inserted Identity Value];");
+            while(myRes.next())
+            {
+                id_salle = myRes.getInt("Last-Inserted Identity Value");
+            }
+            if(id_salle != -1)
+            {
+                myStat.executeUpdate("INSERT INTO cinema_salle (id_cine, id_salle) VALUES ('" + String.valueOf(id_cine_bdd) + "','" + String.valueOf(id_salle) + "');");
+            }
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+    public void SupprimerUneSalleBDD(int id_salle_bdd)
+    {
+        try
+        {
+            myStat.executeUpdate("DELETE FROM salle WHERE id_salle = '" + String.valueOf(id_salle_bdd) + "';");
+            myStat.executeUpdate("DELETE FROM cinema_salle WHERE id_salle = '" + String.valueOf(id_salle_bdd) + "';");
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+    public void SupprimerUnseSeanceBDD(int id_seance)
+    {
+        try
+        {
+            myStat.executeUpdate("DELETE FROM seance WHERE id_salle = '" + String.valueOf(id_seance) + "';");
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+    public void changerNomCinema(int id_cine_bdd, String nomCine)
+    {
+        try
+        {
+            myStat.executeUpdate("UPDATE cinema SET nom = '" + nomCine + "' WHERE id_salle = '" + String.valueOf(id_cine_bdd) + "';");
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+    public void changerLienImageCinema(int id_cine_bdd, String lienImage)
+    {
+        try
+        {
+            myStat.executeUpdate("UPDATE cinema SET lien_image = '" + lienImage + "' WHERE id_salle = '" + String.valueOf(id_cine_bdd) + "';");
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+    public int CreateSeance_into_bdd(int id_film,int id_cine_bdd, int id_salle_bdd, String dateSeance,String heureSeance, double prixSeance)
+    {
+        try
+        {
+            String tempDateHorraire = "";
+            tempDateHorraire += dateSeance;
+            if(heureSeance.length() == 5 && Integer.valueOf(heureSeance.substring(0,2)) < 24 && Integer.valueOf(heureSeance.substring(0,2)) > 0 && Integer.valueOf(heureSeance.substring(3)) < 60 && Integer.valueOf(heureSeance.substring(3)) >= 0)
+            {
+                if(heureSeance.contains("h"))
+                {
+                    tempDateHorraire += " " + heureSeance.split("h")[0] + ":" + heureSeance.split("h")[1];
+                }
+                else if(heureSeance.contains(":"))
+                {
+                    tempDateHorraire += " " + heureSeance.split(":")[0] + ":" + heureSeance.split(":")[1];
+                }
+                myStat.executeUpdate("INSERT INTO seance (id_salle, id_film, id_cine, date_horraire, prix) SELECT * FROM (SELECT '"+ id_salle_bdd + "' AS id_salle, '" + id_film + "' AS id_film, '" + id_cine_bdd + "' AS id_cine, '" + tempDateHorraire + "' AS date_horraire, '"+ prixSeance +"' AS prix) AS tmp WHERE NOT EXISTS ( SELECT id_seance FROM seance WHERE (id_cine = '" + id_cine_bdd + "' AND id_film = '" + id_film + "' AND id_salle = '" + id_salle_bdd + "' AND date_horraire = '" + tempDateHorraire + "')) LIMIT 1;");
+                return 0;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+        return 1;
+    }
+    public void SetAdmin(int id_user)
+    {
+        try
+        {
+            myStat.executeUpdate("UPDATE utilisateur SET admin = '1' WHERE id_user = '" + String.valueOf(id_user) + "';");
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+    public void setDemandeAdmin(int id_user)
+    {
+        try
+        {
+            myStat.executeUpdate("INSERT INTO attente_admin (id_user) SELECT * FROM (SELECT '"+ id_user + "' AS id_user) AS tmp WHERE NOT EXISTS ( SELECT id_user FROM attente_admin WHERE (id_user = '" + id_user + "') LIMIT 1;");
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+    public void removeWaitingAdmin(int id_user)
+    {
+        try
+        {
+            myStat.executeUpdate("DELETE FROM attente_admin WHERE id_user = '" + id_user + "';");
         }
         catch(Exception exception)
         {
