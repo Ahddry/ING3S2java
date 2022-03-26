@@ -25,6 +25,7 @@ public class GenreLikeController{
     private SceneController mainApp;
     private HelloApplication controller;
     private int genreLiker = 0;
+    private ArrayList<String> genreBlinder = new ArrayList<String>();
     private GridPane gridPane;
     @FXML
     private AnchorPane root;
@@ -102,9 +103,14 @@ public class GenreLikeController{
             tempPane.getChildren().addAll(tempimage, tempLabel);
             temp.setGraphic(tempPane);
             temp.setOnMouseClicked(event -> {
-                this.controller.genre_like(temp.getId());
-                this.genreLiker++;
-                film_selec.setText(String.valueOf(genreLiker) + "/5");
+                if(!genreBlinder.contains(tempLabel.getText()))
+                {
+                    this.controller.genre_like(temp.getId());
+                    this.genreLiker++;
+                    film_selec.setText(String.valueOf(genreLiker) + "/5");
+                    genreBlinder.add(tempLabel.getText());
+                }
+                
             });
             temp.setStyle("-fx-background-radius : 100;");
             temp.setMinSize(130, 130);
