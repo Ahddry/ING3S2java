@@ -618,9 +618,9 @@ public class SceneController
                 choixCine = loader.load();
                 controller_choixCine = loader.getController();
                 scroll_choixCine = new ScrollPane();
+                controller_choixCine.setMainApp(this);
+                controller_choixCine.init(cinemaCollection, profil);
             }
-            controller_choixCine.setMainApp(this);
-            controller_choixCine.init(cinemaCollection, profil);
             scroll_choixCine.setContent(choixCine);
             rootLayout.setCenter(scroll_choixCine);
         } catch (IOException e)
