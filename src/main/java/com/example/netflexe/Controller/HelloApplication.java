@@ -8,9 +8,6 @@ import java.io.FileInputStream;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.example.netflexe.Model.*;
 import com.example.netflexe.Model.Profil;
 import org.apache.commons.codec.digest.DigestUtils;
