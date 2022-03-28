@@ -165,4 +165,14 @@ public class Cinema {
     {
         this.imageString = imageString;
     }
+
+    public boolean contains(int num)
+    {
+        for (var salle : salles)
+        {
+            if (salle.getNumero() == num)
+                 return true;
+        }
+        return false;
+    }
 }

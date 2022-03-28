@@ -96,7 +96,7 @@
                   </LinearGradient>
                </textFill>
             </Label>
-            <Button fx:id="dejavu" layoutX="108.0" layoutY="566.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="98.0" text="Deja Vu" />
+            <Button fx:id="dejavu" layoutX="108.0" layoutY="566.0" mnemonicParsing="false" onAction="#addDejaVU" prefHeight="31.0" prefWidth="98.0" text="Deja Vu" />
       </children>
    </AnchorPane>
       <AnchorPane fx:id="trailer_page" prefHeight="690.0" prefWidth="1138.0" style="-fx-background-color: #1d1d1d;" visible="false">

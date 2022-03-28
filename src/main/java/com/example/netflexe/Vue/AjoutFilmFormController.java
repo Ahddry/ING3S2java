@@ -2,6 +2,7 @@ package com.example.netflexe.Vue;
 
 import com.example.netflexe.Model.Cinema;
 import com.example.netflexe.Model.Movie;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -41,6 +42,7 @@ public class AjoutFilmFormController
     {
         enregistrerBouton.setText("Ajouter le film\nau cinéma");
         enregistrerBouton.textAlignmentProperty().set(TextAlignment.CENTER);
+        genre.setItems(FXCollections.observableArrayList());
         genre.getItems().add("Action");
         genre.getItems().add("Animation");
         genre.getItems().add("Aventure");
