@@ -3,11 +3,14 @@ package com.example.netflexe.Vue;
 import com.example.netflexe.Model.Cinema;
 import com.example.netflexe.Model.Movie;
 import com.example.netflexe.Model.Seance;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
@@ -47,7 +50,6 @@ public class CreationSeanceController
     public void setMovie(Movie movie)
     {
         movieS = movie;
-        //System.out.print(movie.getTitle());
         Title.setText(movie.getTitle());
         Poster.setImage(movie.getImage());
         DateDeSortie.setText(movie.getDate_de_sortie_S());
@@ -61,10 +63,14 @@ public class CreationSeanceController
     {
         monCinema = cinema;
         nomCine.setText(cinema.getName());
-        for (var salle : cinema.getSalles())
+        ArrayList<String> liste = new ArrayList<>();
+        for (var salle : monCinema.getSalles())
         {
-            choixSalle.getItems().add("Salle " + salle.getNumero());
+            liste.add("Salle " + salle.getNumero());
         }
+        ObservableList<String> listeAffichage = FXCollections.observableArrayList();
+        listeAffichage.addAll(liste);
+        choixSalle.setItems(listeAffichage);
     }
 
     public void confirmerBoutonClick()
