@@ -756,6 +756,48 @@ public class HelloApplication extends Application {
                     if(myRes.getString("cinema.nom") != null && myRes.getString("cinema.lien_image") != null && myRes.getString("cinema.id_cine") != null)
                     {
                         tempCine = new Cinema(myRes.getInt("cinema.id_cine"),myRes.getString("cinema.nom"), myRes.getString("cinema.lien_image"));
+                        ResultSet myRes2 = myStat2.executeQuery("SELECT salle.id_salle, capacite, num_salle FROM salle JOIN cinema_salle ON cinema_salle.id_salle = salle.id_salle WHERE cinema_salle.id_cine = '" + String.valueOf(tempCine.get_id_cine()) +"';");
+                        while(myRes2.next())
+                        {
+                            tempCine.addSalles(new Salle(myRes2.getInt("salle.id_salle"), myRes2.getInt("num_salle"), myRes2.getInt("capacite")));
+                        }
+                        for(int j = 0 ; j < tempCine.getSalles().size();j++)
+                        {
+                            ResultSet myRes3 = myStat2.executeQuery("SELECT seance.id_seance, seance.id_film, seance.date_horraire, seance.prix, film.id_film, film.poster, film.nom_film, film.date_de_sortie, film.duree, film.synopsis, film.slogan, film.trailer, salle.num_salle, person.prenom, person.nom FROM seance JOIN film on film.id_film = seance.id_film JOIN salle ON salle.id_salle = seance.id_salle  JOIN realisateur ON realisateur.id_film = film.id_film JOIN person ON person.id_person = realisateur.id_person WHERE seance.id_cine = '" + String.valueOf(tempCine.get_id_cine()) + "' AND seance.id_salle = '"+ String.valueOf(tempCine.getSalles().get(j).get_id_bdd())+"';");
+                            while(myRes3.next())
+                            {
+                                String trailer;
+                                if(myRes3.getString("film.trailer") != "" && myRes3.getString("film.trailer") != null)
+                                {
+                                    trailer = myRes3.getString("film.trailer").split("=")[1];
+                                }
+                                else
+                                {
+                                    trailer = null;
+                                }
+                                String realisateur = "";
+                                if(myRes3.getString("person.prenom") != null && myRes3.getString("person.prenom") != "")
+                                {
+                                    realisateur += myRes3.getString("person.prenom");
+                                }
+                                if(myRes3.getString("person.nom") != null && myRes3.getString("person.nom") != "")
+                                {
+                                    if(!realisateur.equals(""))
+                                    {
+                                        realisateur += " " + myRes3.getString("person.nom");
+                                    }
+                                    else
+                                    {
+                                        realisateur += myRes3.getString("person.nom");
+                                    }
+                                }
+                                //System.out.println(myRes3.getString("film.nom_film"));
+                                Movie movie = new Movie(myRes3.getString("film.nom_film"), realisateur, myRes3.getString("film.poster"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.duree"), myRes3.getString("film.synopsis"), myRes3.getString("film.slogan"), myRes3.getString("film.id_film"),trailer);
+                                tempCine.getSalles().get(j).addSeance(new Seance(myRes3.getString("film.nom_film"), movie, LocalDate.parse(myRes3.getString("seance.date_horraire").split(" ")[0]), myRes3.getString("seance.date_horraire").split(" ")[1], myRes3.getInt("salle.num_salle"), myRes3.getDouble("seance.prix"), myRes3.getInt("seance.id_seance")));
+                                tempCine.ajoutFilm(movie);
+                            }
+                        }
+                            tempCine.setImage();
                     }
                     this.user = new Profil(myRes.getInt("utilisateur.id_user"), myRes.getString("prenom"), myRes.getString("nom"), myRes.getString("email"), myRes.getString("genre"), myRes.getString("date_de_naissance"), myRes.getBinaryStream("pp"), myRes.getBoolean("admin"), tempCine);
                     ResultSet myRes2 = myStat2.executeQuery("SELECT film.poster, film.nom_film, seance.date_horraire, cinema.nom, COUNT(*) FROM reservation JOIN seance on reservation.id_seance = seance.id_seance JOIN film ON seance.id_film = film.id_film JOIN cinema ON cinema.id_cine = seance.id_cine WHERE reservation.id_user ='" + myRes.getInt("utilisateur.id_user") +"'GROUP BY reservation.id_user, reservation.id_seance;");

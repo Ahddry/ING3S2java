@@ -36,7 +36,7 @@ public class ProfileCinemaController
         nomCine.setText(cinema.getName());
         int nb = cinema.getSalles().size();
         nbSalles.setText("Nombre de salles : " + nb);
-        nb = cinema.getFilmP().getSize() - 1;
+        nb = cinema.getFilmP().getSize();
         nbFilms.setText("Nombre de films : " + nb);
 
         if (!mainApp.getHello().getAttenteAdmin().isEmpty())

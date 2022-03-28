@@ -476,8 +476,8 @@ public class SceneController
                 controller_SacceulAdmin = loader.getController();
                 scroll_SacceulAdmin = new ScrollPane();
                 controller_SacceulAdmin.setMainApp(this);
-                controller_SacceulAdmin.init(cinemaAdmin);
             }
+            controller_SacceulAdmin.init(cinemaAdmin);
             scroll_SacceulAdmin.setContent(SaccueilAdmin);
             rootLayout_admin.setCenter(scroll_SacceulAdmin);
         } catch (IOException e) {
