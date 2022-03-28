@@ -113,7 +113,7 @@ public class AccueilAdminController
                 mainApp.showCreationSeance(movie);
             } else if (event.getButton() == MouseButton.SECONDARY)
             {
-                contextMenu.show(mainApp.getScene().getWindow(), event.getScreenX(), event.getScreenY());
+                contextMenu.show(mainApp.getSceneAdmin().getWindow(), event.getScreenX(), event.getScreenY());
             }
         });
 

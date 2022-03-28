@@ -477,9 +477,9 @@ public class SceneController
                 scroll_SacceulAdmin = new ScrollPane();
                 controller_SacceulAdmin.setMainApp(this);
             }
-            controller_SacceulAdmin.init(cinemaAdmin);
             scroll_SacceulAdmin.setContent(SaccueilAdmin);
             rootLayout_admin.setCenter(scroll_SacceulAdmin);
+            controller_SacceulAdmin.init(cinemaAdmin);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -685,6 +685,10 @@ public class SceneController
     public Scene getScene()
     {
         return scene;
+    }
+    public Scene getSceneAdmin()
+    {
+        return scene_admin;
     }
     public CinemaCollection getCinemaCollection()
     {
