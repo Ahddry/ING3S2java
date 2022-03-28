@@ -268,6 +268,37 @@ public class HelloApplication extends Application {
                     }
                     user.ajouterLike(new Movie(myRes2.getString("nom_film"), realisateur, myRes2.getString("poster"), tempDatedesortie,tempDatedesortie,myRes2.getString("duree"), myRes2.getString("synopsis"), myRes2.getString("slogan"), myRes2.getString("id_film"), trailer));
                 }
+                myRes2 = myStat.executeQuery("SELECT film.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.prenom, person.nom FROM film JOIN deja_vu ON film.id_film = deja_vu.id_film JOIN realisateur ON realisateur.id_film = film.id_film JOIN person ON person.id_person = realisateur.id_person WHERE deja_vu.id_user = '" + String.valueOf(user.get_id()) +"';");
+                while(myRes2.next())
+                {
+                    String tempDatedesortie = myRes2.getString("date_de_sortie");
+                    String trailer;
+                    if(myRes2.getString("trailer") != "" && myRes2.getString("trailer") != null)
+                    {
+                        trailer = myRes2.getString("trailer").split("=")[1];
+                    }
+                    else
+                    {
+                        trailer = null;
+                    }
+                    String realisateur = "";
+                    if(myRes2.getString("person.prenom") != null && myRes2.getString("person.prenom") != "")
+                    {
+                        realisateur += myRes2.getString("person.prenom");
+                    }
+                    if(myRes2.getString("person.nom") != null && myRes2.getString("person.nom") != "")
+                    {
+                        if(!realisateur.equals(""))
+                        {
+                            realisateur += " " + myRes2.getString("person.nom");
+                        }
+                        else
+                        {
+                            realisateur += myRes.getString("person.nom");
+                        }
+                    }
+                    user.ajouterDejaVu(new Movie(myRes2.getString("nom_film"), realisateur, myRes2.getString("poster"), tempDatedesortie,tempDatedesortie,myRes2.getString("duree"), myRes2.getString("synopsis"), myRes2.getString("slogan"), myRes2.getString("id_film"), trailer));
+                }
                 user.set_image();
             }
 

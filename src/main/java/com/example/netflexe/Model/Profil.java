@@ -123,6 +123,7 @@ public class Profil {
     public void set_image()
     {
         this.filmLike.setImage();
+        this.filmDejaVu.setImage();
     }
 
     public void ajouterLike(Movie movie)

@@ -19,8 +19,9 @@ public class SceneController
     private HelloApplication controller;
     private Stage primaryStage;
     private Scene scene;
-    
+    private Scene scene_admin;
     private BorderPane rootLayout;
+    private BorderPane rootLayout_admin;
     private AnchorPane loginLayout;
     private AnchorPane showGenre;
     private AnchorPane mainMenu;
@@ -93,9 +94,6 @@ public class SceneController
     private AnchorPane research;
     private ResearchController controller_research;
     private ScrollPane scroll_research;
-
-    private AnchorPane Acteur;
-    private FilmInfoController controller_acteur;
     
     private AnchorPane info2;
     private FilmInfoController controller_info2;
@@ -146,13 +144,13 @@ public class SceneController
                 loader.setLocation(getClass().getResource("MyScene.fxml"));
                 rootLayout = (BorderPane) loader.load();
                 scene = new Scene(rootLayout);
-                primaryStage.setScene(scene);
-                primaryStage.show();
                 controller_main = loader.getController();
             }
-                controller_main.setMainApp(this);
-                controller_main.setProfil(user);
-                controller_main.initialiseBis();
+            primaryStage.setScene(scene);
+            primaryStage.show();
+            controller_main.setMainApp(this);
+            controller_main.setProfil(user);
+            controller_main.initialiseBis();
             showMainMenu();
         } catch (IOException e) {
             e.printStackTrace();
@@ -190,7 +188,7 @@ public class SceneController
                 scroll_cinema = new ScrollPane();
             }
             scroll_cinema.setContent(cinema);
-            rootLayout.setCenter(scroll_cinema);
+            rootLayout_admin.setCenter(scroll_cinema);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -248,12 +246,12 @@ public class SceneController
             {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("Admin.fxml"));
-                rootLayout = loader.load();
-                scene = new Scene(rootLayout);
-                primaryStage.setScene(scene);
-                primaryStage.show();
+                rootLayout_admin = loader.load();
+                scene_admin = new Scene(rootLayout_admin);
                 controller_admin = loader.getController();
             }
+            primaryStage.setScene(scene_admin);
+            primaryStage.show();
             controller_admin.setMainApp(this);
             showAccueilAdmin();
         } catch (IOException e) {
@@ -273,7 +271,7 @@ public class SceneController
                 icontroller.setMainApp(this, this.controller);
                 scrollmainMenu.setContent(mainMenu);
                 this.controller.load_bdd_movie();
-                this.cinemaAdmin = cinemaCollection.getCinema(0);
+                //this.cinemaAdmin = cinemaCollection.getCinema(0);
                 icontroller.initializeBis();
                 controller.threadStarter();
             }
@@ -324,9 +322,9 @@ public class SceneController
                 bcontroller = loader.getController();
                 scrollBiblio = new ScrollPane();
                 bcontroller.setMainApp(this);
-                scrollBiblio.setContent(biblio);
-                bcontroller.setCinemaC(cinemaCollection);
             }
+            scrollBiblio.setContent(biblio);
+            bcontroller.setCinemaC(cinemaCollection);
             bcontroller.initializeBis(monProfil);
             rootLayout.setCenter(scrollBiblio);
         } catch (IOException e) {
@@ -345,8 +343,9 @@ public class SceneController
                 controller_biblio = loader.getController();
                 scroll_biblio = new ScrollPane();
                 controller_biblio.setMainApp(this);
-                scroll_biblio.setContent(biblio2);
+                
             }
+            scroll_biblio.setContent(biblio2);
             controller_biblio.initializeBis(monProfil);
             rootLayout.setCenter(scroll_biblio);
 
@@ -368,12 +367,19 @@ public class SceneController
             }
             controller_infoFilm.setMainApp(this);
             controller_infoFilm.setMovie(movie);
-            controller_infoFilm.showActors(collectionActor);
+            controller_infoFilm.showActors(this.controller.CollectionActeursMovie(movie.get_idFilm()));
             controller_infoFilm.setProfil(user);
             controller_infoFilm.setAdminAccess(admin);
             controller_infoFilm.setCinema(cinemaAdmin);
             scroll_infoFilm.setContent(info);
-            rootLayout.setCenter(scroll_infoFilm);
+            if(admin)
+            {
+                rootLayout_admin.setCenter(scroll_infoFilm);
+            }
+            else
+            {
+                rootLayout.setCenter(scroll_infoFilm);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -381,7 +387,6 @@ public class SceneController
 ///Pas oublier de changer pour Biblio etc (ajouter aussi l'affichage des acteurs)
     public void showInfo(Movie movie, boolean admin) {
         try {
-
             if(controller_info2 == null)
             {
                 FXMLLoader loader = new FXMLLoader();
@@ -404,17 +409,7 @@ public class SceneController
     }
 
     public void showInfoActor(Actor acteur) throws IOException {
-        
-        if(controller_acteur == null)
-        {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("FilmInfo.fxml"));
-            Acteur = (AnchorPane) loader.load();
-            controller_acteur = loader.getController();
-        }
-
-        controller_acteur.setMainApp(this);
-        controller_acteur.setActor(acteur);
+        controller_infoFilm.setActor(acteur);
     }
 
     public void showResearch(boolean admin)
@@ -433,7 +428,14 @@ public class SceneController
                 scroll_research.setContent(research);
                 controller_research.initializeBis();
             }
-            rootLayout.setCenter(scroll_research);
+            if(admin)
+            {
+                rootLayout_admin.setCenter(scroll_research);
+            }
+            else
+            {
+                rootLayout.setCenter(scroll_research);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -470,13 +472,14 @@ public class SceneController
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("AccueilAdmin.fxml"));
                 SaccueilAdmin = loader.load();
+                this.cinemaAdmin = this.user.getCinema();
                 controller_SacceulAdmin = loader.getController();
                 scroll_SacceulAdmin = new ScrollPane();
                 controller_SacceulAdmin.setMainApp(this);
-                scroll_SacceulAdmin.setContent(SaccueilAdmin);
+                controller_SacceulAdmin.init(cinemaAdmin);
             }
-            rootLayout.setCenter(scroll_SacceulAdmin);
-            controller_SacceulAdmin.init(cinemaAdmin);
+            scroll_SacceulAdmin.setContent(SaccueilAdmin);
+            rootLayout_admin.setCenter(scroll_SacceulAdmin);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -494,7 +497,7 @@ public class SceneController
                 scroll_stats = new ScrollPane();
                 scroll_stats.setContent(stats);
             }
-            rootLayout.setCenter(scroll_stats);
+            rootLayout_admin.setCenter(scroll_stats);
             controller_stats.init(cinemaAdmin);
         } catch (IOException e) {
             e.printStackTrace();
@@ -537,7 +540,7 @@ public class SceneController
             controller_ajoutFilmc.setMainApp(this);
             controller_ajoutFilmc.setCinema(c);
             scroll_ajoutFilmc.setContent(ajoutFilmc);
-            rootLayout.setCenter(scroll_ajoutFilmc);
+            rootLayout_admin.setCenter(scroll_ajoutFilmc);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -558,7 +561,7 @@ public class SceneController
             controller_ajoutFilm.setCinema(c);
             controller_ajoutFilm.init();
             scroll_ajoutFilm.setContent(ajoutFilm);
-            rootLayout.setCenter(scroll_ajoutFilm);
+            rootLayout_admin.setCenter(scroll_ajoutFilm);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -578,7 +581,7 @@ public class SceneController
             controller_seancesView.setMainApp(this);
             controller_seancesView.init(cinemaAdmin);
             scroll_seancesView.setContent(seancesView);
-            rootLayout.setCenter(scroll_seancesView);
+            rootLayout_admin.setCenter(scroll_seancesView);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -599,7 +602,7 @@ public class SceneController
             controller_seanceView.setMovie(movie);
             controller_seanceView.setCinema(cinemaAdmin);
             scroll_seanceView.setContent(creationSeancesView);
-            rootLayout.setCenter(scroll_seanceView);
+            rootLayout_admin.setCenter(scroll_seanceView);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -620,7 +623,7 @@ public class SceneController
                 controller_choixCine.init(cinemaCollection, profil);
             }
             scroll_choixCine.setContent(choixCine);
-            rootLayout.setCenter(scroll_choixCine);
+            rootLayout_admin.setCenter(scroll_choixCine);
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -641,7 +644,7 @@ public class SceneController
             }
             controller_creaCine.setMainApp(this, cinemaCollection, profil);
             scroll_creaCine.setContent(creaCine);
-            rootLayout.setCenter(scroll_creaCine);
+            rootLayout_admin.setCenter(scroll_creaCine);
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -662,7 +665,7 @@ public class SceneController
             } 
             controller_attente_admin.init(this);
             scroll_attente_admin.setContent(approAdmin);
-            rootLayout.setCenter(scroll_attente_admin);
+            rootLayout_admin.setCenter(scroll_attente_admin);
         } catch (IOException e)
         {
             e.printStackTrace();

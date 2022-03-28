@@ -146,7 +146,7 @@ public class BiblioController {
 
                 Movie movie = collection[k].getMovie(selectedName);
 
-                mainApp.showInfo(movie, false);
+                mainApp.showInfo(movie,null,false);
             }
         });
 

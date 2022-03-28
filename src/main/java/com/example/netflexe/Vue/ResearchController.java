@@ -106,7 +106,7 @@ public class ResearchController {
 
                 Movie movie = collection[5].getMovie(selectedName);
 
-                mainApp.showInfo(movie, adminSelect);
+                mainApp.showInfo(movie,null ,adminSelect);
 
             }
         });
