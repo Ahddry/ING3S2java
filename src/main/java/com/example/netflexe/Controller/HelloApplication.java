@@ -589,6 +589,16 @@ public class HelloApplication extends Application {
     {
         try
         {
+            ArrayList<Integer> temp = new ArrayList<Integer>();
+            ResultSet myRes = myStat.executeQuery("SELECT id_seance FROM seance WHERE id_salle = '" + String.valueOf(id_salle_bdd) + "';");
+            while(myRes.next())
+            {
+                temp.add(myRes.getInt("id_seance"));
+            }
+            for(int i = 0 ; i < temp.size();i++)
+            {
+                myStat.executeUpdate("DELETE FROM reservation WHERE id_seance = '" + String.valueOf(temp.get(i)) + "';");
+            }
             myStat.executeUpdate("DELETE FROM seance WHERE id_salle = '" + String.valueOf(id_salle_bdd) + "';");
             myStat.executeUpdate("DELETE FROM salle WHERE id_salle = '" + String.valueOf(id_salle_bdd) + "';");
             myStat.executeUpdate("DELETE FROM cinema_salle WHERE id_salle = '" + String.valueOf(id_salle_bdd) + "';");
