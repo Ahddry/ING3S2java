@@ -42,7 +42,7 @@ public class BiblioController {
     private SceneController mainApp;
 
 
-    private MovieCollection collection[] = {new MovieCollection(), new MovieCollection(), new MovieCollection()};
+    private MovieCollection collection[] = {new MovieCollection(), new MovieCollection(), new MovieCollection(), new MovieCollection()};
     private CinemaCollection collectionC = new CinemaCollection();
     //private MovieCollection collectionAvenir = new MovieCollection();
     private LocalDate dateAJD = LocalDate.now();
@@ -89,6 +89,9 @@ public class BiblioController {
             }
         }
         initialiseListView(listView3, 2);
+
+        collection[3] = monProfil.getFilmDejaVu();
+        initialiseListView(listView4, 3);
 
 
 
