@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Profil {
 
     MovieCollection filmLike = new MovieCollection();
+    MovieCollection filmDejaVu = new MovieCollection();
     private InputStream pp;
     private String prenom;
     private String nom;
@@ -134,6 +135,16 @@ public class Profil {
 
     }
 
+    public void ajouterDejaVu (Movie movie)
+    {
+
+        if(!filmDejaVu.checkBoolean(movie.getTitle()))
+        {
+            filmDejaVu.addMovie(movie);
+        }
+
+    }
+
     public boolean isAdmin()
     {
         return admin;
@@ -157,6 +168,10 @@ public class Profil {
     public MovieCollection getFilmLike()
     {
         return filmLike;
+    }
+    public MovieCollection getFilmDejaVu()
+    {
+        return filmDejaVu;
     }
     public ArrayList<Reservation> getFilmRes()
     {

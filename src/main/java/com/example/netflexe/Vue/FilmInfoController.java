@@ -116,12 +116,8 @@ public class FilmInfoController {
                 this.root.setVisible(true);
             }
         });
-        dejavu.setOnMouseClicked(event -> {
-            if(event.getClickCount() == 1)
-            {
-                this.mainApp.getHello().set_deja_vu(monProfil.get_id(), Integer.valueOf(movieS.get_idFilm()));
-            }
-        });
+
+
         this.engine = this.youtube.getEngine();
     }
 
@@ -192,6 +188,21 @@ public class FilmInfoController {
         }
 
     }
+
+    @FXML
+    public void addDejaVU()
+    {
+        if (!adminAccess)
+            monProfil.ajouterDejaVu(movieS);
+            this.mainApp.getHello().set_deja_vu(monProfil.get_id(), Integer.valueOf(movieS.get_idFilm()));
+        if(biblioController!= null)
+        {
+            biblioController.initializeBis(monProfil);
+        }
+
+    }
+
+
     
 
     @FXML
