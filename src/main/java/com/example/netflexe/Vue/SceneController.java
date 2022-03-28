@@ -496,9 +496,9 @@ public class SceneController
                 controller_stats = loader.getController();
                 scroll_stats = new ScrollPane();
                 scroll_stats.setContent(stats);
+                controller_stats.init(cinemaAdmin);
             }
             rootLayout_admin.setCenter(scroll_stats);
-            controller_stats.init(cinemaAdmin);
         } catch (IOException e) {
             e.printStackTrace();
         }
