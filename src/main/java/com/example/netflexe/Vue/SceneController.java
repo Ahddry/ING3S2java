@@ -270,13 +270,13 @@ public class SceneController
                 mainMenu = (AnchorPane) loader.load();
                 icontroller = loader.getController();
                 scrollmainMenu = new ScrollPane();
+                icontroller.setMainApp(this, this.controller);
+                scrollmainMenu.setContent(mainMenu);
+                this.controller.load_bdd_movie();
+                this.cinemaAdmin = cinemaCollection.getCinema(0);
+                icontroller.initializeBis();
+                controller.threadStarter();
             }
-            icontroller.setMainApp(this, this.controller);
-            scrollmainMenu.setContent(mainMenu);
-            this.controller.load_bdd_movie();
-            this.cinemaAdmin = cinemaCollection.getCinema(0);
-            icontroller.initializeBis();
-            controller.threadStarter();
             rootLayout.setCenter(scrollmainMenu);
             
         } catch (IOException e) {
@@ -323,10 +323,10 @@ public class SceneController
                 biblio = (AnchorPane) loader.load();
                 bcontroller = loader.getController();
                 scrollBiblio = new ScrollPane();
+                bcontroller.setMainApp(this);
+                scrollBiblio.setContent(biblio);
+                bcontroller.setCinemaC(cinemaCollection);
             }
-            bcontroller.setMainApp(this);
-            scrollBiblio.setContent(biblio);
-            bcontroller.setCinemaC(cinemaCollection);
             bcontroller.initializeBis(monProfil);
             rootLayout.setCenter(scrollBiblio);
         } catch (IOException e) {
@@ -344,10 +344,9 @@ public class SceneController
                 biblio2 = (AnchorPane) loader.load();
                 controller_biblio = loader.getController();
                 scroll_biblio = new ScrollPane();
+                controller_biblio.setMainApp(this);
+                scroll_biblio.setContent(biblio2);
             }
-
-            controller_biblio.setMainApp(this);
-            scroll_biblio.setContent(biblio2);
             controller_biblio.initializeBis(monProfil);
             rootLayout.setCenter(scroll_biblio);
 
@@ -429,11 +428,11 @@ public class SceneController
                 research = (AnchorPane) loader.load();
                 controller_research = loader.getController();
                 scroll_research = new ScrollPane();
+                controller_research.setMainApp(this);
+                controller_research.setAdminSelect(admin);
+                scroll_research.setContent(research);
+                controller_research.initializeBis();
             }
-            controller_research.setMainApp(this);
-            controller_research.setAdminSelect(admin);
-            scroll_research.setContent(research);
-            controller_research.initializeBis();
             rootLayout.setCenter(scroll_research);
         } catch (IOException e) {
             e.printStackTrace();
@@ -452,9 +451,9 @@ public class SceneController
                 resa = (AnchorPane) loader.load();
                 controller_resa = loader.getController();
                 scroll_resa = new ScrollPane();
-            }
-            controller_resa.setMainApp(this);
+                controller_resa.setMainApp(this);
             scroll_resa.setContent(resa);
+            }
             controller_resa.initializeBis(cinemaCollection, movie);
             rootLayout.setCenter(scroll_resa);
         } catch (IOException e)
@@ -473,10 +472,9 @@ public class SceneController
                 SaccueilAdmin = loader.load();
                 controller_SacceulAdmin = loader.getController();
                 scroll_SacceulAdmin = new ScrollPane();
+                controller_SacceulAdmin.setMainApp(this);
+                scroll_SacceulAdmin.setContent(SaccueilAdmin);
             }
-
-            controller_SacceulAdmin.setMainApp(this);
-            scroll_SacceulAdmin.setContent(SaccueilAdmin);
             rootLayout.setCenter(scroll_SacceulAdmin);
             controller_SacceulAdmin.init(cinemaAdmin);
         } catch (IOException e) {
@@ -494,8 +492,8 @@ public class SceneController
                 stats = loader.load();
                 controller_stats = loader.getController();
                 scroll_stats = new ScrollPane();
+                scroll_stats.setContent(stats);
             }
-            scroll_stats.setContent(stats);
             rootLayout.setCenter(scroll_stats);
             controller_stats.init(cinemaAdmin);
         } catch (IOException e) {

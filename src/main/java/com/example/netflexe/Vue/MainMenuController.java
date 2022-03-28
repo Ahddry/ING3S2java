@@ -110,6 +110,14 @@ public class MainMenuController {
             listView5.refresh();
         }
     }
+    public void refresher()
+    {
+        listView1.refresh();
+        listView2.refresh();
+        listView3.refresh();
+        listView4.refresh();
+        listView5.refresh();
+    }
 
     private void initialiseListView(ListView<String> listView1, int j)
     {
