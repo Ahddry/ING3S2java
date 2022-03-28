@@ -298,6 +298,28 @@ public class HelloApplication extends Application {
         }
     }
 
+    public void add_promotion(int id_cine, String nom_promo, double pourcentage)
+    {
+        try
+        {
+            myStat.executeUpdate("INSERT INTO promotion (id_cine, nom_promo, discount) SELECT * FROM (SELECT '" + String.valueOf(id_cine) +"' AS id_cine, '" + nom_promo +"' AS nom_promo, '" + String.valueOf(pourcentage) + "' AS discount) AS tmp WHERE NOT EXISTS ( SELECT id_cine FROM promotion WHERE (id_cine='" + String.valueOf(id_cine) + "' AND nom_promo='" + nom_promo +"' AND discount = '" + String.valueOf(pourcentage) + "')) LIMIT 1;");
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+    public void suppr_promotion(int id_promo)
+    {
+        try
+        {
+            myStat.executeUpdate("DELETE FROM promotion WHERE id_promo = '" + String.valueOf(id_promo) + "';");
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+    }
     public void add_like(int id_user, String id_film)
     {
         try
@@ -529,7 +551,7 @@ public class HelloApplication extends Application {
             exception.printStackTrace();
         }
     }
-    public void AjouterSalleCinema_into_bdd(int capacite, int num_salle, int id_cine_bdd)
+    public int AjouterSalleCinema_into_bdd(int capacite, int num_salle, int id_cine_bdd)
     {
         try
         {
@@ -544,11 +566,13 @@ public class HelloApplication extends Application {
             {
                 myStat.executeUpdate("INSERT INTO cinema_salle (id_cine, id_salle) VALUES ('" + String.valueOf(id_cine_bdd) + "','" + String.valueOf(id_salle) + "');");
             }
+            return id_salle;
         }
         catch(Exception exception)
         {
             exception.printStackTrace();
         }
+        return -1;
     }
     public void AssignCinema(int id_user, int id_cine_bdd)
     {
