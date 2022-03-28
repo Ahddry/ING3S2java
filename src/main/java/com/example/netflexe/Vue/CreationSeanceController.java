@@ -2,7 +2,6 @@ package com.example.netflexe.Vue;
 
 import com.example.netflexe.Model.Cinema;
 import com.example.netflexe.Model.Movie;
-import com.example.netflexe.Model.Profil;
 import com.example.netflexe.Model.Seance;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

@@ -1,7 +1,7 @@
 package com.example.netflexe.Vue;
 
 
-import com.example.netflexe.Model.MovieCollection;
+
 import com.example.netflexe.Model.Profil;
 
 import com.example.netflexe.Model.Reservation;
@@ -20,7 +20,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import com.example.netflexe.Model.Movie;
+
 
 import java.util.ArrayList;
 

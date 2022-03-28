@@ -1,7 +1,6 @@
 package com.example.netflexe.Model;
 
 import javafx.scene.image.Image;
-import java.time.LocalDate;
 
 
 import java.util.ArrayList;

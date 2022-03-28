@@ -3,7 +3,6 @@ package com.example.netflexe.Vue;
 import com.example.netflexe.Controller.HelloApplication;
 import com.example.netflexe.Model.ActorCollection;
 import com.example.netflexe.Model.MovieCollection;
-import com.example.netflexe.Model.Mail;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +19,6 @@ import javafx.geometry.Insets;
 import com.example.netflexe.Model.Movie;
 
 import java.io.IOException;
-import java.util.Collection;
 
 public class MainMenuController {
 

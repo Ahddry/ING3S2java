@@ -1,6 +1,4 @@
 package com.example.netflexe.Model;
-
-import com.example.netflexe.Controller.HelloApplication;
 import com.example.netflexe.Vue.FilmInfoController;
 
 public class RunnableDemoActor implements Runnable {

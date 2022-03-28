@@ -1,12 +1,8 @@
 package com.example.netflexe.Model;
 
 import javafx.scene.image.Image;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class Cinema {
 

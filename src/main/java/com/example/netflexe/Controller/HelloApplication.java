@@ -181,6 +181,7 @@ public class HelloApplication extends Application {
             ResultSet myRes = myStat.executeQuery("SELECT id_cine, nom, lien_image FROM cinema");
             while(myRes.next())
             {
+                //System.out.println(myRes.getString("nom"));
                 sceneController.getCinemaCollection().addCinema(new Cinema(myRes.getInt("id_cine"), myRes.getString("nom"), myRes.getString("lien_image")));
             }
             sceneController.getCinemaCollection().setImage();
@@ -225,6 +226,7 @@ public class HelloApplication extends Application {
                                 realisateur += myRes3.getString("person.nom");
                             }
                         }
+                        //System.out.println(myRes3.getString("film.nom_film"));
                         Movie movie = new Movie(myRes3.getString("film.nom_film"), realisateur, myRes3.getString("film.poster"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.date_de_sortie"), myRes3.getString("film.duree"), myRes3.getString("film.synopsis"), myRes3.getString("film.slogan"), myRes3.getString("film.id_film"),trailer);
                         sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).addSeance(new Seance(myRes3.getString("film.nom_film"), movie, LocalDate.parse(myRes3.getString("seance.date_horraire").split(" ")[0]), myRes3.getString("seance.date_horraire").split(" ")[1], myRes3.getInt("salle.num_salle"), myRes3.getDouble("seance.prix"), myRes3.getInt("seance.id_seance")));
                         sceneController.getCinemaCollection().getCinema(i).ajoutFilm(movie);
@@ -507,6 +509,9 @@ public class HelloApplication extends Application {
         try
         {
             myStat.executeUpdate("DELETE FROM cinema WHERE id_cine = '" + id_cine + "';");
+            myStat.executeUpdate("DELETE FROM salle JOIN cinema_salle ON cinema_salle.id_salle = salle.id_salle WHERE cinema_salle.id_cine = '" + id_cine + "';");
+            myStat.executeUpdate("DELETE FROM cinema_salle WHERE id_cine = '" + id_cine + "';");
+            myStat.executeUpdate("DELETE FROM seance WHERE id_cine = '" + id_cine + "';");
         }
         catch(Exception exception)
         {
@@ -560,6 +565,7 @@ public class HelloApplication extends Application {
     {
         try
         {
+            myStat.executeUpdate("DELETE FROM seance WHERE id_salle = '" + String.valueOf(id_salle_bdd) + "';");
             myStat.executeUpdate("DELETE FROM salle WHERE id_salle = '" + String.valueOf(id_salle_bdd) + "';");
             myStat.executeUpdate("DELETE FROM cinema_salle WHERE id_salle = '" + String.valueOf(id_salle_bdd) + "';");
         }

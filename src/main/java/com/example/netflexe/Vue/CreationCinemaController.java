@@ -3,14 +3,10 @@ package com.example.netflexe.Vue;
 import com.example.netflexe.Model.Cinema;
 import com.example.netflexe.Model.CinemaCollection;
 import com.example.netflexe.Model.Profil;
-import com.example.netflexe.Model.Seance;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-
-import java.time.LocalDate;
-import java.util.Objects;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 

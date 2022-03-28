@@ -21,7 +21,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import com.example.netflexe.Model.Movie;
 import java.time.LocalDate;
-import java.util.Locale;
 
 
 public class BiblioController {

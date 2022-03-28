@@ -1,7 +1,6 @@
 package com.example.netflexe.Vue;
 
 import com.example.netflexe.Model.CinemaCollection;
-import com.example.netflexe.Model.Movie;
 import com.example.netflexe.Model.Profil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

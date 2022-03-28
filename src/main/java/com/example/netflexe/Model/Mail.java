@@ -2,14 +2,13 @@ package com.example.netflexe.Model;
 
 import java.util.Properties;
 
-import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
 
 public class Mail {
 
-    public void Mail(){}
+    public Mail(){}
 
     public void sendMail(Reservation reservation, String mailTo){
 
