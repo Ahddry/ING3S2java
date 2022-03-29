@@ -333,16 +333,22 @@ public class HelloApplication extends Application {
         }
     }
 
-    public void add_promotion(int id_cine, String nom_promo, double pourcentage, int min_age, int max_age)
+    public int add_promotion(int id_cine, String nom_promo, double pourcentage, int min_age, int max_age)
     {
         try
         {
             myStat.executeUpdate("INSERT INTO promotion (id_cine, nom_promo, discount, max_age, min_age) SELECT * FROM (SELECT '" + String.valueOf(id_cine) +"' AS id_cine, '" + nom_promo +"' AS nom_promo, '" + String.valueOf(pourcentage) + "' AS discount, '" + String.valueOf(max_age) + "' AS max_age, '" + String.valueOf(min_age) + "' AS min_age) AS tmp WHERE NOT EXISTS ( SELECT id_cine FROM promotion WHERE (id_cine='" + String.valueOf(id_cine) + "' AND nom_promo='" + nom_promo +"' AND discount = '" + String.valueOf(pourcentage) + "' AND max_age = '" + String.valueOf(max_age) + "' AND min_age = '" + String.valueOf(min_age) + "')) LIMIT 1;");
+            ResultSet myRes = myStat.executeQuery("SELECT LAST_INSERT_ID();");
+            while(myRes.next())
+            {
+                return(myRes.getInt("LAST_INSERT_ID()"));
+            }
         }
         catch(Exception exception)
         {
             exception.printStackTrace();
         }
+        return -1;
     }
     public void suppr_promotion(int id_promo)
     {
