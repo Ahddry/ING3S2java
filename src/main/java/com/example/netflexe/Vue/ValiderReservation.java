@@ -27,7 +27,7 @@ public class ValiderReservation {
     private ChoiceBox<String> horaireBox;
 
     @FXML
-    private ChoiceBox<String> promoChoiceBox;
+    private ChoiceBox<Promo> promoChoiceBox;
 
     @FXML
     private Label prixLabel;
@@ -49,6 +49,8 @@ public class ValiderReservation {
     private Cinema cinema;
     private String horaireS;
     private String promo;
+    private Promo promo_test;
+    private ArrayList<Promo> promos = new ArrayList<Promo>();
 
 
     @FXML
@@ -64,6 +66,7 @@ public class ValiderReservation {
         movieS = movie;
         cinemaName = cinema.getName();
         image.setImage(movie.getImage());
+        this.promos = cinema.get_promos();
         //seances = cinema.getAllSeances();
         /* A MODIF */
         for(var elem:cinema.getSalles())
@@ -77,6 +80,9 @@ public class ValiderReservation {
         int age = 0;
 
         promotion.add("Pas de promotion");
+        promoChoiceBox.getItems().add(new Promo(1,"Pas de promotion",1));
+        //promos.add(new Promo(2,"Promotion senior",0.7, 65, 100));
+        //promos.add(new Promo(3,"Promotion jeune",0.8, 0, 25));
 
         promoChoiceBox.setVisible(false);
 
@@ -84,14 +90,17 @@ public class ValiderReservation {
             LocalDate date1 = LocalDate.parse(profil.get_age());
             LocalDate date2 = LocalDate.now();
             age = date2.getYear() - date1.getYear();
-            if (age <= 25) {
-                promotion.add("Promotion jeune");
-            } else if (age >= 65) {
-                promotion.add("Promotion senior");
+            for(int i = 0 ; i < this.promos.size() ;i++)
+            {
+                if(age >= this.promos.get(i).get_minAge() && age < this.promos.get(i).get_maxAge())
+                {
+                    promoChoiceBox.getItems().add(this.promos.get(i));
+                }
             }
             mailInput.setText(profil.get_mail());
         }
-        promoChoiceBox.setItems(FXCollections.observableArrayList(promotion));
+        //promoChoiceBox.setItems(FXCollections.observableArrayList(promotion));
+        
 
 
         horaireBox.setBackground(new Background(new BackgroundFill(Color.rgb(29,29,31), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -120,10 +129,10 @@ public class ValiderReservation {
             horaires.clear();
             dateS = newValue;
             for (Seance seance : seances) {
-                System.out.println(seance.getName());
-                System.out.println(movie.getTitle());
-                System.out.println(seance.getDate().toString());
-                System.out.println(newValue.toString());
+                //System.out.println(seance.getName());
+                //System.out.println(movie.getTitle());
+                //System.out.println(seance.getDate().toString());
+                //System.out.println(newValue.toString());
                 if ((seance.getName().equals(movie.getTitle())) && (seance.getDate().toString().equals(newValue.toString()))) {
 
                     horaires.add(seance.getHeure());
@@ -145,12 +154,14 @@ public class ValiderReservation {
 
         promoChoiceBox.valueProperty().addListener((ov, oldValue, newValue) -> {
 
-            promo = newValue;
-            switch (newValue.toString()) {
+            promo_test = newValue;
+            //System.out.println(newValue.toString());
+            /*switch (newValue.toString()) {
                 case "Pas de promotion" -> prixFinal = seanceS.getPrix();
                 case "Promotion jeune" -> prixFinal = (seanceS.getPrix() * (0.8));
                 case "Promotion senior" -> prixFinal = (seanceS.getPrix() * (0.7));
-            }
+            }*/
+            prixFinal = seanceS.getPrix() * newValue.get_pourcentage();
             prixFLabel.setText((String.valueOf(prixFinal)));
         });
     }

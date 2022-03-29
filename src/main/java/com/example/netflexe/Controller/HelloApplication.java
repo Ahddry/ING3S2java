@@ -95,9 +95,6 @@ public class HelloApplication extends Application {
     }
     @Override
     public void start(Stage stage) throws IOException {
-
-
-
         this.primaryStage = stage;
         this.primaryStage.setTitle("AddressApp");
         sceneController = new SceneController(primaryStage, user, collection, this);
@@ -187,12 +184,19 @@ public class HelloApplication extends Application {
             sceneController.getCinemaCollection().setImage();
             for(int i = 0 ; i < sceneController.getCinemaCollection().getSize(); i++)
             {
+                ResultSet myRes3 = myStat.executeQuery("SELECT * FROM promotion WHERE id_cine = '" + sceneController.getCinemaCollection().getCinema(i).get_id_cine() + "';");
+                while(myRes3.next())
+                {
+                    sceneController.getCinemaCollection().getCinema(i).add_promo(new Promo(myRes3.getInt("id_promo"), myRes3.getString("nom_promo"), myRes3.getDouble("discount"), myRes3.getInt("min_age"), myRes3.getInt("max_age")));
+                }
+            }
+            for(int i = 0 ; i < sceneController.getCinemaCollection().getSize(); i++)
+            {
                 ResultSet myRes2 = myStat.executeQuery("SELECT salle.id_salle, capacite, num_salle FROM salle JOIN cinema_salle ON cinema_salle.id_salle = salle.id_salle WHERE cinema_salle.id_cine = '" + String.valueOf(sceneController.getCinemaCollection().getCinema(i).get_id_cine()) +"';");
                 while(myRes2.next())
                 {
                     sceneController.getCinemaCollection().getCinema(i).addSalles(new Salle(myRes2.getInt("salle.id_salle"), myRes2.getInt("num_salle"), myRes2.getInt("capacite")));
                 }
-
             }
             for(int i = 0 ; i < sceneController.getCinemaCollection().getSize(); i++)
             {
@@ -329,11 +333,11 @@ public class HelloApplication extends Application {
         }
     }
 
-    public void add_promotion(int id_cine, String nom_promo, double pourcentage)
+    public void add_promotion(int id_cine, String nom_promo, double pourcentage, int min_age, int max_age)
     {
         try
         {
-            myStat.executeUpdate("INSERT INTO promotion (id_cine, nom_promo, discount) SELECT * FROM (SELECT '" + String.valueOf(id_cine) +"' AS id_cine, '" + nom_promo +"' AS nom_promo, '" + String.valueOf(pourcentage) + "' AS discount) AS tmp WHERE NOT EXISTS ( SELECT id_cine FROM promotion WHERE (id_cine='" + String.valueOf(id_cine) + "' AND nom_promo='" + nom_promo +"' AND discount = '" + String.valueOf(pourcentage) + "')) LIMIT 1;");
+            myStat.executeUpdate("INSERT INTO promotion (id_cine, nom_promo, discount, max_age, min_age) SELECT * FROM (SELECT '" + String.valueOf(id_cine) +"' AS id_cine, '" + nom_promo +"' AS nom_promo, '" + String.valueOf(pourcentage) + "' AS discount, '" + String.valueOf(max_age) + "' AS max_age, '" + String.valueOf(min_age) + "' AS min_age) AS tmp WHERE NOT EXISTS ( SELECT id_cine FROM promotion WHERE (id_cine='" + String.valueOf(id_cine) + "' AND nom_promo='" + nom_promo +"' AND discount = '" + String.valueOf(pourcentage) + "' AND max_age = '" + String.valueOf(max_age) + "' AND min_age = '" + String.valueOf(min_age) + "')) LIMIT 1;");
         }
         catch(Exception exception)
         {
@@ -756,6 +760,11 @@ public class HelloApplication extends Application {
                     if(myRes.getString("cinema.nom") != null && myRes.getString("cinema.lien_image") != null && myRes.getString("cinema.id_cine") != null)
                     {
                         tempCine = new Cinema(myRes.getInt("cinema.id_cine"),myRes.getString("cinema.nom"), myRes.getString("cinema.lien_image"));
+                        ResultSet myRes4 = myStat.executeQuery("SELECT * FROM promotion WHERE id_cine = '" + tempCine.get_id_cine() + "';");
+                        while(myRes4.next())
+                        {
+                            tempCine.add_promo(new Promo(myRes4.getInt("id_promo"), myRes4.getString("nom_promo"), myRes4.getDouble("discount"), myRes4.getInt("min_age"), myRes4.getInt("max_age")));
+                        }
                         ResultSet myRes2 = myStat2.executeQuery("SELECT salle.id_salle, capacite, num_salle FROM salle JOIN cinema_salle ON cinema_salle.id_salle = salle.id_salle WHERE cinema_salle.id_cine = '" + String.valueOf(tempCine.get_id_cine()) +"';");
                         while(myRes2.next())
                         {

@@ -13,6 +13,7 @@ public class Cinema {
     private Image image = null;
     private String imageString = "";
     private List<Salle> salles = new ArrayList<>();
+    private ArrayList<Promo> promos  = new ArrayList<Promo>();
     private ArrayList<String> promoUtilisees = new ArrayList<String>();
     private ArrayList<String> filmVendus = new ArrayList<String>();
 
@@ -174,5 +175,13 @@ public class Cinema {
                  return true;
         }
         return false;
+    }
+    public void add_promo(Promo promo)
+    {
+        this.promos.add(promo);
+    }
+    public ArrayList<Promo> get_promos()
+    {
+        return this.promos;
     }
 }
