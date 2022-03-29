@@ -22,12 +22,15 @@
         <Label fx:id="nomCinema" styleClass="label-header" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         <Label alignment="BOTTOM_LEFT" styleClass="label-bright" text="Films à l'affiche" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <ListView fx:id="listView1" prefHeight="200.0" prefWidth="200.0" styleClass="table-view" stylesheets="@dark-theme.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Button alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: #9a9a9a; -fx-border-radius: 100; -fx-background-radius: 100;" text="+" GridPane.columnIndex="2"
-                GridPane.rowIndex="2" prefHeight="60" fx:id="ajoutFilmBouton" onAction="#ajoutFilmBoutonClick">
+        <Button fx:id="ajoutFilmBouton" alignment="CENTER" mnemonicParsing="false" onAction="#ajoutFilmBoutonClick" prefHeight="60" style="-fx-background-color: #9a9a9a; -fx-border-radius: 100; -fx-background-radius: 100;" text="+" GridPane.columnIndex="2" GridPane.rowIndex="2">
             <font>
                 <Font size="35.0" />
             </font>
         </Button>
-        <Label styleClass="label-bright" text="Mon cinéma" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label styleClass="label-bright" text="Promotions disponibles" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <GridPane fx:id="promotions" GridPane.columnIndex="1" GridPane.rowIndex="4" >
+
+      </GridPane>
+
     </GridPane>
 </AnchorPane>

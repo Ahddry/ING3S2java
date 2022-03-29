@@ -184,4 +184,15 @@ public class Cinema {
     {
         return this.promos;
     }
+    public void deletePromo(int idPromo)
+    {
+        for (var promo : promos)
+        {
+            if (promo.get_idPromo() == idPromo)
+            {
+                promos.remove(promo);
+                break;
+            }
+        }
+    }
 }

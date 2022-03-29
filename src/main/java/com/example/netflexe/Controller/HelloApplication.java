@@ -333,7 +333,7 @@ public class HelloApplication extends Application {
         }
     }
 
-    public void add_promotion(int id_cine, String nom_promo, double pourcentage, int min_age, int max_age)
+    public int add_promotion(int id_cine, String nom_promo, double pourcentage, int min_age, int max_age)
     {
         try
         {
@@ -343,6 +343,7 @@ public class HelloApplication extends Application {
         {
             exception.printStackTrace();
         }
+        return 1;
     }
     public void suppr_promotion(int id_promo)
     {
