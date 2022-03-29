@@ -760,7 +760,7 @@ public class HelloApplication extends Application {
                     if(myRes.getString("cinema.nom") != null && myRes.getString("cinema.lien_image") != null && myRes.getString("cinema.id_cine") != null)
                     {
                         tempCine = new Cinema(myRes.getInt("cinema.id_cine"),myRes.getString("cinema.nom"), myRes.getString("cinema.lien_image"));
-                        ResultSet myRes4 = myStat.executeQuery("SELECT * FROM promotion WHERE id_cine = '" + tempCine.get_id_cine() + "';");
+                        ResultSet myRes4 = myStat2.executeQuery("SELECT * FROM promotion WHERE id_cine = '" + tempCine.get_id_cine() + "';");
                         while(myRes4.next())
                         {
                             tempCine.add_promo(new Promo(myRes4.getInt("id_promo"), myRes4.getString("nom_promo"), myRes4.getDouble("discount"), myRes4.getInt("min_age"), myRes4.getInt("max_age")));
