@@ -3,6 +3,7 @@ package com.example.netflexe.Vue;
 import com.example.netflexe.Model.Cinema;
 import com.example.netflexe.Model.Movie;
 import com.example.netflexe.Model.MovieCollection;
+import com.example.netflexe.Model.Promo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,7 +15,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import org.controlsfx.control.spreadsheet.Grid;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,11 +29,13 @@ public class AccueilAdminController
     private ListView<String> listView1 = new ListView<>();
     @FXML
     private Button ajoutFilmBouton;
+    @FXML
+    private GridPane promotions;
 
     private Cinema cinema;
     private SceneController mainApp;
     private MovieCollection collection;
-    private final ContextMenu contextMenu = new ContextMenu();
+    private ContextMenu contextMenu = new ContextMenu();
 
     public void init(Cinema c)
     {
@@ -102,7 +107,8 @@ public class AccueilAdminController
                 }
             });
         });
-        contextMenu.getItems().add(suppr);
+        //contextMenu.getItems().add(suppr);
+        contextMenu = new ContextMenu(suppr);
 
         listView1.setOnMouseClicked(event ->
         {
@@ -118,6 +124,72 @@ public class AccueilAdminController
         });
 
         listView1.setOrientation(Orientation.HORIZONTAL);
+        promotions.minHeight(300);
+        promotions.minWidth(1100);
+        promotions.setStyle("-fx-background-color: #1d1d1d; ");
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPercentWidth(25);
+        col1.setPrefWidth(200);
+        col1.setMinWidth(150);
+        ColumnConstraints col2 = new ColumnConstraints();
+        col2.setPercentWidth(20);
+        col2.setPrefWidth(200);
+        col2.setMinWidth(150);
+        ColumnConstraints col3 = new ColumnConstraints();
+        col3.setPercentWidth(15);
+        col3.setPrefWidth(200);
+        col3.setMinWidth(150);
+        ColumnConstraints col4 = new ColumnConstraints();
+        col4.setPercentWidth(15);
+        col4.setPrefWidth(200);
+        col4.setMinWidth(150);
+        ColumnConstraints col5 = new ColumnConstraints();
+        col5.setPercentWidth(20);
+        col5.setPrefWidth(200);
+        col5.setMinWidth(150);
+        promotions.getColumnConstraints().addAll(col1, col2, col3, col4, col5);
+        promotions.addRow(0);
+        if(!cinema.get_promos().isEmpty())
+        {
+            promotions.add(new Label("Nom"), 0, 0);
+            promotions.add(new Label("% de réduction"), 1, 0);
+            promotions.add(new Label("Age minimum"), 2, 0);
+            promotions.add(new Label("Age maximum"), 3, 0);
+        }
+        int compteur = 1;
+        for (var promo : cinema.get_promos())
+        {
+            promotions.addRow(compteur);
+            promotions.add(new Label(promo.get_nomPromo()), 0, compteur);
+            promotions.add(new Label(promo.get_pourcentage() * 100 + "%"), 1, compteur);
+            promotions.add(new Label(promo.get_minAge() + ""), 2, compteur);
+            promotions.add(new Label(promo.get_maxAge() + ""), 3, compteur);
+            Button supprimerPromo = new Button("Supprimer");
+            supprimerPromo.setTooltip(new Tooltip("Supprimer la promotion."));
+            supprimerPromo.setOnAction(actionEvent -> supprimerBoutonClick(promo.get_idPromo()));
+            supprimerPromo.setAlignment(Pos.CENTER);
+            promotions.add(supprimerPromo, 4, compteur);
+            compteur++;
+        }
+        promotions.addRow(compteur);
+        Button ajouterPromo = new Button("Ajouter");
+        ajouterPromo.setTooltip(new Tooltip("Ajouter une promotion."));
+        ajouterPromo.setOnAction(actionEvent -> ajouterPromoClick());
+        ajouterPromo.setAlignment(Pos.CENTER);
+        promotions.add(ajouterPromo, 0, compteur);
+
+    }
+
+    public void supprimerBoutonClick(int idPromo)
+    {
+        cinema.deletePromo(idPromo);
+        mainApp.getHello().suppr_promotion(idPromo);
+        mainApp.showAccueilAdmin();
+    }
+
+    public void ajouterPromoClick()
+    {
+        mainApp.showCreationPromo(cinema);
     }
 
     public void ajoutFilmBoutonClick()

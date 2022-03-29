@@ -220,12 +220,6 @@ public class SeancesController
                         System.out.println("Salle : " + s.getNumero() + " id : " + s.get_id_bdd());
 
                         mainApp.getHello().SupprimerUneSalleBDD(s.get_id_bdd());
-                        for (var salle : cinema.getSalles())
-                        {
-                            if (salle.get_id_bdd() == s.get_id_bdd())
-                                System.out.println("Elle est tjr là : " + s.get_id_bdd());
-                        }
-
                         mainApp.setCinemaAdmin(this.cinema);
                         mainApp.showSeances();
                     } else

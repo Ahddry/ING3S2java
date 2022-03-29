@@ -51,6 +51,10 @@ public class SceneController
     private ApprobationAdminController controller_attente_admin;
     private ScrollPane scroll_attente_admin;
 
+    private AnchorPane creaPromo;
+    private CreationPromoController creationPromoController;
+    private ScrollPane scrollPromo;
+
     private AnchorPane creaCine;
     private CreationCinemaController controller_creaCine;
     private ScrollPane scroll_creaCine;
@@ -666,6 +670,27 @@ public class SceneController
             controller_attente_admin.init(this);
             scroll_attente_admin.setContent(approAdmin);
             rootLayout_admin.setCenter(scroll_attente_admin);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void showCreationPromo(Cinema c)
+    {
+        try
+        {
+            if(creationPromoController == null)
+            {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("CreationPromo.fxml"));
+                creaPromo = loader.load();
+                creationPromoController = loader.getController();
+                scrollPromo = new ScrollPane();
+            }
+            creationPromoController.setMainApp(this, c);
+            scrollPromo.setContent(creaPromo);
+            rootLayout_admin.setCenter(scrollPromo);
         } catch (IOException e)
         {
             e.printStackTrace();
