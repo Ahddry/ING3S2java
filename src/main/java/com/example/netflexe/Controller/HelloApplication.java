@@ -128,7 +128,7 @@ public class HelloApplication extends Application {
 
             for(int i = 0; i<1;i++)
             {
-                ResultSet myRes = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.nom, person.prenom FROM film as f LEFT JOIN film_genre ON (f.id_film = film_genre.id_film) LEFT JOIN genre ON (genre.id_genre = film_genre.id_genre) LEFT JOIN realisateur ON realisateur.id_film = f.id_film LEFT JOIN person ON person.id_person = realisateur.id_person;");
+                ResultSet myRes = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.nom, person.prenom FROM film as f LEFT JOIN realisateur ON realisateur.id_film = f.id_film LEFT JOIN person ON person.id_person = realisateur.id_person;");
                 while(myRes.next())
                 {
                     String poster = myRes.getString("poster").replace("600","300").replace("900","450");
