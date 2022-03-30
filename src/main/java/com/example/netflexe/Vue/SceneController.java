@@ -706,6 +706,10 @@ public class SceneController
     {
         return collections;
     }
+    public SeancesController getSeanceController()
+    {
+        return this.controller_seancesView;
+    }
 
     public Scene getScene()
     {

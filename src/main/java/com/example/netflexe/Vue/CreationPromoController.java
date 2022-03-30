@@ -90,11 +90,19 @@ public class CreationPromoController
 			if (!exists && valValide && maxValide && minValide)
 			{
 				int idPromo = mainApp.getHello().add_promotion(cinema.get_id_cine(), nomPromo.getText(), valPromo/100.0, min, max);
-				Promo promo = new Promo(idPromo, nomPromo.getText(), valPromo/100.0, min, max);
-				cinema.add_promo(promo);
-				mainApp.setCinemaAdmin(cinema);
-				mainApp.getProfil().setCinema(cinema);
-				mainApp.showAccueilAdmin();
+				if (idPromo == -1)
+				{
+					Alert alert = new Alert(Alert.AlertType.ERROR, "Erreur lors de la création de la promotion.", ButtonType.OK);
+					alert.show();
+				}
+				else
+				{
+					Promo promo = new Promo(idPromo, nomPromo.getText(), valPromo/100.0, min, max);
+					cinema.add_promo(promo);
+					mainApp.setCinemaAdmin(cinema);
+					mainApp.getProfil().setCinema(cinema);
+					mainApp.showAccueilAdmin();
+				}
 			} else if (exists)
 			{
 				Alert alert = new Alert(Alert.AlertType.ERROR, "Une promotion portant ce nom existe déjà.", ButtonType.OK);
