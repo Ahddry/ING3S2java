@@ -614,16 +614,22 @@ public class HelloApplication extends Application {
             exception.printStackTrace();
         }
     }
-    public void insertMovie_into_bdd(String lien_poster, String nom_film, String date_de_sortie, String duree, String synopsis, String slogan, String trailer)
+    public int insertMovie_into_bdd(String lien_poster, String nom_film, String date_de_sortie, String duree, String synopsis, String slogan, String trailer)
     {
         try
         {
             myStat.executeUpdate("INSERT INTO film (poster,nom_film,date_de_sortie,duree,synopsis,slogan,trailer) SELECT * FROM (SELECT '" + lien_poster +"' AS poster, '" + nom_film +"' AS nom_film, '"+ date_de_sortie +"' AS date_de_sortie, '" + duree + "' AS duree, '" + synopsis + "' AS synopsis, '" + slogan + "' AS slogan, '" + trailer + "' AS trailer) AS tmp WHERE NOT EXISTS ( SELECT id_film FROM film WHERE (nom_film='" + nom_film  + "' AND poster='" + lien_poster +"' AND date_de_sortie = '" + date_de_sortie + "' AND duree= '"+ duree +"' AND synopsis = '" + synopsis + "' AND slogan = '" + slogan + "' AND trailer = '" + trailer + "')) LIMIT 1;");    
+            ResultSet myRes = myStat.executeQuery("SELECT LAST_INSERT_ID();");
+            while(myRes.next())
+            {
+                return(myRes.getInt("LAST_INSERT_ID()"));
+            }
         }
         catch(Exception exception)
         {
             exception.printStackTrace();
         }
+        return -1;
     }
     public int AjouterSalleCinema_into_bdd(int capacite, int num_salle, int id_cine_bdd)
     {
@@ -686,7 +692,7 @@ public class HelloApplication extends Application {
     {
         try
         {
-            myStat.executeUpdate("DELETE FROM seance WHERE id_salle = '" + String.valueOf(id_seance) + "';");
+            myStat.executeUpdate("DELETE FROM seance WHERE id_seance = '" + String.valueOf(id_seance) + "';");
         }
         catch(Exception exception)
         {
