@@ -122,9 +122,54 @@ public class HelloApplication extends Application {
                 genre.add("Animation");
                 genre.add("Comédie");
             }
+
+
+
+
+            for(int i = 0; i<1;i++)
+            {
+                ResultSet myRes = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.nom, person.prenom FROM film as f JOIN film_genre ON (f.id_film = film_genre.id_film) JOIN genre ON (genre.id_genre = film_genre.id_genre) JOIN realisateur ON realisateur.id_film = f.id_film JOIN person ON person.id_person = realisateur.id_person ;");
+                while(myRes.next())
+                {
+                    String poster = myRes.getString("poster").replace("600","300").replace("900","450");
+                    String dateDeSortie = myRes.getString("date_de_sortie");
+                    String duree = myRes.getString("duree");
+                    String synopsis = myRes.getString("synopsis");
+                    String slogan = myRes.getString("slogan");
+                    String id_film = myRes.getString("id_film");
+                    String trailer;
+                    if(myRes.getString("trailer") != "" && myRes.getString("trailer") != null)
+                    {
+                        trailer = myRes.getString("trailer").split("=")[1];
+                    }
+                    else
+                    {
+                        trailer = null;
+                    }
+                    //System.out.println(poster);
+                    String realisateur = "";
+                    if(myRes.getString("person.prenom") != null && myRes.getString("person.prenom") != "")
+                    {
+                        realisateur += myRes.getString("person.prenom");
+                    }
+                    if(myRes.getString("person.nom") != null && myRes.getString("person.nom") != "")
+                    {
+                        if(!realisateur.equals(""))
+                        {
+                            realisateur += " " + myRes.getString("person.nom");
+                        }
+                        else
+                        {
+                            realisateur += myRes.getString("person.nom");
+                        }
+                    }
+                    collection[5].addMovie(new Movie(myRes.getString("nom_film"),realisateur,poster, dateDeSortie, dateDeSortie, duree, synopsis, slogan, id_film, trailer));
+                }
+            }
+
             for(int i = 0; i<5;i++)
             {
-                ResultSet myRes = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.nom, person.prenom FROM film as f JOIN film_genre ON (f.id_film = film_genre.id_film) JOIN genre ON (genre.id_genre = film_genre.id_genre) JOIN realisateur ON realisateur.id_film = f.id_film JOIN person ON person.id_person = realisateur.id_person WHERE genre.nom = '" + genre.get(i) + "';");
+                ResultSet myRes = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.nom, person.prenom FROM film as f JOIN film_genre ON (f.id_film = film_genre.id_film) JOIN genre ON (genre.id_genre = film_genre.id_genre) JOIN realisateur ON realisateur.id_film = f.id_film JOIN person ON person.id_person = realisateur.id_person  WHERE genre.nom = '" + genre.get(i) + "';");
                 while(myRes.next())
                 {
                     String poster = myRes.getString("poster").replace("600","300").replace("900","450");
@@ -163,17 +208,6 @@ public class HelloApplication extends Application {
                 }
             }
 
-            for(int i = 0; i<5;i++)
-            {
-                for(int j = 0; j<collection[i].getSize();j++)
-                {
-                    if(!collection[5].checkBoolean(collection[i].getMovie(j).getTitle()))
-                    {
-                        collection[5].addMovie(collection[i].getMovie(j));
-                    }
-
-                }
-            }
 
             ResultSet myRes = myStat.executeQuery("SELECT id_cine, nom, lien_image FROM cinema");
             while(myRes.next())
@@ -267,41 +301,41 @@ public class HelloApplication extends Application {
                         }
                         else
                         {
-                            realisateur += myRes.getString("person.nom");
+                            realisateur += myRes2.getString("person.nom");
                         }
                     }
                     user.ajouterLike(new Movie(myRes2.getString("nom_film"), realisateur, myRes2.getString("poster"), tempDatedesortie,tempDatedesortie,myRes2.getString("duree"), myRes2.getString("synopsis"), myRes2.getString("slogan"), myRes2.getString("id_film"), trailer));
                 }
-                myRes2 = myStat.executeQuery("SELECT film.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.prenom, person.nom FROM film JOIN deja_vu ON film.id_film = deja_vu.id_film JOIN realisateur ON realisateur.id_film = film.id_film JOIN person ON person.id_person = realisateur.id_person WHERE deja_vu.id_user = '" + String.valueOf(user.get_id()) +"';");
-                while(myRes2.next())
+                ResultSet myRes5 = myStat.executeQuery("SELECT film.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.prenom, person.nom FROM film JOIN deja_vu ON film.id_film = deja_vu.id_film JOIN realisateur ON realisateur.id_film = film.id_film JOIN person ON person.id_person = realisateur.id_person WHERE deja_vu.id_user = '" + String.valueOf(user.get_id()) +"';");
+                while(myRes5.next())
                 {
-                    String tempDatedesortie = myRes2.getString("date_de_sortie");
+                    String tempDatedesortie = myRes5.getString("date_de_sortie");
                     String trailer;
-                    if(myRes2.getString("trailer") != "" && myRes2.getString("trailer") != null)
+                    if(myRes5.getString("trailer") != "" && myRes5.getString("trailer") != null)
                     {
-                        trailer = myRes2.getString("trailer").split("=")[1];
+                        trailer = myRes5.getString("trailer").split("=")[1];
                     }
                     else
                     {
                         trailer = null;
                     }
                     String realisateur = "";
-                    if(myRes2.getString("person.prenom") != null && myRes2.getString("person.prenom") != "")
+                    if(myRes5.getString("person.prenom") != null && myRes5.getString("person.prenom") != "")
                     {
-                        realisateur += myRes2.getString("person.prenom");
+                        realisateur += myRes5.getString("person.prenom");
                     }
-                    if(myRes2.getString("person.nom") != null && myRes2.getString("person.nom") != "")
+                    if(myRes5.getString("person.nom") != null && myRes5.getString("person.nom") != "")
                     {
                         if(!realisateur.equals(""))
                         {
-                            realisateur += " " + myRes2.getString("person.nom");
+                            realisateur += " " + myRes5.getString("person.nom");
                         }
                         else
                         {
-                            realisateur += myRes.getString("person.nom");
+                            realisateur += myRes5.getString("person.nom");
                         }
                     }
-                    user.ajouterDejaVu(new Movie(myRes2.getString("nom_film"), realisateur, myRes2.getString("poster"), tempDatedesortie,tempDatedesortie,myRes2.getString("duree"), myRes2.getString("synopsis"), myRes2.getString("slogan"), myRes2.getString("id_film"), trailer));
+                    user.ajouterDejaVu(new Movie(myRes5.getString("nom_film"), realisateur, myRes5.getString("poster"), tempDatedesortie,tempDatedesortie,myRes5.getString("duree"), myRes5.getString("synopsis"), myRes5.getString("slogan"), myRes5.getString("id_film"), trailer));
                 }
                 user.set_image();
             }
@@ -392,7 +426,6 @@ public class HelloApplication extends Application {
         String tempLien = "";
         try
         {
-            Statement myStat2 = myConn.createStatement();
             ResultSet myRes = myStat.executeQuery("SELECT nom, id_genre from genre");
             while(myRes.next())
             {
@@ -815,10 +848,10 @@ public class HelloApplication extends Application {
                             tempCine.setImage();
                     }
                     this.user = new Profil(myRes.getInt("utilisateur.id_user"), myRes.getString("prenom"), myRes.getString("nom"), myRes.getString("email"), myRes.getString("genre"), myRes.getString("date_de_naissance"), myRes.getBinaryStream("pp"), myRes.getBoolean("admin"), tempCine);
-                    ResultSet myRes2 = myStat2.executeQuery("SELECT film.poster, film.nom_film, seance.date_horraire, cinema.nom, COUNT(*) FROM reservation JOIN seance on reservation.id_seance = seance.id_seance JOIN film ON seance.id_film = film.id_film JOIN cinema ON cinema.id_cine = seance.id_cine WHERE reservation.id_user ='" + myRes.getInt("utilisateur.id_user") +"'GROUP BY reservation.id_user, reservation.id_seance;");
-                    while(myRes2.next())
+                    ResultSet myRes7 = myStat2.executeQuery("SELECT film.poster, film.nom_film, seance.date_horraire, cinema.nom, COUNT(*) FROM reservation JOIN seance on reservation.id_seance = seance.id_seance JOIN film ON seance.id_film = film.id_film JOIN cinema ON cinema.id_cine = seance.id_cine WHERE reservation.id_user ='" + myRes.getInt("utilisateur.id_user") +"'GROUP BY reservation.id_user, reservation.id_seance;");
+                    while(myRes7.next())
                     {
-                        this.user.ajouterReservation(new Reservation(new Movie(myRes2.getString("film.nom_film"), myRes2.getString("film.poster")), myRes2.getString("seance.date_horraire").split(" ")[1],myRes2.getString("cinema.nom") , myRes2.getString("seance.date_horraire").split(" ")[0], myRes2.getInt("COUNT(*)")));
+                        this.user.ajouterReservation(new Reservation(new Movie(myRes7.getString("film.nom_film"), myRes7.getString("film.poster")), myRes7.getString("seance.date_horraire").split(" ")[1],myRes7.getString("cinema.nom") , myRes7.getString("seance.date_horraire").split(" ")[0], myRes7.getInt("COUNT(*)")));
                         //this.user.getFilmRes().get(this.user.getFilmRes().size()-1).getMovie()
                         
                     }

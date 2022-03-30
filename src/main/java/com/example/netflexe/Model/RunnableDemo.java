@@ -16,12 +16,12 @@ public class RunnableDemo implements Runnable {
 
     public void run() {
         collection = mainApp.getMovieCollection(0);
-        for(int i = 0; i<5; i ++)
+        for(int i = 0; i<6; i ++)
         {
             collection[i].setImage();
             this.mainApp.get_sceneController().refreshMovie(i);
         }
-        collection[0].setImage();
+
 
     }
 
