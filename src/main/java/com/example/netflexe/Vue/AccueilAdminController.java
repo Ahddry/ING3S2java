@@ -31,6 +31,9 @@ public class AccueilAdminController
     private Button ajoutFilmBouton;
     @FXML
     private GridPane promotions;
+    @FXML
+    private AnchorPane conteneurPromo;
+
 
     private Cinema cinema;
     private SceneController mainApp;
@@ -123,7 +126,10 @@ public class AccueilAdminController
             }
         });
 
+
+
         listView1.setOrientation(Orientation.HORIZONTAL);
+        promotions = new GridPane();
         promotions.minHeight(300);
         promotions.minWidth(1100);
         promotions.setStyle("-fx-background-color: #1d1d1d; ");
@@ -177,7 +183,7 @@ public class AccueilAdminController
         ajouterPromo.setOnAction(actionEvent -> ajouterPromoClick());
         ajouterPromo.setAlignment(Pos.CENTER);
         promotions.add(ajouterPromo, 0, compteur);
-
+        conteneurPromo.getChildren().setAll(promotions);
     }
 
     public void supprimerBoutonClick(int idPromo)

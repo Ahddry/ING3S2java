@@ -100,13 +100,20 @@ public class AjoutFilmFormController
             else
                 urlImage = affiche.getText();
 
-            Movie movie = new Movie(titre, realisateur, urlImage, dateDeSortie.toString(), dateDeSortie.toString(), dureeDuFilm, leSynopsis, leSlogan, "0", null);
-            movie.setImage(new Image(movie.getImageString()));
-            monCinema.ajoutFilm(movie);
-            mainApp.getHello().insertMovie_into_bdd(movie.getImageString(), movie.getTitle(), movie.getDate_de_sortie_S(), movie.getDuree(), movie.getSynopsis(), movie.getSlogan(), "");
-            mainApp.setCinemaAdmin(monCinema);
-            mainApp.showAccueilAdmin();
-
+            int id = mainApp.getHello().insertMovie_into_bdd(urlImage, titre, dateDeSortie.toString(), dureeDuFilm, leSynopsis, leSlogan, "");
+            if (id != -1)
+            {
+                Movie movie = new Movie(titre, realisateur, urlImage, dateDeSortie.toString(), dateDeSortie.toString(), dureeDuFilm, leSynopsis, leSlogan, id+"", null);
+                movie.setImage(new Image(movie.getImageString()));
+                monCinema.ajoutFilm(movie);
+                mainApp.setCinemaAdmin(monCinema);
+                mainApp.showAccueilAdmin();
+            }
+            else
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Erreur lors de la création du film", ButtonType.OK);
+                alert.show();
+            }
 
         } else
         {

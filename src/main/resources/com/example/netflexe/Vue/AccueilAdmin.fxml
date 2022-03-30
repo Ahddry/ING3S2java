@@ -28,9 +28,12 @@
             </font>
         </Button>
         <Label styleClass="label-bright" text="Promotions disponibles" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <GridPane fx:id="promotions" GridPane.columnIndex="1" GridPane.rowIndex="4" >
+      <AnchorPane fx:id="conteneurPromo" GridPane.columnIndex="1" GridPane.rowIndex="4">
+          <GridPane fx:id="promotions"  >
 
-      </GridPane>
+          </GridPane>
+      </AnchorPane>
+
 
     </GridPane>
 </AnchorPane>
