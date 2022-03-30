@@ -818,7 +818,7 @@ public class HelloApplication extends Application {
                         }
                         for(int j = 0 ; j < tempCine.getSalles().size();j++)
                         {
-                            ResultSet myRes3 = myStat2.executeQuery("SELECT seance.id_seance, seance.id_film, seance.date_horraire, seance.prix, film.id_film, film.poster, film.nom_film, film.date_de_sortie, film.duree, film.synopsis, film.slogan, film.trailer, salle.num_salle, person.prenom, person.nom FROM seance JOIN film on film.id_film = seance.id_film JOIN salle ON salle.id_salle = seance.id_salle  JOIN realisateur ON realisateur.id_film = film.id_film JOIN person ON person.id_person = realisateur.id_person WHERE seance.id_cine = '" + String.valueOf(tempCine.get_id_cine()) + "' AND seance.id_salle = '"+ String.valueOf(tempCine.getSalles().get(j).get_id_bdd())+"';");
+                            ResultSet myRes3 = myStat2.executeQuery("SELECT seance.id_seance, seance.id_film, seance.date_horraire, seance.prix, film.id_film, film.poster, film.nom_film, film.date_de_sortie, film.duree, film.synopsis, film.slogan, film.trailer, salle.num_salle, person.prenom, person.nom FROM seance LEFT JOIN film on film.id_film = seance.id_film LEFT JOIN salle ON salle.id_salle = seance.id_salle LEFT JOIN realisateur ON realisateur.id_film = film.id_film LEFT JOIN person ON person.id_person = realisateur.id_person WHERE seance.id_cine = '" + String.valueOf(tempCine.get_id_cine()) + "' AND seance.id_salle = '"+ String.valueOf(tempCine.getSalles().get(j).get_id_bdd())+"';");
                             while(myRes3.next())
                             {
                                 String trailer;
