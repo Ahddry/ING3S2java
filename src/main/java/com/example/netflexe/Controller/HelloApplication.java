@@ -128,7 +128,7 @@ public class HelloApplication extends Application {
 
             for(int i = 0; i<1;i++)
             {
-                ResultSet myRes = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.nom, person.prenom FROM film as f JOIN film_genre ON (f.id_film = film_genre.id_film) JOIN genre ON (genre.id_genre = film_genre.id_genre) JOIN realisateur ON realisateur.id_film = f.id_film JOIN person ON person.id_person = realisateur.id_person ;");
+                ResultSet myRes = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.nom, person.prenom FROM film as f LEFT JOIN film_genre ON (f.id_film = film_genre.id_film) LEFT JOIN genre ON (genre.id_genre = film_genre.id_genre) LEFT JOIN realisateur ON realisateur.id_film = f.id_film LEFT JOIN person ON person.id_person = realisateur.id_person;");
                 while(myRes.next())
                 {
                     String poster = myRes.getString("poster").replace("600","300").replace("900","450");
@@ -169,7 +169,7 @@ public class HelloApplication extends Application {
 
             for(int i = 0; i<5;i++)
             {
-                ResultSet myRes = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.nom, person.prenom FROM film as f JOIN film_genre ON (f.id_film = film_genre.id_film) JOIN genre ON (genre.id_genre = film_genre.id_genre) JOIN realisateur ON realisateur.id_film = f.id_film JOIN person ON person.id_person = realisateur.id_person  WHERE genre.nom = '" + genre.get(i) + "';");
+                ResultSet myRes = myStat.executeQuery("SELECT f.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.nom, person.prenom FROM film as f LEFT JOIN film_genre ON (f.id_film = film_genre.id_film) LEFT JOIN genre ON (genre.id_genre = film_genre.id_genre) LEFT JOIN realisateur ON realisateur.id_film = f.id_film LEFT JOIN person ON person.id_person = realisateur.id_person  WHERE genre.nom = '" + genre.get(i) + "';");
                 while(myRes.next())
                 {
                     String poster = myRes.getString("poster").replace("600","300").replace("900","450");
@@ -618,6 +618,7 @@ public class HelloApplication extends Application {
     {
         try
         {
+            synopsis = synopsis.replace("'","''");
             myStat.executeUpdate("INSERT INTO film (poster,nom_film,date_de_sortie,duree,synopsis,slogan,trailer) SELECT * FROM (SELECT '" + lien_poster +"' AS poster, '" + nom_film +"' AS nom_film, '"+ date_de_sortie +"' AS date_de_sortie, '" + duree + "' AS duree, '" + synopsis + "' AS synopsis, '" + slogan + "' AS slogan, '" + trailer + "' AS trailer) AS tmp WHERE NOT EXISTS ( SELECT id_film FROM film WHERE (nom_film='" + nom_film  + "' AND poster='" + lien_poster +"' AND date_de_sortie = '" + date_de_sortie + "' AND duree= '"+ duree +"' AND synopsis = '" + synopsis + "' AND slogan = '" + slogan + "' AND trailer = '" + trailer + "')) LIMIT 1;");    
             ResultSet myRes = myStat.executeQuery("SELECT LAST_INSERT_ID();");
             while(myRes.next())
