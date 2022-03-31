@@ -39,7 +39,6 @@ public class Stats {
 
             }
             pieChartData.add(new PieChart.Data(listPromo.get(i), 10));
-
         }
 
         return pieChartData;

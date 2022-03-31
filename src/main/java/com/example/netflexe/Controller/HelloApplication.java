@@ -2,7 +2,6 @@ package com.example.netflexe.Controller;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.scene.layout.BorderPane;
 import java.io.FileInputStream;
 import java.sql.*;
 import java.time.LocalDate;
@@ -16,7 +15,6 @@ import java.io.IOException;
 public class HelloApplication extends Application {
 
     private Stage primaryStage;
-    private BorderPane rootLayout;
     private SceneController sceneController;
     private Connection myConn;
     private Statement myStat;

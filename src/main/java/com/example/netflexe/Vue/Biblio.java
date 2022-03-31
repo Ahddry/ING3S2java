@@ -27,15 +27,15 @@ import java.time.LocalDate;
 public class Biblio {
 
     @FXML
-    private ListView listView1;
+    private ListView<String> listView1;
     @FXML
-    private ListView listView2;
+    private ListView<String> listView2;
     @FXML
-    private ListView listView3;
+    private ListView<String> listView3;
     @FXML
-    private ListView listView4;
+    private ListView<String> listView4;
     @FXML
-    private ListView listView5;
+    private ListView<String> listView5;
     @FXML
     private Label mainTitle;
 
@@ -59,8 +59,6 @@ public class Biblio {
     {
         LocalDate dateTemp;
         collection[0] = monProfil.getFilmLike();
-
-
         for(int i = 0; i<collection[0].getSize();i++)
         {
             dateTemp = collection[0].getMovie(i).getDate_de_sortie_LD();
@@ -93,10 +91,6 @@ public class Biblio {
 
         collection[3] = monProfil.getFilmDejaVu();
         initialiseListView(listView4, 3);
-
-
-
-
     }
 
     private void initialiseListView(ListView<String> listView1, int k)
@@ -163,6 +157,48 @@ public class Biblio {
         this.collectionC = collection;
     }
 
+    public void updateBiblio(Profil monProfil)
+    {
+        LocalDate dateTemp;
+        collection[0] = monProfil.getFilmLike();
+        for(int i = 0; i<collection[0].getSize();i++)
+        {
+            dateTemp = collection[0].getMovie(i).getDate_de_sortie_LD();
+            if(dateTemp.isAfter(dateAJD))
+            {
+                if(!collection[1].checkContain(collection[0].getMovie(i)))
+                {
+                    collection[1].addMovie(collection[0].getMovie(i));
+                }
+            }
+        }
+        initialiseListView(listView1, 0);
+        if(collection[1].getSize() != 0)
+        {
+            initialiseListView(listView2, 1);
+        }
+
+        for(int j = 0; j < collection[0].getSize(); j++)
+        {
+            for (int i = 0; i < collectionC.getSize(); i++) {
+                if(collectionC.getCinema(i).checkMovie(collection[0].getMovie(j).getTitle()))
+                {
+                    if(!collection[2].checkBoolean(collection[0].getMovie(j).getTitle()))
+                    {
+                        if(!collection[2].checkContain(collection[0].getMovie(j)))
+                        {
+                            collection[2].addMovie(collection[0].getMovie(j));
+                        }
+                    }
+
+                }
+            }
+        }
+        initialiseListView(listView3, 2);
+
+        collection[3] = monProfil.getFilmDejaVu();
+        initialiseListView(listView4, 3);
+    }
 
 }
 

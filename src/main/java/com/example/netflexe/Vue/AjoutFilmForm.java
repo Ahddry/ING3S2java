@@ -75,11 +75,11 @@ public class AjoutFilmForm
                 realisateur = "Inconnu";
             else
                 realisateur = director.getText();
-            String producteur;
+            /*String producteur;
             if (isNullOrWhiteSpace(producer.getText()))
                 producteur = "Inconnu";
             else
-                producteur = producer.getText();
+                producteur = producer.getText();*/
             String leSlogan;
             if (isNullOrWhiteSpace(slogan.getText()))
                 leSlogan = "";

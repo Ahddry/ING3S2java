@@ -10,7 +10,7 @@ import java.util.Objects;
 public class ActorCollection {
     private ArrayList<Actor> collection = new ArrayList<Actor>();
 
-    public void ActorCollection() {
+    public ActorCollection() {
     }
 
     public Actor getActor(String name) {

@@ -24,15 +24,15 @@ import java.io.IOException;
 public class MainMenu {
 
     @FXML
-    private ListView listView1;
+    private ListView<String> listView1;
     @FXML
-    private ListView listView2;
+    private ListView<String> listView2;
     @FXML
-    private ListView listView3;
+    private ListView<String> listView3;
     @FXML
-    private ListView listView4;
+    private ListView<String> listView4;
     @FXML
-    private ListView listView5;
+    private ListView<String> listView5;
     @FXML
     private Label mainTitle;
     @FXML

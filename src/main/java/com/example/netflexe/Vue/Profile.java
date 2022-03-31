@@ -20,11 +20,9 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 
 import com.example.netflexe.Controller.HelloApplication;
-import com.example.netflexe.Controller.SceneController;
 import com.example.netflexe.Model.Profil;
 
 public class Profile{
-    private SceneController mainApp;
     private HelloApplication controller;
     private String linkFile = "";
     @FXML
@@ -236,8 +234,7 @@ public class Profile{
         PP.setImage(null);
         PP.setImage(new Image(user.get_pp()));
     }
-    public void setMainApp(SceneController mainApp, HelloApplication controller) {
-        this.mainApp = mainApp;
+    public void setMainApp(HelloApplication controller) {
         this.controller = controller;
         root.requestFocus();
     }

@@ -1,6 +1,4 @@
 package com.example.netflexe.Vue;
-
-import com.example.netflexe.Controller.HelloApplication;
 import com.example.netflexe.Controller.SceneController;
 import com.example.netflexe.Model.Cinema;
 import javafx.fxml.FXML;
@@ -27,7 +25,6 @@ public class ProfileCinema
     private Label nomCine;
 
     private SceneController mainApp;
-    private HelloApplication controller;
     private Cinema cinema;
 
     public void setCinema(Cinema cinema)
@@ -90,9 +87,8 @@ public class ProfileCinema
         mainApp.showApprobationAdmin();
     }
 
-    public void setMainApp(SceneController mainApp, HelloApplication controller) {
+    public void setMainApp(SceneController mainApp) {
         this.mainApp = mainApp;
-        this.controller = controller;
     }
 
     private static boolean isNullOrWhiteSpace(String s)

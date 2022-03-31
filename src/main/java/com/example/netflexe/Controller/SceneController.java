@@ -192,7 +192,7 @@ public class SceneController
                 loader.setLocation(getClass().getResource("Profile.fxml"));
                 loginLayout = (AnchorPane) loader.load();
                 controller_profil = loader.getController();
-                controller_profil.setMainApp(this, this.controller);
+                controller_profil.setMainApp(this.controller);
                 controller_profil.setLabels(user);
             }
             rootLayout.setCenter(loginLayout);
@@ -210,7 +210,7 @@ public class SceneController
                 loader.setLocation(getClass().getResource("ProfileCinema.fxml"));
                 cinema = loader.load();
                 cinemaController = loader.getController();
-                cinemaController.setMainApp(this, controller);
+                cinemaController.setMainApp(this);
                 cinemaController.setCinema(cinemaAdmin);
                 scroll_cinema = new ScrollPane();
             }
@@ -349,10 +349,11 @@ public class SceneController
                 bcontroller = loader.getController();
                 scrollBiblio = new ScrollPane();
                 bcontroller.setMainApp(this);
+                bcontroller.initializeBis(monProfil);
             }
+            bcontroller.updateBiblio(monProfil);
             scrollBiblio.setContent(biblio);
             bcontroller.setCinemaC(cinemaCollection);
-            bcontroller.initializeBis(monProfil);
             rootLayout.setCenter(scrollBiblio);
         } catch (IOException e) {
             e.printStackTrace();
@@ -369,8 +370,6 @@ public class SceneController
                 biblio2 = (AnchorPane) loader.load();
                 controller_biblio = loader.getController();
                 scroll_biblio = new ScrollPane();
-                controller_biblio.setMainApp(this);
-                
             }
             scroll_biblio.setContent(biblio2);
             controller_biblio.initializeBis(monProfil);

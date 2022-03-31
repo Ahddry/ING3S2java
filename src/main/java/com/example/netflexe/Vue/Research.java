@@ -32,7 +32,7 @@ public class Research {
     private TextField barreRecherche;
 
     @FXML
-    private ListView listview;
+    private ListView<String> listview;
 
     private SceneController mainApp;
 

@@ -51,7 +51,6 @@ public class ValiderReservation {
     private Cinema cinema;
     private String horaireS;
     private String promo;
-    private Promo promo_test;
     private ArrayList<Promo> promos = new ArrayList<Promo>();
 
 
@@ -156,7 +155,6 @@ public class ValiderReservation {
 
         promoChoiceBox.valueProperty().addListener((ov, oldValue, newValue) -> {
 
-            promo_test = newValue;
             //System.out.println(newValue.toString());
             /*switch (newValue.toString()) {
                 case "Pas de promotion" -> prixFinal = seanceS.getPrix();

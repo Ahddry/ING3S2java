@@ -30,7 +30,7 @@ public class ReservationVue {
     private Label Title;
 
     @FXML
-    private ListView listView;
+    private ListView<String> listView;
 
     private SceneController mainApp;
     private CinemaCollection collection = new CinemaCollection();

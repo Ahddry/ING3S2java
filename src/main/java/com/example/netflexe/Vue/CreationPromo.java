@@ -2,8 +2,6 @@ package com.example.netflexe.Vue;
 
 import com.example.netflexe.Controller.SceneController;
 import com.example.netflexe.Model.Cinema;
-import com.example.netflexe.Model.CinemaCollection;
-import com.example.netflexe.Model.Profil;
 import com.example.netflexe.Model.Promo;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

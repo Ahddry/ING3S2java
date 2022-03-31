@@ -4,7 +4,6 @@ import com.example.netflexe.Controller.SceneController;
 import com.example.netflexe.Model.Cinema;
 import com.example.netflexe.Model.Movie;
 import com.example.netflexe.Model.MovieCollection;
-import com.example.netflexe.Model.Promo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,9 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import org.controlsfx.control.spreadsheet.Grid;
-
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 

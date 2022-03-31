@@ -1,6 +1,8 @@
 module com.example.netflexe {
-    requires javafx.controls;
+    requires transitive javafx.controls;
     requires javafx.fxml;
+    requires transitive javafx.graphics;
+    requires transitive javafx.base;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;

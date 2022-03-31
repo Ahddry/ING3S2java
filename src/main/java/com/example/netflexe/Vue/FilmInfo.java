@@ -94,13 +94,10 @@ public class FilmInfo {
     private SceneController mainApp;
     private Biblio biblioController;
     private Movie movieS;
-    private Actor ActorS;
     private Profil monProfil;
     private boolean adminAccess;
     private Cinema monCinema;
     private ActorCollection collectionActor;
-
-    private ActorCollection collection = new ActorCollection();
 
     @FXML
     private void initialize() {

@@ -10,7 +10,7 @@ import java.util.Objects;
 public class MovieCollection {
     private ArrayList<Movie> collection = new ArrayList<Movie>();
 
-    public void MovieCollection(){}
+    public MovieCollection(){}
 
     public Movie getMovie(String name)
     {
@@ -26,6 +26,18 @@ public class MovieCollection {
         return collection.get(resultat);
     }
 
+    public ArrayList<Movie> get_arrayList()
+    {
+        return this.collection;
+    }
+    public void setArrayList(ArrayList<Movie> temp)
+    {
+        this.collection = temp;
+    }
+    public boolean checkContain(Movie temp)
+    {
+        return this.collection.contains(temp);
+    }
     public Movie getMovie(int i)
     {
         return collection.get(i);

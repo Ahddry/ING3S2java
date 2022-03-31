@@ -1,10 +1,5 @@
 package com.example.netflexe.Vue;
-
-
-
-import com.example.netflexe.Controller.SceneController;
 import com.example.netflexe.Model.Profil;
-
 import com.example.netflexe.Model.Reservation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,27 +16,22 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
-
 import java.util.ArrayList;
 
 public class BiblioReserv {
 
     @FXML
-    private ListView listView1;
+    private ListView<String> listView1;
     @FXML
-    private ListView listView2;
+    private ListView<String> listView2;
     @FXML
-    private ListView listView3;
+    private ListView<String> listView3;
     @FXML
-    private ListView listView4;
+    private ListView<String> listView4;
     @FXML
-    private ListView listView5;
+    private ListView<String> listView5;
     @FXML
     private Label mainTitle;
-
-
-    private SceneController mainApp;
 
 
     private ArrayList<Reservation> collection = new ArrayList<Reservation> ();
@@ -105,7 +95,7 @@ public class BiblioReserv {
                     imageView.setFitWidth(250);
                     setText(null);
 
-                    VBox myBox = new VBox(imageView,new Label(tempName), new Label(tempDate), new Label(tempHoraire), new Label(tempNom));
+                    VBox myBox = new VBox(imageView,new Label(tempName), new Label(tempDate), new Label(tempHoraire), new Label(tempNom), new Label(tempNbBillet + "x place"));
                     myBox.setAlignment(Pos.BASELINE_CENTER);
                     setGraphic(myBox);
                 }
@@ -115,10 +105,6 @@ public class BiblioReserv {
 
 
         listView1.setOrientation(Orientation.HORIZONTAL);
-    }
-
-    public void setMainApp(SceneController mainApp) {
-        this.mainApp = mainApp;
     }
 
 
