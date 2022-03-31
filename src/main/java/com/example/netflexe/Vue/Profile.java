@@ -81,6 +81,9 @@ public class Profile{
     @FXML
     private Button submit_genre;
 
+    /**
+     * méthode d'initialistation de l'affichage du profil
+     */
     @FXML
     private void initialize() {
         genre_field.getItems().add("");
@@ -217,6 +220,10 @@ public class Profile{
         });        
     }
 
+    /**
+     * Méthode permettant de changer les labels a partir du profil d'un utilisateur
+     * @param user utilisateur source d'information
+     */
     public void setLabels(Profil user)
     {
         nom_prenom.setText(user.get_prenom() + " " +user.get_nom());
@@ -228,8 +235,12 @@ public class Profile{
             Calendar today = new GregorianCalendar();
             bday.setTime(date);
             today.setTime(new Date());
-            age.setText(String.valueOf(today.get(Calendar.YEAR) 
-            - bday.get(Calendar.YEAR) + " ans"));
+            int age_int = today.get(Calendar.YEAR) - bday.get(Calendar.YEAR);
+            if(today.get(Calendar.YEAR) - bday.get(Calendar.YEAR) > 0)
+            {
+                age_int--;
+            }
+            age.setText(String.valueOf(age_int)+ " ans");
         } catch (ParseException e) {
             e.printStackTrace();
         }

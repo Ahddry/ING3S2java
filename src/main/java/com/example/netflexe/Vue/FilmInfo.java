@@ -134,6 +134,10 @@ public class FilmInfo {
             mainApp.showMainMenu();
     }
 
+    /**
+     * Méthode qui permet de set le film a afficher et lance l'engine pour l'affichage de trailer
+     * @param movie
+     */
     public void setMovie(Movie movie)
     {
 
@@ -156,6 +160,10 @@ public class FilmInfo {
         movieS = movie;
     }
 
+    /**
+     * Méthode qui set l'acteur a afficher pour les informations plus détaillé
+     * @param actor acteur a affiché
+     */
     public void setActor(Actor actor)
     {
         Nom.setText(actor.getName());
@@ -165,6 +173,10 @@ public class FilmInfo {
         ImageActeur.setImage(actor.getImageActeur());
     }
 
+    /**
+     * Méthode qui permet de set le profil de l'utilisateur
+     * @param profil
+     */
     public void setProfil(Profil profil)
     {
         monProfil = profil;
@@ -229,6 +241,10 @@ public class FilmInfo {
         monCinema = cinema;
     }
 
+    /**
+     * Méthode qui change l'affichage en fonction de si l'utilisateur est un admin ou si il est un utilisateur sur l'application
+     * @param admin boolean qui indique si la page est affiché depuis user ou admin
+     */
     public void setAdminAccess(boolean admin)
     {
         adminAccess = admin;
@@ -246,6 +262,10 @@ public class FilmInfo {
         }
     }
 
+    /**
+     * Méthode qui affiche une liste view d'acteur en passant par un autre thread pour faire le chargement des images
+     * @param collectionActor collection d'acteur a afficher
+     */
     public void showActors(ActorCollection collectionActor)
     {
         this.collectionActor = collectionActor;
