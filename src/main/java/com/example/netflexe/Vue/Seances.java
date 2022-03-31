@@ -30,6 +30,7 @@ public class Seances
     private SceneController mainApp;
     private ComboBox<String> comboBox = new ComboBox<>();
     private boolean testCharge;
+    private boolean reTestCharge;
 
     /**
      * Méthode d'initialisation de la vue
@@ -40,6 +41,7 @@ public class Seances
     {
         if (testCharge)
         {
+             reTestCharge = false;
             grid = new GridPane();
             grid.minHeight(900.0);
             grid.minWidth(1152.0);
@@ -134,6 +136,7 @@ public class Seances
                             Seance s = salle.getSeance(selectedName);
                             if (salle.deleteSeance(selectedName))
                             {
+                                reTestCharge = true;
                                 cinema.setSalles(salles);
                                 mainApp.getHello().SupprimerUnseSeanceBDD(s.get_idSeance());
                                 mainApp.showSeances();
@@ -186,7 +189,8 @@ public class Seances
             Label labelVide = new Label("");
             grid.add(labelVide, 0, compteur + 1);
             pane.getChildren().setAll(grid);
-            testCharge = false;
+
+            testCharge = reTestCharge;
         }
 
     }
@@ -198,6 +202,7 @@ public class Seances
             numSalle++;
 
         int id = mainApp.getHello().AjouterSalleCinema_into_bdd(250, numSalle, cinema.get_id_cine());
+        testCharge = true;
         cinema.addSalles(new Salle(id, numSalle, 50));
         mainApp.setCinemaAdmin(this.cinema);
         mainApp.showSeances();
@@ -218,14 +223,13 @@ public class Seances
                     {
                         if (salle.getNumero() == numSalle)
                         {
+                            testCharge = true;
                             s = salle;
                             break;
                         }
                     }
                     if (cinema.deleteSalles(numSalle))
                     {
-                        System.out.println("Salle : " + s.getNumero() + " id : " + s.get_id_bdd());
-
                         mainApp.getHello().SupprimerUneSalleBDD(s.get_id_bdd());
                         mainApp.setCinemaAdmin(this.cinema);
                         mainApp.showSeances();
