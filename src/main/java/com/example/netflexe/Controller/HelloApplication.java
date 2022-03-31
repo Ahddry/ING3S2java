@@ -1,6 +1,7 @@
 package com.example.netflexe.Controller;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.FileInputStream;
 import java.sql.*;
@@ -105,6 +106,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         this.primaryStage = stage;
         this.primaryStage.setTitle("AddressApp");
+        this.primaryStage.getIcons().add(new Image("file:Netflece_logo.png"));
         sceneController = new SceneController(primaryStage, user, collection, this);
     }
     /**
