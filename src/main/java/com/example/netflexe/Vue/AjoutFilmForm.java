@@ -23,7 +23,7 @@ public class AjoutFilmForm
     @FXML
     private TextField title;
     @FXML
-    private TextField producer;
+    private TextField trailer;
     @FXML
     private TextField dureeFilm;
     @FXML
@@ -84,11 +84,11 @@ public class AjoutFilmForm
                 realisateur = "Inconnu";
             else
                 realisateur = director.getText();
-            /*String producteur;
-            if (isNullOrWhiteSpace(producer.getText()))
-                producteur = "Inconnu";
+            String bandeAnnonce;
+            if (isNullOrWhiteSpace(trailer.getText()))
+                bandeAnnonce = null;
             else
-                producteur = producer.getText();*/
+                bandeAnnonce = trailer.getText();
             String leSlogan;
             if (isNullOrWhiteSpace(slogan.getText()))
                 leSlogan = "";
@@ -106,16 +106,17 @@ public class AjoutFilmForm
                 leSynopsis = synopsis.getText();
             String urlImage;
             if (isNullOrWhiteSpace(affiche.getText()))
-                urlImage = "";
+                urlImage = "https://media.istockphoto.com/vectors/cinema-festival-retro-poster-vintage-camcorder-vector-id1065406736?k=20&m=1065406736&s=612x612&w=0&h=JGeSrDenbos5zxy-i6fKGY0MqUPgMdHqcygNNBgFDiY=";
             else
                 urlImage = affiche.getText();
 
-            int id = mainApp.getHello().insertMovie_into_bdd(urlImage, titre, dateDeSortie.toString(), dureeDuFilm, leSynopsis, leSlogan, "");
+            int id = mainApp.getHello().insertMovie_into_bdd(urlImage, titre, dateDeSortie.toString(), dureeDuFilm, leSynopsis, leSlogan, bandeAnnonce);
             if (id != -1)
             {
-                Movie movie = new Movie(titre, realisateur, urlImage, dateDeSortie.toString(), dateDeSortie.toString(), dureeDuFilm, leSynopsis, leSlogan, id+"", null);
+                Movie movie = new Movie(titre, realisateur, urlImage, dateDeSortie.toString(), dateDeSortie.toString(), dureeDuFilm, leSynopsis, leSlogan, id+"", bandeAnnonce);
                 movie.setImage(new Image(movie.getImageString()));
                 monCinema.ajoutFilm(movie);
+                mainApp.getMovieCollection2().addMovie(movie);
                 mainApp.setCinemaAdmin(monCinema);
                 mainApp.showAccueilAdmin();
             }

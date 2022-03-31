@@ -533,6 +533,8 @@ public class SceneController
                 controller_SacceulAdmin = loader.getController();
                 scroll_SacceulAdmin = new ScrollPane();
                 controller_SacceulAdmin.setMainApp(this);
+                if(controller_seancesView == null)
+                    showSeances();
             }
             scroll_SacceulAdmin.setContent(SaccueilAdmin);
             rootLayout_admin.setCenter(scroll_SacceulAdmin);
@@ -799,6 +801,10 @@ public class SceneController
     public MovieCollection[] getMovieCollection(int truc)
     {
         return collections;
+    }
+    public MovieCollection getMovieCollection2()
+    {
+        return collections[5];
     }
     public Seances getSeanceController()
     {

@@ -33,7 +33,6 @@ public class Seances
     private SceneController mainApp;
     private ComboBox<String> comboBox = new ComboBox<>();
     private boolean testCharge;
-    private boolean reTestCharge;
 
     /**
      * Initialisation des éléments graphiques de la vue de gestion des séances dans le cinéma
@@ -43,7 +42,6 @@ public class Seances
     {
         if (testCharge)
         {
-             reTestCharge = false;
             grid = new GridPane();
             grid.minHeight(900.0);
             grid.minWidth(1152.0);
@@ -138,8 +136,9 @@ public class Seances
                             Seance s = salle.getSeance(selectedName);
                             if (salle.deleteSeance(selectedName))
                             {
-                                reTestCharge = true;
+                                setTestCharge(true);
                                 cinema.setSalles(salles);
+                                mainApp.setCinemaAdmin(cinema);
                                 mainApp.getHello().SupprimerUnseSeanceBDD(s.get_idSeance());
                                 mainApp.showSeances();
                             } else
@@ -191,8 +190,6 @@ public class Seances
             Label labelVide = new Label("");
             grid.add(labelVide, 0, compteur + 1);
             pane.getChildren().setAll(grid);
-
-            testCharge = reTestCharge;
         }
 
     }

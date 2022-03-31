@@ -112,7 +112,12 @@ public class Movie {
     {
         if(trailer != null)
         {
-            return trailer.get();
+            if (trailer.toString().contains("="))
+            {
+                return trailer.get().split("=")[1];
+            }
+            else
+                return trailer.get();
         }
         else
         {

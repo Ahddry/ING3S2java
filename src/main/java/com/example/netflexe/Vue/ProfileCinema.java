@@ -3,6 +3,7 @@ import com.example.netflexe.Controller.SceneController;
 import com.example.netflexe.Model.Cinema;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
@@ -37,6 +38,7 @@ public class ProfileCinema
     public void setCinema(Cinema cinema)
     {
         this.cinema = cinema;
+        cinema.setImage();
         imageCinema.setImage(cinema.getImage());
         nomCine.setText(cinema.getName());
         int nb = cinema.getSalles().size();
@@ -62,9 +64,9 @@ public class ProfileCinema
             cinema.setNom(nomField.getText());
 
             mainApp.getHello().changerNomCinema(cinema.get_id_cine(), nomField.getText());
-
             mainApp.setCinemaAdmin(cinema);
-            mainApp.showProfileCinema();
+
+            nomCine.setText(nomField.getText());
         }
         else
         {
@@ -86,7 +88,7 @@ public class ProfileCinema
             mainApp.getHello().changerLienImageCinema(cinema.get_id_cine(), adresseImageField.getText());
 
             mainApp.setCinemaAdmin(cinema);
-            mainApp.showProfileCinema();
+            imageCinema.setImage(new Image(adresseImageField.getText()));
         }
         else
         {

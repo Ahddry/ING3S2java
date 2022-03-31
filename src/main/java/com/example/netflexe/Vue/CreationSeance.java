@@ -117,9 +117,8 @@ public class CreationSeance
                 int numSalle = Integer.parseInt(choixSalle.getValue().split(" ")[1]);
                 Seance seance = new Seance(movieS.getTitle(), movieS, dateDeSeance, heureSeance.getText(), numSalle, prixFinal,-1);
                 monCinema.addSeance(numSalle, seance);
-                mainApp.getSeanceController().setTestCharge(true);
                 mainApp.getHello().CreateSeance_into_bdd(Integer.parseInt(movieS.get_idFilm()), monCinema.get_id_cine(), monCinema.getIdSalle(numSalle), seance.getDate().toString(), seance.getHeure(), seance.getPrix());
-
+                mainApp.getSeanceController().setTestCharge(true);
                 mainApp.setCinemaAdmin(monCinema);
                 mainApp.showAccueilAdmin();
             }
