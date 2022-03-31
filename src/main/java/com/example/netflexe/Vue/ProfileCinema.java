@@ -7,6 +7,9 @@ import javafx.scene.image.ImageView;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
+/**
+ * Classe java gérant les contrôles et évènements de la vue ProfileCinéma.fxml
+ */
 public class ProfileCinema
 {
     @FXML
@@ -27,6 +30,10 @@ public class ProfileCinema
     private SceneController mainApp;
     private Cinema cinema;
 
+    /**
+     * Attribution du cinéma dont il faut consulter ou modifier les attributs
+     * @param cinema Cinéma à attribuer
+     */
     public void setCinema(Cinema cinema)
     {
         this.cinema = cinema;
@@ -45,6 +52,9 @@ public class ProfileCinema
             approbAdminBouton.setVisible(false);
     }
 
+    /**
+     * Modifie le nom du cinéma pour une nouvelle valeur renseignée par l'utilisateur
+     */
     public void modifierNomClick()
     {
         if(!isNullOrWhiteSpace(nomField.getText()))
@@ -63,6 +73,9 @@ public class ProfileCinema
         }
     }
 
+    /**
+     * Modifie l'image de profil du cinéma pour une nouvelle valeur (sous forme de lien internet renvoyant à une image) renseignée par l'utilisateur
+     */
     public void modifierImageClick()
     {
         if(!isNullOrWhiteSpace(adresseImageField.getText()))
@@ -82,15 +95,27 @@ public class ProfileCinema
         }
     }
 
+    /**
+     * Affiche le menu de gestion des approbations de droits d'administration
+     */
     public void approbAdminBoutonClick()
     {
         mainApp.showApprobationAdmin();
     }
 
+    /**
+     * Affecte un contrôleur SceneController à cette classe
+     * @param mainApp contrôleur à affecter
+     */
     public void setMainApp(SceneController mainApp) {
         this.mainApp = mainApp;
     }
 
+    /**
+     * Méthode vérifiant si une chaine de caractères donnée est : nulle, vide ou remplie d'espaces blancs.
+     * @param s Chaine de caractères dont il faut vérifier le contenu
+     * @return True si la chaine de caractère est : nulle, vide ou remplie d'espaces blancs, False sinon.
+     */
     private static boolean isNullOrWhiteSpace(String s)
     {
         if (isNullOrEmpty(s))

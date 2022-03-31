@@ -14,6 +14,9 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
+/**
+ * Classe java gérant les contrôles et évènements de la vue ApprobationAdmin.fxml
+ */
 public class ApprobationAdmin
 {
     @FXML
@@ -23,9 +26,12 @@ public class ApprobationAdmin
     @FXML
     private Button retourBouton;
 
-    private ArrayList<Profil> demandesEnAttente;
     private SceneController mainApp;
 
+    /**
+     * Initialisation des éléments graphiques du menu d'approbation de demandes de droits d'administration
+     * @param mainApp contrôleur SceneController à affecter
+     */
     public void init(SceneController mainApp)
     {
         this.mainApp = mainApp;
@@ -56,7 +62,7 @@ public class ApprobationAdmin
         col6.setPrefWidth(100);
         grid.getColumnConstraints().addAll(col0, col1, col2, col3, col4, col5, col6);
 
-        demandesEnAttente = mainApp.getHello().getAttenteAdmin();
+        ArrayList<Profil> demandesEnAttente = mainApp.getHello().getAttenteAdmin();
 
         grid.addRow(0);
         grid.add(new Label("Id user"), 1, 0);
@@ -89,6 +95,10 @@ public class ApprobationAdmin
         pane.getChildren().setAll(vBox);
     }
 
+    /**
+     * Accepter de donner des droits d'administration au profil ciblé
+     * @param profil Profil qui recevra des droits d'administration
+     */
     public void accepterBoutonClick(Profil profil)
     {
         mainApp.getHello().SetAdmin(profil.get_id());
@@ -96,12 +106,19 @@ public class ApprobationAdmin
         mainApp.showApprobationAdmin();
     }
 
+    /**
+     * Refuser de donner des droits d'administration au profil ciblé
+     * @param profil Profil qui ne recevra pas de droits d'administration
+     */
     public void refuserBoutonClick(Profil profil)
     {
         mainApp.getHello().removeWaitingAdmin(profil.get_id());
         mainApp.showApprobationAdmin();
     }
 
+    /**
+     * Retour à la vue de gestion du profil de cinéma et des comptes administrateurs
+     */
     public void retourBoutonClick()
     {
         mainApp.showProfileCinema();

@@ -13,6 +13,9 @@ import java.time.LocalDate;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
+/**
+ * Classe java gérant les contrôles et évènements de la vue AjoutFilmForm.fxml
+ */
 public class AjoutFilmForm
 {
     @FXML
@@ -39,6 +42,9 @@ public class AjoutFilmForm
     private SceneController mainApp;
     private Cinema monCinema;
 
+    /**
+     * Initialisation des éléments graphiques du formulaire de création d'un nouveau film
+     */
     public void init()
     {
         enregistrerBouton.setText("Ajouter le film\nau cinéma");
@@ -64,6 +70,9 @@ public class AjoutFilmForm
         genre.getItems().add("Western");
     }
 
+    /**
+     * Création et enregistrement dans la base de données du nouveau film créé d'après les saisies utilisateur
+     */
     public void enregistrerBoutonClick()
     {
         if ((!isNullOrWhiteSpace(title.getText())) && (!isNullOrWhiteSpace(dureeFilm.getText())))
@@ -123,6 +132,11 @@ public class AjoutFilmForm
         }
     }
 
+    /**
+     * Méthode vérifiant si une chaine de caractères donnée est : nulle, vide ou remplie d'espaces blancs.
+     * @param s Chaine de caractères dont il faut vérifier le contenu
+     * @return True si la chaine de caractère est : nulle, vide ou remplie d'espaces blancs, False sinon.
+     */
     private boolean isNullOrWhiteSpace(String s)
     {
         if (isNullOrEmpty(s))
@@ -146,11 +160,19 @@ public class AjoutFilmForm
         }
     }
 
+    /**
+     * Affecte un contrôleur SceneController à cette classe
+     * @param sceneController contrôleur à affecter
+     */
     public void setMainApp(SceneController sceneController)
     {
         mainApp = sceneController;
     }
 
+    /**
+     * Attribue un cinéma auquel ajouter le film
+     * @param cinema cinéma auquel ajouter un film
+     */
     public void setCinema(Cinema cinema)
     {
         monCinema = cinema;

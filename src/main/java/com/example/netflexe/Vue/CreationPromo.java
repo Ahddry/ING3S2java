@@ -10,6 +10,9 @@ import javafx.scene.control.TextField;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
+/**
+ * Classe java gérant les contrôles et évènements de la vue CreationPromo.fxml
+ */
 public class CreationPromo
 {
 	@FXML
@@ -24,6 +27,9 @@ public class CreationPromo
 	private SceneController mainApp;
 	private Cinema cinema;
 
+	/**
+	 * Retour à l'accueil administrateur
+	 */
 	public void retour()
 	{
 		mainApp.showAccueilAdmin();
@@ -35,6 +41,9 @@ public class CreationPromo
 		this.cinema = cinema;
 	}
 
+	/**
+	 * Création et enregistrement dans la base de données de la nouvelle promotion créée d'après les saisies utilisateur et ajout de celle-ci au cinéma.
+	 */
 	public void confirmerBoutonClick()
 	{
 		if ((!isNullOrWhiteSpace(nomPromo.getText())) && (!isNullOrWhiteSpace(valeurPromo.getText()) && (!isNullOrWhiteSpace(ageMaxi.getText()) && (!isNullOrWhiteSpace(ageMini.getText())))))
@@ -115,6 +124,11 @@ public class CreationPromo
 		}
 	}
 
+	/**
+	 * Méthode vérifiant si une chaine de caractères donnée est : nulle, vide ou remplie d'espaces blancs.
+	 * @param s Chaine de caractères dont il faut vérifier le contenu
+	 * @return True si la chaine de caractère est : nulle, vide ou remplie d'espaces blancs, False sinon.
+	 */
 	private static boolean isNullOrWhiteSpace(String s)
 	{
 		if (isNullOrEmpty(s))
