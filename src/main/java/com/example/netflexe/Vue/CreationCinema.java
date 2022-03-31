@@ -11,6 +11,9 @@ import javafx.scene.control.TextField;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
+/**
+ * Classe java gérant les contrôles et évènements de la vue CreationCinema.fxml
+ */
 public class CreationCinema
 {
     @FXML
@@ -22,11 +25,20 @@ public class CreationCinema
     private SceneController mainApp;
     private CinemaCollection cinemaCollection;
 
+    /**
+     * Retour au menu de sélection de cinéma
+     */
     public void retour()
     {
         mainApp.showChoixCinema(profil);
     }
 
+    /**
+     * Affecte un contrôleur SceneController à cette classe ainsi qu'un ensemble de cinémas auquel s'ajoutera le cinéma à créer et affecte aussi un utilisateur auquel affecter l'administration du cinéma nouvellement créé
+     * @param mainApp contrôleur à affecter
+     * @param cinemaCollection ensemble de cinémas auquel ajouter le cinéma à créer
+     * @param profil profil qui va gérer le nouveau cinéma
+     */
     public void setMainApp(SceneController mainApp, CinemaCollection cinemaCollection, Profil profil)
     {
         this.mainApp = mainApp;
@@ -34,6 +46,9 @@ public class CreationCinema
         this.profil = profil;
     }
 
+    /**
+     * Création et enregistrement dans la base de données du nouveau cinéma créé d'après les saisies utilisateur et affectation de l'administration de celui-ci à l'utilisateur l'ayant créé.
+     */
     public void confirmerBoutonClick()
     {
         if (!isNullOrWhiteSpace(nomCine.getText()))
@@ -73,6 +88,11 @@ public class CreationCinema
         }
     }
 
+    /**
+     * Méthode vérifiant si une chaine de caractères donnée est : nulle, vide ou remplie d'espaces blancs.
+     * @param s Chaine de caractères dont il faut vérifier le contenu
+     * @return True si la chaine de caractère est : nulle, vide ou remplie d'espaces blancs, False sinon.
+     */
     private static boolean isNullOrWhiteSpace(String s)
     {
         if (isNullOrEmpty(s))
