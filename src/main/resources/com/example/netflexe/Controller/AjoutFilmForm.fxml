@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #242425;" stylesheets="@dark-theme.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.netflexe.Vue.AjoutFilmForm">
+    <GridPane alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints minWidth="10" percentWidth="10" />
+            <ColumnConstraints minWidth="300" percentWidth="45" />
+            <ColumnConstraints minWidth="10" percentWidth="45" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="60" minHeight="30" />
+            <RowConstraints maxHeight="100.0" minHeight="30" percentHeight="50.0" />
+            <RowConstraints minHeight="30" percentHeight="40.0" />
+        </rowConstraints>
+
+        <Label styleClass="label-header" text="Nouveau film" GridPane.columnIndex="1">
+            <FlowPane.margin>
+                <Insets bottom="5.0" />
+            </FlowPane.margin>
+        </Label>
+        <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="368.0" prefWidth="402.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="title" promptText="Titre" style="-fx-background-color: #1d1d1d; -fx-border-color: white; -fx-border-radius: 6;             -fx-text-fill: WHITE;" />
+            <FlowPane alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <TextField fx:id="director" prefWidth="183.0" promptText="Réalisateur" style="-fx-background-color: #1d1d1d;                 -fx-border-color: white; -fx-border-radius: 6; -fx-text-fill: WHITE;">
+                    <FlowPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </FlowPane.margin>
+                </TextField>
+                <TextField fx:id="producer" prefWidth="183.0" promptText="Producteur" style="-fx-background-color: #1d1d1d; -fx-border-color: white;                 -fx-border-radius: 6; -fx-text-fill: WHITE;">
+                    <FlowPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </FlowPane.margin>
+                </TextField>
+            </FlowPane>
+            <FlowPane alignment="CENTER">
+                <ChoiceBox fx:id="genre" style="-fx-background-color: #1d1d1d; -fx-border-color: white;                 -fx-border-radius: 6; -fx-text-fill: WHITE;">
+                    <FlowPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </FlowPane.margin>
+                </ChoiceBox>
+                <DatePicker fx:id="dateSortie" promptText="Date de sortie" style="-fx-background-color: #1d1d1d; -fx-border-color: white">
+                    <FlowPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </FlowPane.margin>
+                </DatePicker>
+            </FlowPane>
+            <TextField fx:id="dureeFilm" promptText="Durée du film (00h00m)" style="-fx-background-color: #1d1d1d; -fx-border-color: white;             -fx-border-radius: 6; -fx-text-fill: WHITE;">
+                <FlowPane.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </FlowPane.margin>
+            </TextField>
+            <TextField fx:id="affiche" promptText="Lien vers l'affiche du film" style="-fx-background-color: #1d1d1d; -fx-border-color: white;             -fx-border-radius: 6; -fx-text-fill: WHITE;">
+                <FlowPane.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </FlowPane.margin>
+            </TextField>
+            <TextField fx:id="slogan" promptText="Slogan" style="-fx-background-color: #1d1d1d; -fx-border-color: white;             -fx-border-radius: 6; -fx-text-fill: WHITE;">
+                <FlowPane.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </FlowPane.margin>
+            </TextField>
+            <GridPane.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </GridPane.margin>
+        </FlowPane>
+        <FlowPane alignment="TOP_CENTER" orientation="VERTICAL" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label styleClass="label-bright" text="  Synopsis :" />
+            <TextArea fx:id="synopsis" prefHeight="138.0" prefWidth="352.0" promptText="Synopsis" style="-fx-background-color: #1d1d1d; -fx-border-color: white;                   -fx-border-radius: 6; -fx-control-inner-background:#1d1d1d; -fx-highlight-fill: White; -fx-highlight-text-fill: #1d1d1d; -fx-text-fill: White;">
+                <FlowPane.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </FlowPane.margin>
+            </TextArea>
+        </FlowPane>
+
+        <Button fx:id="enregistrerBouton" onAction="#enregistrerBoutonClick" prefHeight="92.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+        </padding>
+
+    </GridPane>
+
+</AnchorPane>

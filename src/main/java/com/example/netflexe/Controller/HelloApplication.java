@@ -1,6 +1,5 @@
 package com.example.netflexe.Controller;
 
-import com.example.netflexe.Vue.SceneController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;

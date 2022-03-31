@@ -2,6 +2,7 @@ package com.example.netflexe.Vue;
 
 
 
+import com.example.netflexe.Controller.SceneController;
 import com.example.netflexe.Model.Profil;
 
 import com.example.netflexe.Model.Reservation;

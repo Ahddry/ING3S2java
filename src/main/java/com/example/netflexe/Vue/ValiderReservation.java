@@ -5,6 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+
+import com.example.netflexe.Controller.SceneController;
 import com.example.netflexe.Model.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;

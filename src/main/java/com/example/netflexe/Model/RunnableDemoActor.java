@@ -1,11 +1,11 @@
 package com.example.netflexe.Model;
-import com.example.netflexe.Vue.FilmInfoController;
+import com.example.netflexe.Vue.FilmInfo;
 
 public class RunnableDemoActor implements Runnable {
     private Thread t;
     private String threadName;
 
-    private FilmInfoController mainApp;
+    private FilmInfo mainApp;
     private ActorCollection collection = new ActorCollection();
 
     public RunnableDemoActor( String name) {
@@ -33,7 +33,7 @@ public class RunnableDemoActor implements Runnable {
         this.collection = actorCollection;
     }
 
-    public void setMainApp(FilmInfoController mainApp) {
+    public void setMainApp(FilmInfo mainApp) {
         this.mainApp = mainApp;
     }
 
