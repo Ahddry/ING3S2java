@@ -35,7 +35,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
-
+/**
+ * Class contenant le controlleur principale de l'application permet de changer les differentes vues en fonction de l'endroit ou l'on se trouve dans l'application, permet de gerer la mémoire pour éviter un grossisement de l'application au cours du temps
+ */
 public class SceneController
 {
 
@@ -43,6 +45,7 @@ public class SceneController
     private Stage primaryStage;
     private Scene scene;
     private Scene scene_admin;
+    private Scene choixCineScene;
     private BorderPane rootLayout;
     private BorderPane rootLayout_admin;
     private AnchorPane loginLayout;
@@ -121,10 +124,6 @@ public class SceneController
     private AnchorPane research;
     private Research controller_research;
     private ScrollPane scroll_research;
-    
-    private AnchorPane info2;
-    private FilmInfo controller_info2;
-    private ScrollPane scroll_info2;
 
     private AnchorPane biblio2;
     private BiblioReserv controller_biblio;
@@ -162,6 +161,10 @@ public class SceneController
         this.collections = c;
     }
 
+    /**
+     * Méthode permettant d'afficher le menu sur la gauche avec les différents action possible pour l'utilisateur.
+     * Cette méthode instancie la vue du menu et ne regenere pas a chaque appel
+     */
     public void showMain()
     {
         try {
@@ -183,6 +186,10 @@ public class SceneController
             e.printStackTrace();
         }
     }
+    /**
+     * Méthode permettant d'afficher le profil de l'utilisateur, cette méthode n'est disponible que si l'utilisateur est login sur l'application.
+     * Cette méthode permet d'instancier la vue de l'affichage du profil de l'utilisateur
+     */
     public void showProfile()
     {
         try {
@@ -201,6 +208,9 @@ public class SceneController
         }
     }
 
+    /**
+     * Méthode d'affichage du Profil du cinéma qui n'est accessible que du côté admnistrateur
+     */
     public void showProfileCinema()
     {
         try {
@@ -230,6 +240,9 @@ public class SceneController
         this.controller_profil.setLabels(this.user);
     }
 
+    /**
+     * Méthode permettant d'afficher la page de login de l'application elle est la première méthode appellé au lancement de l'application pour que l'utilsateur puisse se login
+     */
     public void Login() {
         try {
             if(controller_Login == null)
@@ -247,6 +260,9 @@ public class SceneController
             e.printStackTrace();
         }
     }
+    /**
+     * Méthode permettant d'instancier la vue de création du compte utilisateur 
+     */
     public void SignUp() {
         try {
             if(controller_SignUp == null)
@@ -257,7 +273,7 @@ public class SceneController
                 controller_SignUp = loader.getController();
                 sceneSignUp = new Scene(signUpLayout);
             }
-            primaryStage.setScene(scene);
+            primaryStage.setScene(sceneSignUp);
             primaryStage.show();
             controller_SignUp.setMainApp(this, this.controller);
         } catch (IOException e) {
@@ -265,6 +281,9 @@ public class SceneController
         }
     }
 
+    /**
+     * Méthode permettant d'afficher la partie admnistrateur de l'application
+     */
     public void showAdmin()
     {
         try {
@@ -286,6 +305,9 @@ public class SceneController
         }
     }
 
+    /**
+     * Méthode permettant d'afficher l'écran d'accueil de l'application et d'appeller la méthode qui va récupérer les différentes collections de film dans l'application
+     */
     public void showMainMenu() {
         try {
             if(icontroller == null)
@@ -314,6 +336,9 @@ public class SceneController
         icontroller.refresher(i);
     }
 
+    /**
+     * Instancie le liker de genre de l'application cette méthode est appelé par signUp au moment ou le compte de l'utilisateur est bien crée
+     */
     public void showGenre()
     {
         try
@@ -326,7 +351,7 @@ public class SceneController
                 controller_showGenre = loader.getController();
                 scene_showGenre = new Scene(showGenre);
             }
-            primaryStage.setScene(scene);
+            primaryStage.setScene(scene_showGenre);
             primaryStage.show();
             controller_showGenre.setMainApp(this, this.controller);
             controller_showGenre.initializeBis();
@@ -337,7 +362,10 @@ public class SceneController
         }
     }
 
-
+    /**
+     * Méthode permettant d'instancier la vue de la bibiliothéque
+     * @param monProfil profil de l'utilsateur afin d'afficher les films likés les film déjà vu et les films liké qui sortiront dans le futur
+     */
     public void showBiblio(Profil monProfil) {
         try {
 
@@ -359,7 +387,11 @@ public class SceneController
             e.printStackTrace();
         }
     }
-
+    
+    /**
+     * Méthode permettant d'afficher les réservations d'un utilisateur
+     * @param monProfil profil de l'utilsateur contenant les réservations
+     */
     public void showBiblioRes(Profil monProfil) {
         try {
 
@@ -380,6 +412,12 @@ public class SceneController
         }
     }
 
+    /**
+     * Affiche les informations du film ainsi que les différents acteur présent dans le casting du film
+     * @param movie film a afficher
+     * @param collectionActor collection d'acteur a afficher
+     * @param admin boolean permettant de changer l'affichage en fonction de si l'utilisateur est dans la partie utilisateur de l'application ou dans la partie admnistration de l'application
+     */
     public void showInfo(Movie movie,ActorCollection collectionActor, boolean admin) {
         try {
 
@@ -410,34 +448,20 @@ public class SceneController
             e.printStackTrace();
         }
     }
-///Pas oublier de changer pour Biblio etc (ajouter aussi l'affichage des acteurs)
-    public void showInfo(Movie movie, boolean admin) {
-        try {
-            if(controller_info2 == null)
-            {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("FilmInfo.fxml"));
-                info2 = (AnchorPane) loader.load();
-                controller_info2 = loader.getController();
-                scroll_info2 = new ScrollPane();
-            }
-            controller_info2.setMainApp(this);
-            controller_info2.setMovie(movie);
-            controller_info2.setProfil(user);
-            controller_info2.setAdminAccess(admin);
-            controller_info2.setCinema(cinemaAdmin);
-            controller_info2.setBiblioController(bcontroller);
-            scroll_info2.setContent(info);
-            rootLayout.setCenter(scroll_info2);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
+    /**
+     * Methode permettant de set la liste d'acteur a afficher pour un film en particulier
+     * @param acteur acteur a afficher
+     * @throws IOException
+     */
     public void showInfoActor(Actor acteur) throws IOException {
         controller_infoFilm.setActor(acteur);
     }
 
+    /**
+     * Méthode permettant de chercher dans la collection de film de la base de donnée
+     * @param admin boolean qui change l'affichage en fonction de ou se trouve l'utilisateur, (admin ou user)
+     */
     public void showResearch(boolean admin)
     {
         try {
@@ -450,10 +474,10 @@ public class SceneController
                 controller_research = loader.getController();
                 scroll_research = new ScrollPane();
                 controller_research.setMainApp(this);
-                controller_research.setAdminSelect(admin);
                 scroll_research.setContent(research);
                 controller_research.initializeBis();
             }
+            controller_research.setAdminSelect(admin);
             if(admin)
             {
                 rootLayout_admin.setCenter(scroll_research);
@@ -467,6 +491,10 @@ public class SceneController
         }
     }
 
+    /**
+     * Méthode permettant d'afficher l'écran de réservation pour un utilisateur
+     * @param movie film sur le quel on veut reserver une seance
+     */
     public void showReservation(Movie movie)
     {
 
@@ -490,6 +518,9 @@ public class SceneController
         }
     }
 
+    /**
+     * Méthode permettant l'affichage du menu admin dans la partie admnistration de l'application
+     */
     public void showAccueilAdmin()
     {
         try {
@@ -511,6 +542,9 @@ public class SceneController
         }
     }
 
+    /**
+     * Méthode permettant d'afficher les statistiques du cinéma que l'on manage
+     */
     public void showStats()
     {
         try {
@@ -530,6 +564,12 @@ public class SceneController
         }
     }
 
+    /**
+     * Méthode permettant d'afficher une confirmation de la reservation après commande
+     * @param movie film a afficher
+     * @param cinema cinéma dans lequel on a pris la séance
+     * @param profil profil de l'utilisateur
+     */
     public void showValiderReseravtion(Movie movie, Cinema cinema, Profil profil)
     {
         try {
@@ -552,6 +592,10 @@ public class SceneController
         }
     }
 
+    /**
+     * Méthode permettant d'instancier la vue qui ajoute un film dans le cinéma, cette méthode est offline
+     * @param c cinéma dans le quel on doit ajouter le film
+     */
     public void showAjouterFilm(Cinema c)
     {
         try {
@@ -572,6 +616,10 @@ public class SceneController
         }
     }
 
+    /**
+     * Méthode permettant d'instancier la vue qui permet de spécifier les informations du film que l'on veut ajouter dans le cinéma
+     * @param c cinéma dans lequel on ajoute le film
+     */
     public void showAjoutFilmForm(Cinema c)
     {
         try {
@@ -593,6 +641,9 @@ public class SceneController
         }
     }
 
+    /**
+     * Méthode permettant d'afficher les séances présente dans un cinéma
+     */
     public void showSeances()
     {
         try {
@@ -613,6 +664,10 @@ public class SceneController
         }
     }
 
+    /**
+     * Méthode qui permet d'instancier la vue qui permet d'ajouter une séance pour un certains film
+     * @param movie film a projeter
+     */
     public void showCreationSeance(Movie movie)
     {
         try {
@@ -634,6 +689,10 @@ public class SceneController
         }
     }
 
+    /**
+     * Méthode permettant a un admin qui ne possede pas encore de cinéma de pouvoir choisir son cinéma
+     * @param profil Profil de l'admnistrateur qui va se voir attribuer un cinema
+     */
     public void showChoixCinema(Profil profil)
     {
         try
@@ -647,15 +706,21 @@ public class SceneController
                 scroll_choixCine = new ScrollPane();
                 controller_choixCine.setMainApp(this);
                 controller_choixCine.init(cinemaCollection, profil);
+                scene_admin = new Scene(choixCine);
             }
             scroll_choixCine.setContent(choixCine);
-            rootLayout_admin.setCenter(scroll_choixCine);
+            primaryStage.setScene(scene_admin);
+            primaryStage.show();
         } catch (IOException e)
         {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Méthode permettant de creer un nouveau cinéma
+     * @param profil profil de l'admnistrateur qui va gérer le cinéma
+     */
     public void showCreationCinema(Profil profil)
     {
         try
@@ -677,6 +742,9 @@ public class SceneController
         }
     }
 
+    /**
+     * Méthode permettant d'instancier la vue qui permet d'afficher les admins en attente
+     */
     public void showApprobationAdmin()
     {
         try
@@ -698,6 +766,10 @@ public class SceneController
         }
     }
 
+    /**
+     * Méthode permettant d'instancier la vue qui permet d'ajouter des promos dans un cinéma
+     * @param c cinéma dans lequel on veut ajouter une promotion
+     */
     public void showCreationPromo(Cinema c)
     {
         try

@@ -80,6 +80,7 @@ public class ChoixCinema
 
                 mainApp.getHello().AssignCinema(profil.get_id(), collection.getCinema(selectedName).get_id_cine());
 
+                mainApp.showAdmin();
                 mainApp.showAccueilAdmin();
             }
         });

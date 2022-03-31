@@ -238,6 +238,12 @@ public class FilmInfo {
             LikeButton.setVisible(false);
             dejavu.setVisible(false);
         }
+        else
+        {
+            ReserverButton.setText("Réserver");
+            LikeButton.setVisible(true);
+            dejavu.setVisible(true);
+        }
     }
 
     public void showActors(ActorCollection collectionActor)
