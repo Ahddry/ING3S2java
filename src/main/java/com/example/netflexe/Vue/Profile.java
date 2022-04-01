@@ -22,6 +22,8 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import com.example.netflexe.Controller.HelloApplication;
 import com.example.netflexe.Model.Profil;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 public class Profile{
     private HelloApplication controller;
     private String linkFile = "";
@@ -79,8 +81,12 @@ public class Profile{
     @FXML
     private Button submit_genre;
 
+    /**
+     * méthode d'initialistation de l'affichage du profil
+     */
     @FXML
     private void initialize() {
+        genre_field.getItems().add("");
         genre_field.getItems().add("Homme");
         genre_field.getItems().add("Femme");
         root.setOnMouseClicked(event -> {
@@ -153,7 +159,7 @@ public class Profile{
             {
                 if(pwd_field.getText() != "")
                 {
-                    this.controller.modify_user("mdp",pwd_field.getText());
+                    this.controller.modify_user("pwd",DigestUtils.sha256Hex(pwd_field.getText()));
                 }
             }
         });
@@ -175,7 +181,7 @@ public class Profile{
                 {
                     final_genre = genre_field.getValue();
                 }
-                else if(genre_field.getValue() == "" && autres_field.getText() != "")
+                else if((genre_field.getValue() == "" || genre_field.getValue() == null) && autres_field.getText() != "")
                 {
                     final_genre = autres_field.getText();
                 }
@@ -214,6 +220,10 @@ public class Profile{
         });        
     }
 
+    /**
+     * Méthode permettant de changer les labels a partir du profil d'un utilisateur
+     * @param user utilisateur source d'information
+     */
     public void setLabels(Profil user)
     {
         nom_prenom.setText(user.get_prenom() + " " +user.get_nom());
@@ -225,8 +235,12 @@ public class Profile{
             Calendar today = new GregorianCalendar();
             bday.setTime(date);
             today.setTime(new Date());
-            age.setText(String.valueOf(today.get(Calendar.YEAR) 
-            - bday.get(Calendar.YEAR) + " ans"));
+            int age_int = today.get(Calendar.YEAR) - bday.get(Calendar.YEAR);
+            if(today.get(Calendar.YEAR) - bday.get(Calendar.YEAR) > 0)
+            {
+                age_int--;
+            }
+            age.setText(String.valueOf(age_int)+ " ans");
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -13,6 +13,9 @@ import java.time.LocalDate;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
+/**
+ * Classe java gérant les contrôles et évènements de la vue AjoutFilmForm.fxml
+ */
 public class AjoutFilmForm
 {
     @FXML
@@ -20,7 +23,7 @@ public class AjoutFilmForm
     @FXML
     private TextField title;
     @FXML
-    private TextField producer;
+    private TextField trailer;
     @FXML
     private TextField dureeFilm;
     @FXML
@@ -39,6 +42,9 @@ public class AjoutFilmForm
     private SceneController mainApp;
     private Cinema monCinema;
 
+    /**
+     * Initialisation des éléments graphiques du formulaire de création d'un nouveau film
+     */
     public void init()
     {
         enregistrerBouton.setText("Ajouter le film\nau cinéma");
@@ -64,6 +70,9 @@ public class AjoutFilmForm
         genre.getItems().add("Western");
     }
 
+    /**
+     * Création et enregistrement dans la base de données du nouveau film créé d'après les saisies utilisateur
+     */
     public void enregistrerBoutonClick()
     {
         if ((!isNullOrWhiteSpace(title.getText())) && (!isNullOrWhiteSpace(dureeFilm.getText())))
@@ -75,11 +84,11 @@ public class AjoutFilmForm
                 realisateur = "Inconnu";
             else
                 realisateur = director.getText();
-            /*String producteur;
-            if (isNullOrWhiteSpace(producer.getText()))
-                producteur = "Inconnu";
+            String bandeAnnonce;
+            if (isNullOrWhiteSpace(trailer.getText()))
+                bandeAnnonce = null;
             else
-                producteur = producer.getText();*/
+                bandeAnnonce = trailer.getText();
             String leSlogan;
             if (isNullOrWhiteSpace(slogan.getText()))
                 leSlogan = "";
@@ -97,16 +106,17 @@ public class AjoutFilmForm
                 leSynopsis = synopsis.getText();
             String urlImage;
             if (isNullOrWhiteSpace(affiche.getText()))
-                urlImage = "";
+                urlImage = "https://media.istockphoto.com/vectors/cinema-festival-retro-poster-vintage-camcorder-vector-id1065406736?k=20&m=1065406736&s=612x612&w=0&h=JGeSrDenbos5zxy-i6fKGY0MqUPgMdHqcygNNBgFDiY=";
             else
                 urlImage = affiche.getText();
 
-            int id = mainApp.getHello().insertMovie_into_bdd(urlImage, titre, dateDeSortie.toString(), dureeDuFilm, leSynopsis, leSlogan, "");
+            int id = mainApp.getHello().insertMovie_into_bdd(urlImage, titre, dateDeSortie.toString(), dureeDuFilm, leSynopsis, leSlogan, bandeAnnonce);
             if (id != -1)
             {
-                Movie movie = new Movie(titre, realisateur, urlImage, dateDeSortie.toString(), dateDeSortie.toString(), dureeDuFilm, leSynopsis, leSlogan, id+"", null);
+                Movie movie = new Movie(titre, realisateur, urlImage, dateDeSortie.toString(), dateDeSortie.toString(), dureeDuFilm, leSynopsis, leSlogan, id+"", bandeAnnonce);
                 movie.setImage(new Image(movie.getImageString()));
                 monCinema.ajoutFilm(movie);
+                mainApp.getMovieCollection2().addMovie(movie);
                 mainApp.setCinemaAdmin(monCinema);
                 mainApp.showAccueilAdmin();
             }
@@ -123,6 +133,11 @@ public class AjoutFilmForm
         }
     }
 
+    /**
+     * Méthode vérifiant si une chaine de caractères donnée est : nulle, vide ou remplie d'espaces blancs.
+     * @param s Chaine de caractères dont il faut vérifier le contenu
+     * @return True si la chaine de caractère est : nulle, vide ou remplie d'espaces blancs, False sinon.
+     */
     private boolean isNullOrWhiteSpace(String s)
     {
         if (isNullOrEmpty(s))
@@ -146,11 +161,19 @@ public class AjoutFilmForm
         }
     }
 
+    /**
+     * Affecte un contrôleur SceneController à cette classe
+     * @param sceneController contrôleur à affecter
+     */
     public void setMainApp(SceneController sceneController)
     {
         mainApp = sceneController;
     }
 
+    /**
+     * Attribue un cinéma auquel ajouter le film
+     * @param cinema cinéma auquel ajouter un film
+     */
     public void setCinema(Cinema cinema)
     {
         monCinema = cinema;

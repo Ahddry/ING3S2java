@@ -19,6 +19,9 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+/**
+ * Classe java gérant les contrôles et évènements de la vue ChoixCinema.fxml
+ */
 public class ChoixCinema
 {
 
@@ -28,6 +31,11 @@ public class ChoixCinema
     private SceneController mainApp;
     private Profil profil;
 
+    /**
+     * Initialisation des éléments graphiques du menu de choix de cinéma
+     * @param collection Ensemble de cinémas parmi lesquels choisir un cinéma
+     * @param profil Profil auquel attribuer un cinéma
+     */
     public void init(CinemaCollection collection, Profil profil)
     {
         this.profil = profil;
@@ -80,22 +88,33 @@ public class ChoixCinema
 
                 mainApp.getHello().AssignCinema(profil.get_id(), collection.getCinema(selectedName).get_id_cine());
 
+                mainApp.showAdmin();
                 mainApp.showAccueilAdmin();
             }
         });
         listView.setOrientation(Orientation.HORIZONTAL);
     }
 
+    /**
+     * Appel au menu de création d'un nouveau cinéma
+     */
     public void nouveauCinemaBoutonClick()
     {
         mainApp.showCreationCinema(profil);
     }
 
+    /**
+     * Retour au menu principal d'utilisateur
+     */
     @FXML
     private void retourMenu() {
         mainApp.showMainMenu();
     }
 
+    /**
+     * Affecte un contrôleur SceneController à cette classe
+     * @param mainApp contrôleur à affecter
+     */
     public void setMainApp(SceneController mainApp)
     {
         this.mainApp = mainApp;

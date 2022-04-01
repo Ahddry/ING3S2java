@@ -18,6 +18,9 @@ import javafx.scene.paint.Color;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Classe java gérant les contrôles et évènements de la vue AccueilAdmin.fxml
+ */
 public class AccueilAdmin
 {
     @FXML
@@ -37,6 +40,10 @@ public class AccueilAdmin
     private MovieCollection collection;
     private ContextMenu contextMenu = new ContextMenu();
 
+    /**
+     * Initialisation des éléments graphiques de l'accueil administrateur
+     * @param c Cinéma dont il faut afficher le contenu
+     */
     public void init(Cinema c)
     {
         ajoutFilmBouton.setTooltip(new Tooltip("Cliquez ici pour ajouter un film."));
@@ -183,6 +190,10 @@ public class AccueilAdmin
         conteneurPromo.getChildren().setAll(promotions);
     }
 
+    /**
+     * Suppression de la promotion sélectionnée
+     * @param idPromo promotion à supprimer
+     */
     public void supprimerBoutonClick(int idPromo)
     {
         cinema.deletePromo(idPromo);
@@ -190,21 +201,35 @@ public class AccueilAdmin
         mainApp.showAccueilAdmin();
     }
 
+    /**
+     * Ouvre la page de création de promotion à ajouter au cinéma
+     */
     public void ajouterPromoClick()
     {
         mainApp.showCreationPromo(cinema);
     }
 
+    /**
+     * Ouvre la page de choix d'un film à ajouter au cinéma
+     */
     public void ajoutFilmBoutonClick()
     {
         mainApp.showAjouterFilm(cinema);
     }
 
+    /**
+     * Retourne le cinéma actuellement traité
+     * @return cinema affiché
+     */
     public Cinema getCinema()
     {
         return cinema;
     }
 
+    /**
+     * Affecte un contrôleur SceneController à cette classe
+     * @param mainApp contrôleur à affecter
+     */
     public void setMainApp(SceneController mainApp)
     {
         this.mainApp = mainApp;

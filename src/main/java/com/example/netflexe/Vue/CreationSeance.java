@@ -16,6 +16,9 @@ import java.util.Objects;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 
+/**
+ * Classe java gérant les contrôles et évènements de la vue CreationSeance.fxml
+ */
 public class CreationSeance
 {
     @FXML
@@ -43,11 +46,18 @@ public class CreationSeance
     private Movie movieS;
     private Cinema monCinema;
 
+    /**
+     * Retour à l'accueil administrateur
+     */
     public void retourMenu()
     {
         mainApp.showAccueilAdmin();
     }
 
+    /**
+     * Affectation d'un film pour lequel créer une séance
+     * @param movie Film pour lequel créer une séance
+     */
     public void setMovie(Movie movie)
     {
         movieS = movie;
@@ -59,7 +69,10 @@ public class CreationSeance
         movieS = movie;
     }
 
-
+    /**
+     * Affectation d'un cinéma dans lequel créer une séance
+     * @param cinema Cinéma dans lequel créer une séance
+     */
     public void setCinema(Cinema cinema)
     {
         monCinema = cinema;
@@ -74,6 +87,9 @@ public class CreationSeance
         choixSalle.setItems(listeAffichage);
     }
 
+    /**
+     * Création et enregistrement dans la base de données de la nouvelle séance créée d'après les saisies utilisateur et affectation de celle-ci au cinéma et à la salle indiquée.
+     */
     public void confirmerBoutonClick()
     {
         if ((!isNullOrWhiteSpace(prix.getText())) && (!isNullOrWhiteSpace(heureSeance.getText())) && (!Objects.equals(choixSalle.getValue(), null)))
@@ -101,9 +117,8 @@ public class CreationSeance
                 int numSalle = Integer.parseInt(choixSalle.getValue().split(" ")[1]);
                 Seance seance = new Seance(movieS.getTitle(), movieS, dateDeSeance, heureSeance.getText(), numSalle, prixFinal,-1);
                 monCinema.addSeance(numSalle, seance);
-                mainApp.getSeanceController().setTestCharge(true);
                 mainApp.getHello().CreateSeance_into_bdd(Integer.parseInt(movieS.get_idFilm()), monCinema.get_id_cine(), monCinema.getIdSalle(numSalle), seance.getDate().toString(), seance.getHeure(), seance.getPrix());
-
+                mainApp.getSeanceController().setTestCharge(true);
                 mainApp.setCinemaAdmin(monCinema);
                 mainApp.showAccueilAdmin();
             }
@@ -114,11 +129,20 @@ public class CreationSeance
         }
     }
 
+    /**
+     * Affecte un contrôleur SceneController à cette classe
+     * @param mainApp contrôleur à affecter
+     */
     public void setMainApp(SceneController mainApp)
     {
         this.mainApp = mainApp;
     }
 
+    /**
+     * Méthode vérifiant si une chaine de caractères donnée est : nulle, vide ou remplie d'espaces blancs.
+     * @param s Chaine de caractères dont il faut vérifier le contenu
+     * @return True si la chaine de caractère est : nulle, vide ou remplie d'espaces blancs, False sinon.
+     */
     private static boolean isNullOrWhiteSpace(String s)
     {
         if (isNullOrEmpty(s))

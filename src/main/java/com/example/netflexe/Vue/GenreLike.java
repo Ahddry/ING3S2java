@@ -61,6 +61,14 @@ public class GenreLike{
         film_selec.setText(String.valueOf(genreLiker) + "/5");
     }
 
+    /**
+     * Méthode privé qui permet de faire une image circulaire a partir d'une image rectangulaire
+     * Source du code:
+     * https://stackoverflow.com/questions/68631386/javafx-crop-image-as-a-circle?rq=1
+     * @param image image en entree
+     * @param radius rayon du cercle
+     * @return retourne l'image avec le processing fait dessus
+     */
     private Image getRoundImage(Image image, int radius) {
         int width = (int) image.getWidth();
         int height = (int) image.getHeight();
@@ -84,6 +92,9 @@ public class GenreLike{
         return wImage;
     }
 
+    /**
+     * méthode d'initialisation après avoir recu les données des genres a afficher
+     */
     public void initializeBis()
     {
 
@@ -134,4 +145,3 @@ public class GenreLike{
 
 
 
-//https://stackoverflow.com/questions/68631386/javafx-crop-image-as-a-circle?rq=1

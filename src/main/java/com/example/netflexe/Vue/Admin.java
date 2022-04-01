@@ -15,6 +15,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
+/**
+ * Classe java gérant les contrôles et évènements de la vue Admin.fxml
+ */
 public class Admin
 {
     @FXML
@@ -31,6 +34,9 @@ public class Admin
     private SceneController mainApp;
 
 
+    /**
+     * Initialisation des éléments graphiques du menu latéral administrateur
+     */
     @FXML
     private void initialize() {
         Button1.setText("Accueil");
@@ -69,28 +75,50 @@ public class Admin
         borderPane.setBackground(new Background(new BackgroundFill(Color.valueOf("#1d1d1d"), new CornerRadii(0), Insets.EMPTY)));
     }
 
+    /**
+     * Affecte un contrôleur SceneController à cette classe
+     * @param mainApp contrôleur à affecter
+     */
     public void setMainApp(SceneController mainApp) {
         this.mainApp = mainApp;
     }
 
+    /**
+     * Appel de la vue d'accueil du menu administrateur
+     */
     @FXML
     private void setMenu1() {
         mainApp.showAccueilAdmin();
     }
+
+    /**
+     * Appel de la vue de gestion des séances
+     */
     @FXML
     private void setMenu2() {
         mainApp.showSeances();
     }
+
+    /**
+     * Appel de la vue d'observation des statistiques
+     */
     @FXML
     private void setMenu3() {
         mainApp.showStats();
 
     }
+
+    /**
+     * Appel de la vue de gestion du profil de cinéma et des comptes administrateurs
+     */
     @FXML
     private void setMenu4() {
         mainApp.showProfileCinema();
     }
 
+    /**
+     * Passage au menu d'utilisateur
+     */
     @FXML
     private void switchUser()
     {

@@ -19,6 +19,9 @@ import javafx.scene.paint.Color;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Classe java gérant les contrôles et évènements de la vue Seances.fxml
+ */
 public class Seances
 {
     @FXML
@@ -30,18 +33,15 @@ public class Seances
     private SceneController mainApp;
     private ComboBox<String> comboBox = new ComboBox<>();
     private boolean testCharge;
-    private boolean reTestCharge;
 
     /**
-     * Méthode d'initialisation de la vue
-     *
+     * Initialisation des éléments graphiques de la vue de gestion des séances dans le cinéma
      * @param c Cinéma à afficher
      */
     public void init(Cinema c)
     {
         if (testCharge)
         {
-             reTestCharge = false;
             grid = new GridPane();
             grid.minHeight(900.0);
             grid.minWidth(1152.0);
@@ -136,8 +136,9 @@ public class Seances
                             Seance s = salle.getSeance(selectedName);
                             if (salle.deleteSeance(selectedName))
                             {
-                                reTestCharge = true;
+                                setTestCharge(true);
                                 cinema.setSalles(salles);
+                                mainApp.setCinemaAdmin(cinema);
                                 mainApp.getHello().SupprimerUnseSeanceBDD(s.get_idSeance());
                                 mainApp.showSeances();
                             } else
@@ -189,12 +190,13 @@ public class Seances
             Label labelVide = new Label("");
             grid.add(labelVide, 0, compteur + 1);
             pane.getChildren().setAll(grid);
-
-            testCharge = reTestCharge;
         }
 
     }
 
+    /**
+     * Ajout d'une nouvelle salle dans le cinéma
+     */
     public void ajoutSalleBoutonClick()
     {
         int numSalle = 1;
@@ -208,6 +210,9 @@ public class Seances
         mainApp.showSeances();
     }
 
+    /**
+     * Suppression de la salle sélectionnée du cinéma
+     */
     public void retirerSalleBoutonClick()
     {
         if (comboBox.getValue() != null)
@@ -249,21 +254,36 @@ public class Seances
 
     }
 
+    /**
+     * Lors de la première création de la vue, mise à True de la variable régissant le chargement des éléments graphiques
+     */
     public Seances()
     {
         testCharge = true;
     }
 
+    /**
+     * Setter de la variable régissant le chargement des éléments graphiques
+     * @param testCharge Valeur de la variable régissant le chargement des éléments graphiques
+     */
     public void setTestCharge(boolean testCharge)
     {
         this.testCharge = testCharge;
     }
 
+    /**
+     * Retourne le cinéma actuellement géré
+     * @return Cinéma actuellement géré
+     */
     public Cinema getCinema()
     {
         return cinema;
     }
 
+    /**
+     * Affecte un contrôleur SceneController à cette classe
+     * @param mainApp contrôleur à affecter
+     */
     public void setMainApp(SceneController mainApp)
     {
         this.mainApp = mainApp;
