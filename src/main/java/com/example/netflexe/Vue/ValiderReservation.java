@@ -70,6 +70,7 @@ public class ValiderReservation {
         this.promos = cinema.get_promos();
         //seances = cinema.getAllSeances();
         /* A MODIF */
+        seances.clear();
         for(var elem:cinema.getSalles())
         {
             seances.addAll(elem.getSeances());
@@ -80,6 +81,15 @@ public class ValiderReservation {
         ArrayList<String> promotion = new ArrayList<>();
         int age = 0;
 
+        promoChoiceBox.getItems().clear();
+        promotion.clear();
+        promoChoiceBox.valueProperty().set(null);
+        horaireBox.getItems().clear();
+        horaireBox.valueProperty().set(null);
+        datePicker.getEditor().clear();
+        datePicker.setValue(null);
+        prixLabel.setText("");
+        prixFLabel.setText("");
         if(!promotion.contains("Pas de promotion"))
         {
             promotion.add("Pas de promotion");
@@ -129,6 +139,7 @@ public class ValiderReservation {
             }
         });
 
+
         datePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
             horaires.clear();
             dateS = newValue;
@@ -137,9 +148,12 @@ public class ValiderReservation {
                 //System.out.println(movie.getTitle());
                 //System.out.println(seance.getDate().toString());
                 //System.out.println(newValue.toString());
-                if ((seance.getName().equals(movie.getTitle())) && (seance.getDate().toString().equals(newValue.toString()))) {
+                if((newValue != null))
+                { 
+                    if ((seance.getName().equals(movie.getTitle())) && (seance.getDate().toString().equals(newValue.toString()))) {
 
-                    horaires.add(seance.getHeure());
+                        horaires.add(seance.getHeure());
+                    }
                 }
             }
             horaireBox.setItems(FXCollections.observableArrayList(horaires));
@@ -148,11 +162,15 @@ public class ValiderReservation {
         horaireBox.valueProperty().addListener((ov, oldValue, newValue) -> {
             horaireS = newValue;
             for (Seance seance : seances) {
-                if ((seance.getDate().toString().equals(datePicker.valueProperty().getValue().toString())) && (seance.getHeure().equals(newValue.toString()))) {
-                    seanceS = seance;
-                    prixLabel.setText((String.valueOf(seanceS.getPrix())));
-                    promoChoiceBox.setVisible(true);
+                if(newValue != null)
+                {
+                    if ((seance.getDate().toString().equals(datePicker.valueProperty().getValue().toString())) && (seance.getHeure().equals(newValue.toString()))) {
+                        seanceS = seance;
+                        prixLabel.setText((String.valueOf(seanceS.getPrix())));
+                        promoChoiceBox.setVisible(true);
+                    }
                 }
+                
             }
         });
 
@@ -164,8 +182,11 @@ public class ValiderReservation {
                 case "Promotion jeune" -> prixFinal = (seanceS.getPrix() * (0.8));
                 case "Promotion senior" -> prixFinal = (seanceS.getPrix() * (0.7));
             }*/
-            prixFinal = seanceS.getPrix() * newValue.get_pourcentage();
-            prixFLabel.setText((String.valueOf(prixFinal)));
+            if(newValue != null)
+            {
+                prixFinal = seanceS.getPrix() * newValue.get_pourcentage();
+                prixFLabel.setText((String.valueOf(prixFinal)));
+            }
         });
     }
 
