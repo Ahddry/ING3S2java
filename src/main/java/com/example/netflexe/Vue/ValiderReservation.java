@@ -80,7 +80,10 @@ public class ValiderReservation {
         ArrayList<String> promotion = new ArrayList<>();
         int age = 0;
 
-        promotion.add("Pas de promotion");
+        if(!promotion.contains("Pas de promotion"))
+        {
+            promotion.add("Pas de promotion");
+        }
         promoChoiceBox.getItems().add(new Promo(1,"Pas de promotion",1));
         //promos.add(new Promo(2,"Promotion senior",0.7, 65, 100));
         //promos.add(new Promo(3,"Promotion jeune",0.8, 0, 25));
@@ -118,7 +121,7 @@ public class ValiderReservation {
                 setDisable(true);
                 setStyle("-fx-background-color: #ffc0cb;");
                 for (Seance seance : seances) {
-                    if (seance.getDate().toString().equals(date.toString())) {
+                    if (seance.getDate().toString().equals(date.toString()) && seance.getMovie().getTitle().equals(movieS.getTitle())) {
                         setDisable(false);
                         setStyle("-fx-background-color: #cbc0ff;");
                     }

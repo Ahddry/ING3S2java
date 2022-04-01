@@ -502,14 +502,15 @@ public class SceneController
         {
             if(controller_resa == null)
             {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("Reservation.fxml"));
-                resa = (AnchorPane) loader.load();
-                controller_resa = loader.getController();
-                scroll_resa = new ScrollPane();
-                controller_resa.setMainApp(this);
-            scroll_resa.setContent(resa);
+
             }
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("Reservation.fxml"));
+            resa = (AnchorPane) loader.load();
+            controller_resa = loader.getController();
+            scroll_resa = new ScrollPane();
+            controller_resa.setMainApp(this);
+            scroll_resa.setContent(resa);
             controller_resa.initializeBis(cinemaCollection, movie);
             rootLayout.setCenter(scroll_resa);
         } catch (IOException e)
@@ -577,12 +578,13 @@ public class SceneController
         try {
             if(controller_validerResa == null)
             {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("ValiderReservation.fxml"));
-                accueilValiderReservation = loader.load();
-                controller_validerResa = loader.getController();
-                scroll_validerResa = new ScrollPane();
+
             }
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("ValiderReservation.fxml"));
+            accueilValiderReservation = loader.load();
+            controller_validerResa = loader.getController();
+            scroll_validerResa = new ScrollPane();
             controller_validerResa.setMainApp(this);
             controller_validerResa.setProfil(profil);
             controller_validerResa.initializeBis(movie, cinema);
