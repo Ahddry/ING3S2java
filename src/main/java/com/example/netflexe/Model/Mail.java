@@ -10,10 +10,16 @@ public class Mail {
 
     public Mail(){}
 
+    /**
+     *
+     * @param reservation reservation associée avec le contenu du mail
+     * @param mailTo string correspondant à l'adresse à laquelle on envoie le mail
+     */
     public void sendMail(Reservation reservation, String mailTo){
 
         final String username = "netflece@gmail.com";
         final String password = "Netflece01";
+
 
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");

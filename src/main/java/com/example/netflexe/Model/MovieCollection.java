@@ -12,6 +12,11 @@ public class MovieCollection {
 
     public MovieCollection(){}
 
+    /**
+     * on récupère un film en fonction de son nom parmis la collection
+     * @param name
+     * @return
+     */
     public Movie getMovie(String name)
     {
         int resultat = 0;
@@ -26,23 +31,48 @@ public class MovieCollection {
         return collection.get(resultat);
     }
 
+    /**
+     * on récupère l ensemble de la array list
+     * @return
+     */
     public ArrayList<Movie> get_arrayList()
     {
         return this.collection;
     }
+
+    /**
+     * on définit la movie collection en passant une array list en paramètre
+     * @param temp
+     */
     public void setArrayList(ArrayList<Movie> temp)
     {
         this.collection = temp;
     }
+
+    /**
+     * on vérifie qu 'un film est présent dans la list
+     * @param temp
+     * @return
+     */
     public boolean checkContain(Movie temp)
     {
         return this.collection.contains(temp);
     }
+
+    /**
+     * on récupère un film en fonction de son ID
+     * @param i
+     * @return
+     */
     public Movie getMovie(int i)
     {
         return collection.get(i);
     }
 
+    /**
+     * on ajoute un film dans la collection
+     * @param movie
+     */
     public void addMovie(Movie movie)
     {
         collection.add(movie);

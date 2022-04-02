@@ -29,10 +29,19 @@ public class Movie {
     private  Image image = null;
     private String imageName;
 
+    /**
+     * contructeur avec toutes les valeurs initialisées à null
+     */
     public Movie() {
         this(null, null, null, "1212-12-12",
                 "0000-00-00", null, null, null, null ,null);
     }
+
+    /**
+     *
+     * @param title titre du film
+     * @param adresseImage adresse du poster du film
+     */
     public Movie(String title, String adresseImage)
     {
         this.title = new SimpleStringProperty(title);
@@ -50,6 +59,20 @@ public class Movie {
         this.id_film = null;
         this.trailer = null;
     }
+
+    /**
+     *
+     * @param title titre du film
+     * @param director réalisateur du film
+     * @param adresseImage adresse du poster
+     * @param date_de_sortie_LD date de sortie stockée en LocalDate
+     * @param date_de_sortie_S date de sortie stockée en string
+     * @param duree durée du film
+     * @param synopsis résymé du film
+     * @param slogan phrase d'accroche du film
+     * @param id_film numéro du film
+     * @param trailer lien youtube vers le trailer du film
+     */
 
     public Movie(String title, String director, String adresseImage, String date_de_sortie_LD,
                  String date_de_sortie_S, String duree, String synopsis, String slogan, String id_film, String trailer) {
