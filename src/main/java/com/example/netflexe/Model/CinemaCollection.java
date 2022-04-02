@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 
 /**
- * Représente une liste de cinéma
+ * Représente une liste de cinémas
  */
 public class CinemaCollection {
     private ArrayList<Cinema> collection = new ArrayList<Cinema>();

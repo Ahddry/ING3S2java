@@ -276,6 +276,11 @@ public class FilmInfo {
         initializeListView(listView);
     }
 
+    /**
+     * Initialisation de la ListView comprenant la liste des acteurs d'un film affichant leur nom (complet) et leur photo
+     * Evénement du double clique implémenté de telle sorte qu'une page s'affiche avec toutes les informations de l'acteur concerné
+     * @param listView1 ListView de la liste des acteurs d'un film
+     */
     public void initializeListView(ListView<String> listView1){
 
         ObservableList<String> items = FXCollections.observableArrayList ();

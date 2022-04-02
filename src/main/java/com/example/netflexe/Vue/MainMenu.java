@@ -68,6 +68,9 @@ public class MainMenu {
         Label5.setText("Comédie");
     }
 
+    /**
+     * Initialisation des bandes coulissantes des films
+     */
     public void initializeBis()
     {
 
@@ -120,6 +123,13 @@ public class MainMenu {
         listView5.refresh();
     }
 
+    /**
+     * Méthode pour l'initialisation des différentes listView avec entre autre les images et titres des films affichés
+     * Si un double clique est réalisé sur un film, les informations concernant les acteurs du film sont chargés via HelloApplication
+     * puis intégrés dans l'appel de la méthode d'affichage des informations du film
+     * @param listView1 ListView dont on initialise l'ensemble des paramètres d'affichage
+     * @param j numéro de la listView permettant le chargement de la bonne collection de films
+     */
     private void initialiseListView(ListView<String> listView1, int j)
     {
         collection = mainApp.getMovieCollection(j);
