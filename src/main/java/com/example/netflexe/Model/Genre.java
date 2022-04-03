@@ -4,9 +4,9 @@ package com.example.netflexe.Model;
  * classe Genre qui contient toutes les informations concernant un genre
  */
 public class Genre {
-    String genre_nom;
-    int id_genre;
-    String lien_poster;
+    private String genre_nom;
+    private int id_genre;
+    private String lien_poster;
     public Genre()
     {
 
