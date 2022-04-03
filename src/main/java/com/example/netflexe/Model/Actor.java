@@ -8,6 +8,9 @@ import javafx.scene.image.Image;
 import java.time.LocalDate;
 import java.time.Period;
 
+/**
+ * Représente un acteur avec son nom, son prénom, son âge, une petite description, et son rôle dans le film, ainsi qu'une photo portrait
+ */
 public class Actor {
 
     private final StringProperty first_name;
@@ -18,10 +21,22 @@ public class Actor {
     private  Image imageActeur = null;
     private String imageNameActeur;
 
+    /**
+     * Création d'un acteur vide
+     */
     public Actor() {
         this(null, null, null, null, null, null);
     }
 
+    /**
+     *
+     * @param prenom Prénom de l'acteur
+     * @param nom   Nom de l'acteur
+     * @param adresseImage  adresse URL de l'image de l'acteur
+     * @param date_de_naissance Date permettant de déterminer l'âge de l'acteur
+     * @param description   Description rapide de l'acteur
+     * @param role  Rôle joué par l'acteur dans le film
+     */
     public Actor(String prenom, String nom, String adresseImage, String date_de_naissance, String description, String role) {
         this.first_name = new SimpleStringProperty(prenom);
         this.last_name = new SimpleStringProperty(nom);
@@ -33,6 +48,12 @@ public class Actor {
         this.role = new SimpleStringProperty(role);
     }
 
+    /**
+     * Ensemble des getter et setter de la classe Acteur
+     * avec une spécification sur le getName qui retourne nom+prénom de l'acteur
+     * et l'âge avec l'ajout "ans" : 'xx ans'
+     * @return nom complet, âge, rôle, image, description
+     */
     public String getFirstName() {
         return first_name.get();
     }

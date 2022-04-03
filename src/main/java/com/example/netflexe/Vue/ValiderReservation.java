@@ -40,6 +40,9 @@ public class ValiderReservation {
     @FXML
     private TextField mailInput;
 
+    @FXML
+    private TextField cardInput;
+
     private SceneController mainApp;
     private ArrayList<Seance> seances = new ArrayList<Seance>();
     private Seance seanceS = null;
@@ -204,20 +207,34 @@ public class ValiderReservation {
     {
 
 
-        Mail mail = new Mail();
-        mail.sendMail(new Reservation(movieS,horaireS,cinemaName,dateS.toString(),-1), mailInput.getText());
-        if(profil != null)
+        if(!mailInput.getText().contains("@") && !mailInput.getText().contains(".com"))
         {
-            profil.ajouterReservation(new Reservation(movieS,horaireS,cinemaName,dateS.toString(),-1));
-            mainApp.showBiblioRes(profil);
-            this.cinema.updateStatsPromo(promo);
-            this.cinema.updateStatsFilm(movieS.getTitle());
-            this.mainApp.getHello().add_reservation(this.profil.get_id(),seanceS.get_idSeance(),prixFinal);
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Adresse mail non valide", ButtonType.OK);
+            alert.show();
+        }
+        else if(!(cardInput.getText().length() == 16))
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Carte bancaire non valide", ButtonType.OK);
+            alert.show();
         }
         else
         {
-            mainApp.showMainMenu();
+            Mail mail = new Mail();
+            mail.sendMail(new Reservation(movieS,horaireS,cinemaName,dateS.toString(),-1), mailInput.getText());
+            if(profil != null)
+            {
+                profil.ajouterReservation(new Reservation(movieS,horaireS,cinemaName,dateS.toString(),-1));
+                mainApp.showBiblioRes(profil);
+                this.cinema.updateStatsPromo(promo);
+                this.cinema.updateStatsFilm(movieS.getTitle());
+                this.mainApp.getHello().add_reservation(this.profil.get_id(),seanceS.get_idSeance(),prixFinal);
+            }
+            else
+            {
+                mainApp.showMainMenu();
+            }
         }
+
 
     }
 }
