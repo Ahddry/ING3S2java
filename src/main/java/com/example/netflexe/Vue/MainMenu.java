@@ -91,6 +91,10 @@ public class MainMenu {
         }
     }
 
+    /**
+     * permet de rafraichir les images des listViews
+     * @param i
+     */
     public void refresher(int i)
     {
         if(i == 0)

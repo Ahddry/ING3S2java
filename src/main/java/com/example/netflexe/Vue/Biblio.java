@@ -50,11 +50,18 @@ public class Biblio {
 
 
     @FXML
+    /**
+     * méthode appelée à linitialisation
+     */
     private void initialize() {
 
         mainTitle.setText("Bibliothèque");
     }
 
+    /**
+     * permet de set les attributs des diéfferentes list views
+     * @param monProfil permet de récupérer les genres likés par l'utilisateur
+     */
     public void initializeBis(Profil monProfil)
     {
         LocalDate dateTemp;
@@ -93,6 +100,11 @@ public class Biblio {
         initialiseListView(listView4, 3);
     }
 
+    /**
+     * permet de rajouter des films dans les list views, en fonction d'une collection de films
+     * @param listView1 liste de films
+     * @param k indice de la collection de film
+     */
     private void initialiseListView(ListView<String> listView1, int k)
     {
         ObservableList<String> items = FXCollections.observableArrayList ();
@@ -148,15 +160,28 @@ public class Biblio {
         listView1.setOrientation(Orientation.HORIZONTAL);
     }
 
+    /**
+     * référence à l application principale
+     * @param mainApp
+     */
     public void setMainApp(SceneController mainApp) {
         this.mainApp = mainApp;
     }
+
+    /**
+     * fait une référence à l'ensemble des cinémas
+     * @param collection
+     */
 
     public void setCinemaC(CinemaCollection collection)
     {
         this.collectionC = collection;
     }
 
+    /**
+     * permet d'update les films présent dans la bibliothèque
+     * @param monProfil profil de l'utilisateur dont on va observer la collection de film
+     */
     public void updateBiblio(Profil monProfil)
     {
         LocalDate dateTemp;

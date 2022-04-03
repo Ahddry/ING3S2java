@@ -36,12 +36,17 @@ public class BiblioReserv {
 
     private ArrayList<Reservation> collection = new ArrayList<Reservation> ();
 
+
     @FXML
     private void initialize() {
 
         mainTitle.setText("Réservations :");
     }
 
+    /**
+     * lance l'initialisation de la liste des réservations
+     * @param monProfil profil de l'utilisateur dont on va observer les réservations
+     */
     public void initializeBis(Profil monProfil)
     {
         collection = monProfil.getFilmRes();
@@ -49,6 +54,10 @@ public class BiblioReserv {
 
     }
 
+    /**
+     * permet d'ajouter des réservations à la liste permettant de les affichers
+     * @param listView1 list dans laquelle les réservations vont être affichées
+     */
     private void initialiseListView(ListView<String> listView1)
     {
         ObservableList<String> items = FXCollections.observableArrayList ();

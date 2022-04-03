@@ -48,6 +48,11 @@ public class ReservationVue {
 
     }
 
+    /**
+     * crééer la liste dans laquelle les cinéms seront affichés
+     * @param collection collection de tous les cinémas
+     * @param movie film que l'on souhaite réserver
+     */
     public void initializeBis(CinemaCollection collection,Movie movie)
     {
         this.movie = movie;
@@ -55,6 +60,10 @@ public class ReservationVue {
         initialiseListView(listView);
     }
 
+    /**
+     * on remplit la liste avec les cinémas qui ont le film à l'affiche
+     * @param listView1 list que l'on va remplir
+     */
     private void initialiseListView(ListView<String> listView1) {
         ObservableList<String> items = FXCollections.observableArrayList();
         for (int i = 0; i < collection.getSize(); i++) {

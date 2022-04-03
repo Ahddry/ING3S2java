@@ -64,6 +64,11 @@ public class ValiderReservation {
 
     }
 
+    /**
+     * On va charger les informations disponibles pour les différentes séances
+     * @param movie film que l'on souhaite réserver
+     * @param cinema cinéma dans lequel on va réserver la séance
+     */
     public void initializeBis(Movie movie, Cinema cinema)
     {
         this.cinema = cinema;
@@ -169,6 +174,7 @@ public class ValiderReservation {
                 {
                     if ((seance.getDate().toString().equals(datePicker.valueProperty().getValue().toString())) && (seance.getHeure().equals(newValue.toString()))) {
                         seanceS = seance;
+                        System.out.println(seanceS.getPrix());
                         prixLabel.setText((String.valueOf(seanceS.getPrix())));
                         promoChoiceBox.setVisible(true);
                     }
@@ -187,6 +193,7 @@ public class ValiderReservation {
             }*/
             if(newValue != null)
             {
+                System.out.println(newValue.get_pourcentage());
                 prixFinal = seanceS.getPrix() * newValue.get_pourcentage();
                 prixFLabel.setText((String.valueOf(prixFinal)));
             }
@@ -202,6 +209,9 @@ public class ValiderReservation {
         this.profil = profil;
     }
 
+    /**
+     * est appelée lorsque la séance est réservée
+     */
     @FXML
     public void reserver()
     {

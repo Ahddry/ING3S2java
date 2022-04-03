@@ -47,6 +47,9 @@ public class Research {
         validerButton.setText("Valider");
     }
 
+    /**
+     * créer et initialise la liste qui contiendra l'ensemble des films
+     */
     public void initializeBis()
     {
         collection = mainApp.getMovieCollection(0);
@@ -63,6 +66,10 @@ public class Research {
         });
     }
 
+    /**
+     * rempli la list qui cotient l'ensemble des films parmis lesquels on effectuera la recherchce
+     * @param listView1 list dans laquelle les films seront ajoutés
+     */
     private void initialiseListView(ListView<String> listView1)
     {
 
@@ -117,6 +124,9 @@ public class Research {
     }
 
     @FXML
+    /**
+     * fonction appellée lorsque le boutton de validation sera appuyé
+     */
     public void validationBarre()
     {
         ref =barreRecherche.getText();

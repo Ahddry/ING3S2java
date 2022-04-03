@@ -68,7 +68,7 @@ public class Movie {
      * @param date_de_sortie_LD date de sortie stockée en LocalDate
      * @param date_de_sortie_S date de sortie stockée en string
      * @param duree durée du film
-     * @param synopsis résymé du film
+     * @param synopsis résumé du film
      * @param slogan phrase d'accroche du film
      * @param id_film numéro du film
      * @param trailer lien youtube vers le trailer du film

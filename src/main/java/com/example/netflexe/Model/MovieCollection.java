@@ -115,6 +115,11 @@ public class MovieCollection {
         }
     }
 
+    /**
+     * on vérifie si un film fait parti de la collection en fonction de son nom
+     * @param name
+     * @return
+     */
     public boolean checkBoolean(String name)
     {
         boolean resultat = false;

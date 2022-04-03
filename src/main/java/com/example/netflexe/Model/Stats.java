@@ -19,6 +19,10 @@ public class Stats {
         this.cinema = cinema;
     }
 
+    /**
+     * on fait une pie chart à partir des promotions utilisées lors de l'achat de film
+     * @return return un objet graphique
+     */
     public ObservableList<PieChart.Data> getPromotionUtilisees()
     {
         ArrayList<String> listPromoCinema = cinema.getPromoUtilisees();
@@ -27,15 +31,16 @@ public class Stats {
         listPromo.add("Promotion jeune");
         listPromo.add("Promotion senior");
 
+
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList();
 
         for(int i = 0; i< listPromo.size(); i++) {
             int count = 0;
-            for (int j = 0; j <  4/*listPromoCinema.size()*/; j++) {
-                //if (listPromo.get(i).equals(listPromoCinema.get(j))) {
+            for (int j = 0; j <  listPromoCinema.size(); j++) {
+                if (listPromo.get(i).equals(listPromoCinema.get(j))) {
                     count++;
-                //}
+                }
 
             }
             pieChartData.add(new PieChart.Data(listPromo.get(i), 10));
@@ -43,6 +48,11 @@ public class Stats {
 
         return pieChartData;
     }
+
+    /**
+     * on fait un graphe barre représenatnt le nombre de place vendues pour chaque film
+     * @return return un objet graphique
+     */
 
     public XYChart.Series getBarreChart(){
 
@@ -82,8 +92,6 @@ public class Stats {
             series1.getData().add(new XYChart.Data(listDistinct.get(i), count));
 
         }
-
-
 
         return series1;
 

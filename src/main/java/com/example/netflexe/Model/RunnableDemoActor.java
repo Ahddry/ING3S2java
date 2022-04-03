@@ -8,11 +8,19 @@ public class RunnableDemoActor implements Runnable {
     private FilmInfo mainApp;
     private ActorCollection collection = new ActorCollection();
 
+    /**
+     * constructeur on l'on spécifie uniquement le nom du nouveau thread
+     * @param name
+     */
     public RunnableDemoActor( String name) {
         threadName = name;
 
     }
 
+    /**
+     * thread lance cette méthode lorsqu'il démarre
+     * on charge les images pour chaque éléments de la actor collection
+     */
     public void run() {
 
             collection.setImage();
@@ -21,6 +29,9 @@ public class RunnableDemoActor implements Runnable {
 
     }
 
+    /**
+     * permet de lancer le thread
+     */
     public void start () {
 
         if (t == null) {
@@ -33,6 +44,10 @@ public class RunnableDemoActor implements Runnable {
         this.collection = actorCollection;
     }
 
+    /**
+     * fait une référence à l'application principale
+     * @param mainApp
+     */
     public void setMainApp(FilmInfo mainApp) {
         this.mainApp = mainApp;
     }
@@ -40,13 +55,3 @@ public class RunnableDemoActor implements Runnable {
 
 }
 
-/*public class TestThread {
-
-    public static void main(String args[]) {
-        RunnableDemo R1 = new RunnableDemo( "Thread-1");
-        R1.start();
-
-        RunnableDemo R2 = new RunnableDemo( "Thread-2");
-        R2.start();
-    }
-}*/

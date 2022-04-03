@@ -14,11 +14,13 @@ public class statsPage {
     private BarChart<String,Number> barreFilm;
 
 
-
+    /**
+     * créé les diagrammes de stats
+     * @param cinema cinema dont les stats seront affichées
+     */
     public void init(Cinema cinema)
     {
         Stats stats = new Stats(cinema);
-
 
         promoPie.getData().addAll(stats.getPromotionUtilisees());
         barreFilm.getData().addAll(stats.getBarreChart()) ;

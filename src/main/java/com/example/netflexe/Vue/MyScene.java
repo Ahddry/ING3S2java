@@ -34,6 +34,9 @@ public class MyScene {
 
     private Profil profil;
 
+    /**
+     * initialise chacun des boutons du menu contextuel de droite
+     */
     public void initialiseBis()
     {
         ImageView image = new ImageView(new Image("https://i.imgur.com/i78tBup.png"));
@@ -81,6 +84,10 @@ public class MyScene {
         }
     }
 
+    /**
+     * lien entre unprofil et le bouton show my profil
+     * @param profil profil associé
+     */
     public void setProfil(Profil profil)
     {
         this.profil = profil;
@@ -90,10 +97,17 @@ public class MyScene {
         this.mainApp = mainApp;
     }
 
+    /**
+     * associe le bouton 1 au main menu
+     */
     @FXML
     private void setMenu1() {
         mainApp.showMainMenu();
     }
+    /**
+     * associe le bouton 2 aux réservations
+     */
+
     @FXML
     private void setMenu2() {
         if(profil!=null)
@@ -103,6 +117,10 @@ public class MyScene {
 
 
     }
+    /**
+     * associe le bouton 3 à la bibliothèque
+     */
+
     @FXML
     private void setMenu3() {
         if(profil!=null) {
@@ -112,6 +130,9 @@ public class MyScene {
 
     }
     @FXML
+    /**
+     * associe le bouton 4 à showProfile
+     */
     private void setMenu4() {
         if(profil!=null) {
             mainApp.showProfile();
@@ -122,6 +143,9 @@ public class MyScene {
     }
 
     @FXML
+    /**
+     * permet d'accéder à la page Admin
+     */
     private void switchAdmin()
     {
         if (profil.getCinema() != null)
