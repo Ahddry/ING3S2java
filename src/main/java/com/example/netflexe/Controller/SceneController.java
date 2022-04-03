@@ -559,7 +559,7 @@ public class SceneController
                 controller_stats = loader.getController();
                 scroll_stats = new ScrollPane();
                 scroll_stats.setContent(stats);
-                //this.cinemaAdmin = this.user.getCinema();
+                this.cinemaAdmin = this.user.getCinema();
                 controller_stats.init(cinemaAdmin, getHello().get_nombreReserv(cinemaAdmin.get_id_cine()));
             }
             rootLayout_admin.setCenter(scroll_stats);
