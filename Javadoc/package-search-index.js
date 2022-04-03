@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.example.netflexe","l":"com.example.netflexe.Controller"},{"m":"com.example.netflexe","l":"com.example.netflexe.Model"},{"m":"com.example.netflexe","l":"com.example.netflexe.Vue"}];updateSearchResults();

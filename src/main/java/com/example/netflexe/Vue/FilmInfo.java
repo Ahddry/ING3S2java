@@ -151,6 +151,7 @@ public class FilmInfo {
         real.setText(movie.getDirector());
         if(movie.getTrailer() != null)
         {
+            this.trailer_button.setVisible(true);
             this.engine.load("https://www.youtube.com/embed/" + movie.getTrailer());
         }
         else

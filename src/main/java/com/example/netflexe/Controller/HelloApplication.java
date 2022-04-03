@@ -105,7 +105,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         this.primaryStage = stage;
-        this.primaryStage.setTitle("AddressApp");
+        this.primaryStage.setTitle("Netflece");
         this.primaryStage.setResizable(false);
         this.primaryStage.getIcons().add(new Image("file:Netflece_logo.png"));
         sceneController = new SceneController(primaryStage, user, collection, this);
@@ -261,7 +261,7 @@ public class HelloApplication extends Application {
             {
                 for(int j = 0 ; j < sceneController.getCinemaCollection().getCinema(i).getSalles().size();j++)
                 {
-                    ResultSet myRes3 = myStat.executeQuery("SELECT seance.id_seance, seance.id_film, seance.date_horraire, seance.prix, film.id_film, film.poster, film.nom_film, film.date_de_sortie, film.duree, film.synopsis, film.slogan, film.trailer, salle.num_salle, person.prenom, person.nom FROM seance JOIN film on film.id_film = seance.id_film JOIN salle ON salle.id_salle = seance.id_salle  JOIN realisateur ON realisateur.id_film = film.id_film JOIN person ON person.id_person = realisateur.id_person WHERE seance.id_cine = '" + String.valueOf(sceneController.getCinemaCollection().getCinema(i).get_id_cine()) + "' AND seance.id_salle = '"+ String.valueOf(sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).get_id_bdd())+"' ORDER BY seance.id_seance ASC;");
+                    ResultSet myRes3 = myStat.executeQuery("SELECT seance.id_seance, seance.id_film, seance.date_horraire, seance.prix, film.id_film, film.poster, film.nom_film, film.date_de_sortie, film.duree, film.synopsis, film.slogan, film.trailer, salle.num_salle, person.prenom, person.nom FROM seance JOIN film on film.id_film = seance.id_film JOIN salle ON salle.id_salle = seance.id_salle  LEFT JOIN realisateur ON realisateur.id_film = film.id_film LEFT JOIN person ON person.id_person = realisateur.id_person WHERE seance.id_cine = '" + String.valueOf(sceneController.getCinemaCollection().getCinema(i).get_id_cine()) + "' AND seance.id_salle = '"+ String.valueOf(sceneController.getCinemaCollection().getCinema(i).getSalles().get(j).get_id_bdd())+"' ORDER BY seance.id_seance ASC;");
                     int oldId = -1;
                     while(myRes3.next())
                     {
@@ -305,7 +305,7 @@ public class HelloApplication extends Application {
 
             if(user != null)
             {
-                ResultSet myRes2 = myStat.executeQuery("SELECT DISTINCT film.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.prenom, person.nom FROM film JOIN liked ON film.id_film = liked.id_film JOIN realisateur ON realisateur.id_film = film.id_film JOIN person ON person.id_person = realisateur.id_person WHERE liked.id_user = '" + String.valueOf(user.get_id()) +"' ORDER BY film.id_film ASC;");
+                ResultSet myRes2 = myStat.executeQuery("SELECT DISTINCT film.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.prenom, person.nom FROM film JOIN liked ON film.id_film = liked.id_film LEFT JOIN realisateur ON realisateur.id_film = film.id_film LEFT JOIN person ON person.id_person = realisateur.id_person WHERE liked.id_user = '" + String.valueOf(user.get_id()) +"' ORDER BY film.id_film ASC;");
                 int oldId = -1;
                 while(myRes2.next())
                 {
@@ -341,7 +341,7 @@ public class HelloApplication extends Application {
                         oldId = myRes2.getInt("film.id_film");
                     }
                 }
-                ResultSet myRes5 = myStat.executeQuery("SELECT DISTINCT film.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.prenom, person.nom FROM film JOIN deja_vu ON film.id_film = deja_vu.id_film JOIN realisateur ON realisateur.id_film = film.id_film JOIN person ON person.id_person = realisateur.id_person WHERE deja_vu.id_user = '" + String.valueOf(user.get_id()) +"' ORDER BY film.id_film ASC;");
+                ResultSet myRes5 = myStat.executeQuery("SELECT DISTINCT film.id_film,nom_film, poster, date_de_sortie, duree, synopsis, slogan, trailer, person.prenom, person.nom FROM film JOIN deja_vu ON film.id_film = deja_vu.id_film LEFT JOIN realisateur ON realisateur.id_film = film.id_film LEFT JOIN person ON person.id_person = realisateur.id_person WHERE deja_vu.id_user = '" + String.valueOf(user.get_id()) +"' ORDER BY film.id_film ASC;");
                 oldId = -1;
                 while(myRes5.next())
                 {
