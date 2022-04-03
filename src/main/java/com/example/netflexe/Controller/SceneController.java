@@ -45,6 +45,7 @@ public class SceneController
     private Stage primaryStage;
     private Scene scene;
     private Scene scene_admin;
+    private Scene scene_crea;
     private Scene choixCineScene;
     private BorderPane rootLayout;
     private BorderPane rootLayout_admin;
@@ -735,10 +736,10 @@ public class SceneController
                 creaCine = loader.load();
                 controller_creaCine = loader.getController();
                 scroll_creaCine = new ScrollPane();
+                scene_crea = new Scene(creaCine);
             }
             controller_creaCine.setMainApp(this, cinemaCollection, profil);
-            scroll_creaCine.setContent(creaCine);
-            rootLayout_admin.setCenter(scroll_creaCine);
+            primaryStage.setScene(scene_crea);
         } catch (IOException e)
         {
             e.printStackTrace();

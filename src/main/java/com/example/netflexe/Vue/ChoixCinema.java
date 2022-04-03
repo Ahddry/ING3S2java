@@ -108,7 +108,7 @@ public class ChoixCinema
      */
     @FXML
     private void retourMenu() {
-        mainApp.showMainMenu();
+        mainApp.showMain();
     }
 
     /**

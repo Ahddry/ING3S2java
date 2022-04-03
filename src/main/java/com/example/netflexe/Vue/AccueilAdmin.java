@@ -136,7 +136,7 @@ public class AccueilAdmin
         promotions = new GridPane();
         promotions.minHeight(300);
         promotions.minWidth(1100);
-        promotions.setStyle("-fx-background-color: #1d1d1d; ");
+        promotions.setStyle("-fx-background-color: #242425; ");
         ColumnConstraints col1 = new ColumnConstraints();
         col1.setPercentWidth(25);
         col1.setPrefWidth(200);
