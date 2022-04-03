@@ -43,6 +43,8 @@ public class SignUp{
     @FXML
     private ImageView warning;
     @FXML
+    private ImageView warning2;
+    @FXML
     private TextField login;
     @FXML
     private PasswordField mdp;
@@ -100,31 +102,39 @@ public class SignUp{
             if(event.getClickCount() == 1) {
                 String genrefinal = "";
                 LocalDate value = naissance.getValue();
-                if(value != null && prenom.getText() != "" && nom.getText() != "" && ((String)genre.getValue() != "" || autres.getText() != "") && login.getText() != "" && mdp.getText() != "" && linkFile != "")
+                if(login.getText().matches("^(.+)@(.+)$"))
                 {
-                    if((String)genre.getValue() != "" && autres.getText() == "")
+                    warning2.setVisible(false);
+                    if(value != null && prenom.getText() != "" && nom.getText() != "" && ((String)genre.getValue() != "" || autres.getText() != "") && login.getText() != "" && mdp.getText() != "" && linkFile != "")
                     {
-                        genrefinal = (String)genre.getValue();
-                    }
-                    else if((String)genre.getValue() == "" && autres.getText() != "")
-                    {
-                        genrefinal = autres.getText();
-                    }
-                    if(!((String)genre.getValue() != "" && autres.getText() != ""))
-                    {
-                        
-                        int used = this.controller.create_acct(prenom.getText().replace("'","''"), nom.getText().replace("'","''"), genrefinal.replace("'","''"), value.getYear(), value.getMonthValue(), value.getDayOfMonth(), login.getText().replace("'","''").toLowerCase(), mdp.getText(), admin.isSelected(), linkFile);
-                        if(used == 1)
+                        if((String)genre.getValue() != "" && autres.getText() == "")
                         {
-                            warning.setVisible(false);
-                            this.mainApp.showGenre();
-                            //this.mainApp.Login();
+                            genrefinal = (String)genre.getValue();
                         }
-                        else if(used == -1)
+                        else if((String)genre.getValue() == "" && autres.getText() != "")
                         {
-                            warning.setVisible(true);
+                            genrefinal = autres.getText();
+                        }
+                        if(!((String)genre.getValue() != "" && autres.getText() != ""))
+                        {
+                            
+                            int used = this.controller.create_acct(prenom.getText().replace("'","''"), nom.getText().replace("'","''"), genrefinal.replace("'","''"), value.getYear(), value.getMonthValue(), value.getDayOfMonth(), login.getText().replace("'","''").toLowerCase(), mdp.getText(), admin.isSelected(), linkFile);
+                            if(used == 1)
+                            {
+                                warning.setVisible(false);
+                                this.mainApp.showGenre();
+                                //this.mainApp.Login();
+                            }
+                            else if(used == -1)
+                            {
+                                warning.setVisible(true);
+                            }
                         }
                     }
+                }
+                else
+                {
+                    warning2.setVisible(true);
                 }
             }
         });

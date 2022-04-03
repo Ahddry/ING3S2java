@@ -604,10 +604,21 @@ public class HelloApplication extends Application {
      * @param field champ de la base de données a modifier pour l'utilisateur 
      * @param value valeur du nouveau champ
      */
-    public void modify_user(String field, String value)
+    public int modify_user(String field, String value)
     {
         try
         {
+            if(field.equals("email"))
+            {
+                ResultSet myRes2 = myStat.executeQuery("SELECT email FROM utilisateur WHERE email = '" + value + "';");
+                while(myRes2.next())
+                {
+                    if(myRes2.getString("email") != "")
+                    {
+                        return -1;
+                    }
+                }
+            } 
             String query = "UPDATE utilisateur SET " + field + " = '"+ value + "' WHERE id_user = ' " + String.valueOf(user.get_id())+ "';";
             PreparedStatement pstmt = myConn.prepareStatement(query);
             pstmt.executeUpdate();
@@ -621,14 +632,17 @@ public class HelloApplication extends Application {
                 this.user.set_genre(myRes.getString("genre"));
                 this.user.set_age(myRes.getString("date_de_naissance"));
                 this.user.set_pp(myRes.getBinaryStream("pp"));
+                
             }
                 sceneController.setProfil(this.user);
                 sceneController.updateProfil();
+                return 1;
         }
         catch(Exception exception)
         {
             exception.printStackTrace();
         }
+        return 0;
     }
 
     /**

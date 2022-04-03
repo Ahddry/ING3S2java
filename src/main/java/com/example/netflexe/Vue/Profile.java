@@ -80,6 +80,8 @@ public class Profile{
     private TextField autres_field;
     @FXML
     private Button submit_genre;
+    @FXML
+    private Label error;
 
     /**
      * méthode d'initialistation de l'affichage du profil
@@ -150,7 +152,24 @@ public class Profile{
             {
                 if(mail_edit.getText() != "")
                 {
-                    this.controller.modify_user("email",mail_edit.getText());
+                    if(mail_edit.getText().matches("^(.+)@(.+)$"))
+                    {
+                        int temp = this.controller.modify_user("email",mail_edit.getText());
+                        if(temp == 1)
+                        {
+                            this.error.setVisible(false);
+                        }
+                        else if(temp == -1)
+                        {
+                            this.error.setText("Adresse Mail déjà utilisé !");
+                            this.error.setVisible(true);
+                        }
+                    }
+                    else
+                    {
+                        this.error.setText("Ceci n'est pas une adresse mail !");
+                        this.error.setVisible(true);
+                    }
                 }
             }
         });
