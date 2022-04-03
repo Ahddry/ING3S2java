@@ -1110,6 +1110,24 @@ public class HelloApplication extends Application {
         }
         return temp;
     }
+    public ArrayList<Stats2> get_nombreReserv(int id_cinema)
+    {
+        ArrayList<Stats2> stats = new ArrayList<>();
+        try
+        {
+            ResultSet myRes = myStat.executeQuery("SELECT COUNT(reservation.id_seance), film.nom_film FROM reservation JOIN seance ON reservation.id_seance = seance.id_seance JOIN cinema on cinema.id_cine = seance.id_cine JOIN film on film.id_film = seance.id_film WHERE cinema.id_cine = '" + String.valueOf(id_cinema) + "' GROUP BY reservation.id_seance ORDER BY COUNT(reservation.id_seance) DESC;");
+            while(myRes.next())
+            {
+                stats.add(new Stats2(myRes.getString("film.nom_film"), myRes.getInt("COUNT(reservation.id_seance)")));
+            }
+            return stats;
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+        return null;
+    }
 
     /**
      * Méthode appeler lors du login de l'utilisateur sur l'application

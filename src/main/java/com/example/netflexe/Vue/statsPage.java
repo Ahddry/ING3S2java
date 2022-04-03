@@ -1,5 +1,7 @@
 package com.example.netflexe.Vue;
 
+import java.util.ArrayList;
+
 import com.example.netflexe.Model.*;
 
 import javafx.fxml.FXML;
@@ -18,12 +20,12 @@ public class statsPage {
      * créé les diagrammes de stats
      * @param cinema cinema dont les stats seront affichées
      */
-    public void init(Cinema cinema)
+    public void init(Cinema cinema, ArrayList<Stats2> temp)
     {
-        Stats stats = new Stats(cinema);
+        Stats stats = new Stats(cinema, temp);
 
         promoPie.getData().addAll(stats.getPromotionUtilisees());
-        barreFilm.getData().addAll(stats.getBarreChart()) ;
+        barreFilm.getData().addAll(stats.getBarreChart());
 
     }
 
